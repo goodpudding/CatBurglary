@@ -1,0 +1,43 @@
+{
+  "granny": {
+    "files": [
+      {
+        "url": "granny/granny-1-sheet.png",
+        "type": "spritesheet",
+        "key": "granny-1-sheet",
+        "frameConfig": {
+          "frameWidth": 48,
+          "frameHeight": 48,
+          "startFrame": 0,
+          "endFrame": -1,
+          "spacing": 0,
+          "margin": 0
+        }
+      },
+      {
+        "url": "granny/granny-2-sheet.png",
+        "type": "spritesheet",
+        "key": "granny-2-sheet",
+        "frameConfig": {
+          "frameWidth": 48,
+          "frameHeight": 48,
+          "startFrame": 0,
+          "endFrame": -1,
+          "spacing": 0,
+          "margin": 0
+        }
+      },
+      {
+        "url": "granny/granny-animations.json",
+        "type": "animation",
+        "key": "granny-animations"
+      }
+    ]
+  },
+  "meta": {
+    "app": "Phaser Editor 2D - Asset Pack Editor",
+    "contentType": "phasereditor2d.pack.core.AssetContentType",
+    "url": "https://phasereditor2d.com",
+    "version": 2
+  }
+}

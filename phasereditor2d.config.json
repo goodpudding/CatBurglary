@@ -1,0 +1,12 @@
+{
+  "plugins": [],
+  "scripts": [],
+  "skip": [
+    "node_modules",
+    "dist",
+    "dist-local",
+    "assests",
+    ".git"
+  ],
+  "playUrl": "http://localhost:5173/game.html"
+}

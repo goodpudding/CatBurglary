@@ -1,0 +1,145 @@
+[
+  {
+    "id": "cabinets",
+    "file": "Cabinets.aseprite",
+    "key": "furniture-cabinets",
+    "path": "furniture/cabinets.png",
+    "width": 134,
+    "height": 134,
+    "frameWidth": 134,
+    "frameHeight": 134,
+    "frameCount": 1
+  },
+  {
+    "id": "clock",
+    "file": "Clock.aseprite",
+    "key": "furniture-clock",
+    "path": "furniture/clock.png",
+    "width": 23,
+    "height": 32,
+    "frameWidth": 23,
+    "frameHeight": 32,
+    "frameCount": 1
+  },
+  {
+    "id": "fish-bowl-table",
+    "file": "Fish Bowl Table.aseprite",
+    "key": "furniture-fish-bowl-table",
+    "path": "furniture/fish-bowl-table.png",
+    "width": 24,
+    "height": 29,
+    "frameWidth": 24,
+    "frameHeight": 29,
+    "frameCount": 1
+  },
+  {
+    "id": "kitchen-chair",
+    "file": "Kitchen Chair.aseprite",
+    "key": "furniture-kitchen-chair",
+    "path": "furniture/kitchen-chair.png",
+    "width": 32,
+    "height": 32,
+    "frameWidth": 32,
+    "frameHeight": 32,
+    "frameCount": 1
+  },
+  {
+    "id": "kitchen-table",
+    "file": "Kitchen Table.aseprite",
+    "key": "furniture-kitchen-table",
+    "path": "furniture/kitchen-table.png",
+    "width": 98,
+    "height": 64,
+    "frameWidth": 98,
+    "frameHeight": 64,
+    "frameCount": 1
+  },
+  {
+    "id": "kitchen-trash-can",
+    "file": "Kitchen Trash Can.aseprite",
+    "key": "furniture-kitchen-trash-can",
+    "path": "furniture/kitchen-trash-can.png",
+    "width": 32,
+    "height": 32,
+    "frameWidth": 32,
+    "frameHeight": 32,
+    "frameCount": 1
+  },
+  {
+    "id": "livingroom-bookshelf",
+    "file": "Livingroom Bookshelf.aseprite",
+    "key": "furniture-livingroom-bookshelf",
+    "path": "furniture/livingroom-bookshelf.png",
+    "width": 90,
+    "height": 90,
+    "frameWidth": 90,
+    "frameHeight": 90,
+    "frameCount": 1
+  },
+  {
+    "id": "side-table",
+    "file": "Side Table.aseprite",
+    "key": "furniture-side-table",
+    "path": "furniture/side-table.png",
+    "width": 28,
+    "height": 23,
+    "frameWidth": 28,
+    "frameHeight": 23,
+    "frameCount": 1
+  },
+  {
+    "id": "sofa-couch",
+    "file": "Sofa Couch.aseprite",
+    "key": "furniture-sofa-couch",
+    "path": "furniture/sofa-couch.png",
+    "width": 90,
+    "height": 90,
+    "frameWidth": 90,
+    "frameHeight": 90,
+    "frameCount": 1
+  },
+  {
+    "id": "sofa-matching-chair",
+    "file": "Sofa Matching Chair.aseprite",
+    "key": "furniture-sofa-matching-chair",
+    "path": "furniture/sofa-matching-chair.png",
+    "width": 21,
+    "height": 36,
+    "frameWidth": 21,
+    "frameHeight": 36,
+    "frameCount": 1
+  },
+  {
+    "id": "standing-livingroom-lamp",
+    "file": "Standing Livingroom Lamp.aseprite",
+    "key": "furniture-standing-livingroom-lamp",
+    "path": "furniture/standing-livingroom-lamp.png",
+    "width": 19,
+    "height": 53,
+    "frameWidth": 19,
+    "frameHeight": 53,
+    "frameCount": 1
+  },
+  {
+    "id": "tv",
+    "file": "TV.aseprite",
+    "key": "furniture-tv",
+    "path": "furniture/tv.png",
+    "width": 64,
+    "height": 64,
+    "frameWidth": 64,
+    "frameHeight": 64,
+    "frameCount": 1
+  },
+  {
+    "id": "tv-stand-table",
+    "file": "TV Stand Table.aseprite",
+    "key": "furniture-tv-stand-table",
+    "path": "furniture/tv-stand-table.png",
+    "width": 53,
+    "height": 25,
+    "frameWidth": 53,
+    "frameHeight": 25,
+    "frameCount": 1
+  }
+]

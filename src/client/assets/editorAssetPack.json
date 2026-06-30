@@ -1,0 +1,9 @@
+{
+  "boot": {
+    "files": [
+      { "type": "pack", "key": "cats", "url": "cats/cat-asset-pack.json" },
+      { "type": "pack", "key": "furniture", "url": "asset-pack.json" },
+      { "type": "pack", "key": "granny", "url": "granny/granny-asset-pack.json" }
+    ]
+  }
+}

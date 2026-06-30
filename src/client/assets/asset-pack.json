@@ -1,0 +1,118 @@
+{
+    "section1": {
+        "files": [
+            {
+                "type": "image",
+                "key": "furniture-cabinets",
+                "url": "furniture/cabinets.png"
+            },
+            {
+                "type": "image",
+                "key": "furniture-clock",
+                "url": "furniture/clock.png"
+            },
+            {
+                "type": "image",
+                "key": "furniture-fish-bowl-table",
+                "url": "furniture/fish-bowl-table.png"
+            },
+            {
+                "type": "image",
+                "key": "furniture-kitchen-chair",
+                "url": "furniture/kitchen-chair.png"
+            },
+            {
+                "type": "image",
+                "key": "furniture-kitchen-table",
+                "url": "furniture/kitchen-table.png"
+            },
+            {
+                "type": "image",
+                "key": "furniture-kitchen-trash-can",
+                "url": "furniture/kitchen-trash-can.png"
+            },
+            {
+                "type": "image",
+                "key": "furniture-livingroom-bookshelf",
+                "url": "furniture/livingroom-bookshelf.png"
+            },
+            {
+                "type": "image",
+                "key": "furniture-side-table",
+                "url": "furniture/side-table.png"
+            },
+            {
+                "type": "image",
+                "key": "furniture-sofa-couch",
+                "url": "furniture/sofa-couch.png"
+            },
+            {
+                "type": "image",
+                "key": "furniture-sofa-matching-chair",
+                "url": "furniture/sofa-matching-chair.png"
+            },
+            {
+                "type": "image",
+                "key": "furniture-standing-livingroom-lamp",
+                "url": "furniture/standing-livingroom-lamp.png"
+            },
+            {
+                "type": "image",
+                "key": "furniture-tv",
+                "url": "furniture/tv.png"
+            },
+            {
+                "type": "image",
+                "key": "furniture-tv-stand-table",
+                "url": "furniture/tv-stand-table.png"
+            },
+            {
+                "url": "granny/granny-1-sheet.png",
+                "frameConfig": {
+                    "frameWidth": 48,
+                    "frameHeight": 48,
+                    "startFrame": 0,
+                    "endFrame": -1,
+                    "spacing": 0,
+                    "margin": 0
+                },
+                "type": "spritesheet",
+                "key": "granny-1-sheet"
+            },
+            {
+                "url": "granny/granny-2-sheet.png",
+                "frameConfig": {
+                    "frameWidth": 48,
+                    "frameHeight": 48,
+                    "startFrame": 0,
+                    "endFrame": -1,
+                    "spacing": 0,
+                    "margin": 0
+                },
+                "type": "spritesheet",
+                "key": "granny-2-sheet"
+            },
+            {
+                "url": "Wizard_Walking-Sheet.png",
+                "frameConfig": {
+                    "frameWidth": 48,
+                    "frameHeight": 48,
+                    "startFrame": 0,
+                    "endFrame": -1,
+                    "spacing": 0,
+                    "margin": 0
+                },
+                "type": "spritesheet",
+                "key": "Wizard_Walking-Sheet"
+            }
+        ]
+    },
+    "meta": {
+        "app": "Phaser Editor 2D - Asset Pack Editor",
+        "contentType": "phasereditor2d.pack.core.AssetContentType",
+        "url": "https://phasereditor2d.com",
+        "version": 2,
+        "showAllFilesInBlocks": false,
+        "visible": true
+    }
+}

@@ -1,0 +1,14 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": "../dist/types/client",
+    "tsBuildInfoFile": "../dist/types/client/tsconfig.tsbuildinfo",
+    "customConditions": ["browser"],
+    "rootDir": "../src/client",
+    "strictPropertyInitialization": false,
+    "types": ["vite/client"]
+  },
+  "include": ["../src/client/**/*", "../src/client/assets/**/*.json"],
+  "exclude": [],
+  "references": [{ "path": "./tsconfig.shared.json" }]
+}

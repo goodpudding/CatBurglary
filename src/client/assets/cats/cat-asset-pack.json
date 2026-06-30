@@ -1,0 +1,123 @@
+{
+    "section1": {
+        "files": [
+            {
+                "url": "cats/cat-animations.json",
+                "type": "animation",
+                "key": "cat-animations"
+            },
+            {
+                "url": "cats/gray-cat-sitting.png",
+                "type": "spritesheet",
+                "key": "gray-cat-sitting",
+                "frameConfig": {
+                    "frameWidth": 20,
+                    "frameHeight": 20,
+                    "startFrame": 0,
+                    "endFrame": -1,
+                    "spacing": 0,
+                    "margin": 0
+                }
+            },
+            {
+                "url": "cats/gray-cat-stand-to-sit-sheet.png",
+                "type": "spritesheet",
+                "key": "gray-cat-stand-to-sit-sheet",
+                "frameConfig": {
+                    "frameWidth": 25,
+                    "frameHeight": 20,
+                    "startFrame": 0,
+                    "endFrame": -1,
+                    "spacing": 0,
+                    "margin": 0
+                }
+            },
+            {
+                "url": "cats/gray-cat-walking-sheet.png",
+                "type": "spritesheet",
+                "key": "gray-cat-walking-sheet",
+                "frameConfig": {
+                    "frameWidth": 25,
+                    "frameHeight": 20,
+                    "startFrame": 0,
+                    "endFrame": -1,
+                    "spacing": 0,
+                    "margin": 0
+                }
+            },
+            {
+                "url": "cats/marshmellow-sitting.png",
+                "type": "spritesheet",
+                "key": "marshmellow-sitting",
+                "frameConfig": {
+                    "frameWidth": 25,
+                    "frameHeight": 20,
+                    "startFrame": 0,
+                    "endFrame": -1,
+                    "spacing": 0,
+                    "margin": 0
+                }
+            },
+            {
+                "url": "cats/marshmellow-sitting-sheet.png",
+                "type": "spritesheet",
+                "key": "marshmellow-sitting-sheet",
+                "frameConfig": {
+                    "frameWidth": 25,
+                    "frameHeight": 20,
+                    "startFrame": 0,
+                    "endFrame": -1,
+                    "spacing": 0,
+                    "margin": 0
+                }
+            },
+            {
+                "url": "cats/orange-cat-sitting-sheet.png",
+                "type": "spritesheet",
+                "key": "orange-cat-sitting-sheet",
+                "frameConfig": {
+                    "frameWidth": 20,
+                    "frameHeight": 20,
+                    "startFrame": 0,
+                    "endFrame": -1,
+                    "spacing": 0,
+                    "margin": 0
+                }
+            },
+            {
+                "url": "cats/orange-cat-stand-to-sit-sheet.png",
+                "type": "spritesheet",
+                "key": "orange-cat-stand-to-sit-sheet",
+                "frameConfig": {
+                    "frameWidth": 25,
+                    "frameHeight": 20,
+                    "startFrame": 0,
+                    "endFrame": -1,
+                    "spacing": 0,
+                    "margin": 0
+                }
+            },
+            {
+                "url": "cats/orange-cat-walking-sheet.png",
+                "type": "spritesheet",
+                "key": "orange-cat-walking-sheet",
+                "frameConfig": {
+                    "frameWidth": 25,
+                    "frameHeight": 20,
+                    "startFrame": 0,
+                    "endFrame": -1,
+                    "spacing": 0,
+                    "margin": 0
+                }
+            }
+        ]
+    },
+    "meta": {
+        "app": "Phaser Editor 2D - Asset Pack Editor",
+        "contentType": "phasereditor2d.pack.core.AssetContentType",
+        "url": "https://phasereditor2d.com",
+        "version": 2,
+        "showAllFilesInBlocks": false,
+        "visible": true
+    }
+}

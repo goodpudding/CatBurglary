@@ -1,0 +1,358 @@
+{
+    "id": "7c586172-937e-4415-8b64-4adbe47534c3",
+    "sceneType": "SCENE",
+    "settings": {
+        "compilerInsertSpaces": true,
+        "compilerTabSize": 2,
+        "snapWidth": 5,
+        "snapHeight": 5,
+        "exportClass": true,
+        "autoImport": true,
+        "importFileExtension": true,
+        "preloadPackFiles": [
+            "src/client/assets/cats/cat-asset-pack.json",
+            "src/client/assets/asset-pack.json"
+        ],
+        "createMethodName": "editorCreate",
+        "sceneKey": "HouseLevel",
+        "compilerOutputLanguage": "TYPE_SCRIPT",
+        "borderWidth": 960,
+        "borderHeight": 540
+    },
+    "displayList": [
+        {
+            "type": "Rectangle",
+            "id": "1810f5ff-e5be-4517-b1b1-4d36be0c9f42",
+            "label": "Floor",
+            "x": -557,
+            "y": 549,
+            "scaleX": 50,
+            "ArcadeComponent.active": true,
+            "body.moves": false,
+            "body.allowGravity": false,
+            "body.allowDrag": false,
+            "body.allowRotation": false,
+            "body.pushable": false,
+            "body.immovable": true,
+            "body.width": 128,
+            "body.height": 128,
+            "isFilled": true,
+            "fillColor": "#7d4d1f",
+            "strokeColor": "#c17f21",
+            "isStroked": true,
+            "width": 128,
+            "height": 128
+        },
+        {
+            "type": "Image",
+            "id": "c043e70a-d507-4b5c-becf-bce4f1e955a0",
+            "label": "furniture_sofa_couch",
+            "texture": {
+                "key": "furniture-sofa-couch"
+            },
+            "x": -2681,
+            "y": 361,
+            "scaleX": 8,
+            "scaleY": 8,
+            "ArcadeComponent.active": true,
+            "body.width": 57,
+            "body.height": 2,
+            "body.offset.x": 15,
+            "body.offset.y": 48
+        },
+        {
+            "type": "Image",
+            "id": "7e9622ba-1221-41eb-a877-af00d49ce7b2",
+            "label": "furniture_livingroom_bookshelf",
+            "hitArea.shape": "RECTANGLE",
+            "hitArea.width": 90,
+            "hitArea.height": 90,
+            "texture": {
+                "key": "furniture-livingroom-bookshelf"
+            },
+            "x": -1901,
+            "y": 181,
+            "scaleX": 8,
+            "scaleY": 8,
+            "ArcadeComponent.active": true,
+            "body.width": 36,
+            "body.height": 5,
+            "body.offset.x": 25,
+            "body.offset.y": 57
+        },
+        {
+            "type": "Image",
+            "id": "e046bfc6-6dce-41f6-995f-a3bfb53bf593",
+            "label": "furniture_tv_stand_table",
+            "texture": {
+                "key": "furniture-tv-stand-table"
+            },
+            "x": -1106,
+            "y": 410,
+            "scaleX": 8,
+            "scaleY": 8,
+            "ArcadeComponent.active": true,
+            "body.width": 43,
+            "body.height": 3,
+            "body.offset.x": 4,
+            "body.offset.y": 10
+        },
+        {
+            "type": "Image",
+            "id": "a1b2c3d4-livingroom-tv",
+            "label": "furniture_tv",
+            "hitArea.shape": "RECTANGLE",
+            "hitArea.width": 64,
+            "hitArea.height": 64,
+            "texture": {
+                "key": "furniture-tv"
+            },
+            "x": -1080,
+            "y": 269,
+            "scaleX": 8,
+            "scaleY": 8,
+            "ArcadeComponent.active": true,
+            "body.width": 27,
+            "body.height": 5,
+            "body.offset.x": 14,
+            "body.offset.y": 27
+        },
+        {
+            "type": "Image",
+            "id": "a1b2c3d4-livingroom-lamp",
+            "label": "furniture_standing_livingroom_lamp",
+            "texture": {
+                "key": "furniture-standing-livingroom-lamp"
+            },
+            "x": -3169,
+            "y": 299,
+            "scaleX": 8,
+            "scaleY": 8
+        },
+        {
+            "type": "Image",
+            "id": "d5d994f0-dining-side-table",
+            "label": "furniture_side_table",
+            "hitArea.shape": "RECTANGLE",
+            "hitArea.x": 4,
+            "hitArea.y": 6,
+            "hitArea.width": 19.757695976644463,
+            "hitArea.height": 2.8168992701231197,
+            "texture": {
+                "key": "furniture-side-table"
+            },
+            "x": -1445,
+            "y": 400,
+            "scaleX": 8,
+            "scaleY": 8,
+            "ArcadeComponent.active": true,
+            "body.width": 28,
+            "body.height": 6,
+            "body.offset.y": 6
+        },
+        {
+            "type": "Image",
+            "id": "10e5f62e-dining-chair-2",
+            "label": "furniture_dining_chair_2",
+            "hitArea.shape": "RECTANGLE",
+            "hitArea.x": 8,
+            "hitArea.y": 16,
+            "hitArea.width": 15.40562448896971,
+            "hitArea.height": 5.082555181211728,
+            "texture": {
+                "key": "furniture-kitchen-chair"
+            },
+            "x": -578,
+            "y": 386,
+            "scaleX": 8,
+            "scaleY": 8,
+            "ArcadeComponent.active": true,
+            "body.width": 13,
+            "body.height": 4,
+            "body.offset.x": 9,
+            "body.offset.y": 17
+        },
+        {
+            "type": "Image",
+            "id": "d5d994f0-b82e-4f8f-8420-8206a2f90e2e",
+            "label": "furniture_cabinets",
+            "hitArea.shape": "RECTANGLE",
+            "hitArea.x": 10,
+            "hitArea.y": 62,
+            "hitArea.width": 117.95475780688665,
+            "hitArea.height": 32.02103197348853,
+            "texture": {
+                "key": "furniture-cabinets"
+            },
+            "x": 1018,
+            "y": 360,
+            "scaleX": 5,
+            "scaleY": 5,
+            "ArcadeComponent.active": true,
+            "body.width": 118,
+            "body.height": 5,
+            "body.offset.x": 11,
+            "body.offset.y": 61
+        },
+        {
+            "type": "Image",
+            "id": "a1b2c3d4-kitchen-trash",
+            "label": "furniture_kitchen_trash_can",
+            "hitArea.shape": "RECTANGLE",
+            "hitArea.x": 10,
+            "hitArea.y": 3,
+            "hitArea.width": 13.020502084326466,
+            "hitArea.height": 6.99054230194486,
+            "texture": {
+                "key": "furniture-kitchen-trash-can"
+            },
+            "x": 674,
+            "y": 424,
+            "scaleX": 5,
+            "scaleY": 5,
+            "ArcadeComponent.active": true,
+            "body.width": 32,
+            "body.height": 32
+        },
+        {
+            "type": "Rectangle",
+            "id": "32158256-8ea7-47ca-a659-36b3c4a3c29f",
+            "label": "window",
+            "x": 585,
+            "y": 247,
+            "scaleY": 1.6,
+            "ArcadeComponent.active": true,
+            "body.moves": false,
+            "body.allowGravity": false,
+            "body.width": 131,
+            "body.height": 10,
+            "body.offset.x": 1,
+            "body.offset.y": 123,
+            "isFilled": true,
+            "fillColor": "#b4e7f0",
+            "strokeColor": "#7b4a12",
+            "lineWidth": 7,
+            "isStroked": true,
+            "width": 128,
+            "height": 128
+        },
+        {
+            "type": "ArcadeSprite",
+            "id": "b3d19578-1dba-4f84-aea9-2f48161b2f9c",
+            "label": "player",
+            "hitArea.shape": "ELLIPSE",
+            "hitArea.x": 10,
+            "hitArea.y": 11,
+            "hitArea.width": 12.671048389056036,
+            "hitArea.height": 15.230906090318125,
+            "texture": {
+                "key": "orange-cat-sitting-sheet",
+                "frame": 0
+            },
+            "x": 585,
+            "y": 292,
+            "scaleX": 4,
+            "scaleY": 4,
+            "animationPlayMethod": 1,
+            "animationKey": "orange-idle",
+            "animationPreview": true,
+            "body.geometry": 0,
+            "body.radius": 7,
+            "body.width": 14,
+            "body.height": 14,
+            "body.offset.x": 3,
+            "body.offset.y": 4
+        },
+        {
+            "type": "ArcadeSprite",
+            "id": "53f92540-4600-4169-bfb9-a350964839c0",
+            "label": "granny",
+            "hitArea.shape": "ELLIPSE",
+            "hitArea.x": 19,
+            "hitArea.y": 26,
+            "hitArea.width": 11.509894774127485,
+            "hitArea.height": 33.450921619052785,
+            "texture": {
+                "key": "granny-2-sheet",
+                "frame": 0
+            },
+            "x": 1492,
+            "y": 351,
+            "scaleX": 8,
+            "scaleY": 8,
+            "body.width": 12,
+            "body.height": 33,
+            "body.offset.x": 13,
+            "body.offset.y": 9
+        },
+        {
+            "type": "Image",
+            "id": "75196c81-2f7e-454f-8735-d4ae36999e3a",
+            "label": "furniture_dining_chair",
+            "hitArea.shape": "RECTANGLE",
+            "hitArea.x": 8,
+            "hitArea.y": 16,
+            "hitArea.width": 15.40562448896971,
+            "hitArea.height": 5.082555181211728,
+            "texture": {
+                "key": "furniture-kitchen-chair"
+            },
+            "x": 268,
+            "y": 391,
+            "scaleX": 8,
+            "scaleY": 8,
+            "ArcadeComponent.active": true,
+            "body.width": 13,
+            "body.height": 4,
+            "body.offset.x": 9,
+            "body.offset.y": 17
+        },
+        {
+            "type": "Image",
+            "id": "c910acb3-0a82-4b0d-b374-8a99bcb6b318",
+            "label": "furniture_kitchen_table",
+            "hitArea.shape": "RECTANGLE",
+            "hitArea.width": 98,
+            "hitArea.height": 64,
+            "texture": {
+                "key": "furniture-kitchen-table"
+            },
+            "x": -148,
+            "y": 384,
+            "scaleX": 8,
+            "scaleY": 8,
+            "ArcadeComponent.active": true,
+            "body.width": 81,
+            "body.height": 6,
+            "body.offset.x": 8,
+            "body.offset.y": 21
+        }
+    ],
+    "plainObjects": [],
+    "meta": {
+        "app": "Phaser Editor - Scene Editor",
+        "url": "https://phaser.io/editor",
+        "contentType": "phasereditor2d.core.scene.SceneContentType",
+        "version": 5
+    },
+    "lists": [
+        {
+            "id": "35436d16-f18e-4108-9a6b-607dc8423666",
+            "label": "furniture",
+            "objectIds": [
+                "c043e70a-d507-4b5c-becf-bce4f1e955a0",
+                "7e9622ba-1221-41eb-a877-af00d49ce7b2",
+                "e046bfc6-6dce-41f6-995f-a3bfb53bf593",
+                "a1b2c3d4-livingroom-tv",
+                "a1b2c3d4-livingroom-lamp",
+                "d5d994f0-dining-side-table",
+                "10e5f62e-dining-chair-2",
+                "d5d994f0-b82e-4f8f-8420-8206a2f90e2e",
+                "a1b2c3d4-kitchen-trash",
+                "32158256-8ea7-47ca-a659-36b3c4a3c29f",
+                "75196c81-2f7e-454f-8735-d4ae36999e3a",
+                "c910acb3-0a82-4b0d-b374-8a99bcb6b318"
+            ]
+        }
+    ]
+}

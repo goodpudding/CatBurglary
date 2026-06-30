@@ -1,0 +1,90 @@
+[
+  {
+    "id": "gray-cat-sitting",
+    "file": "Gray Cat Sitting.aseprite",
+    "key": "cat-gray-cat-sitting",
+    "path": "cats/gray-cat-sitting.png",
+    "width": 140,
+    "height": 20,
+    "frameWidth": 20,
+    "frameHeight": 20,
+    "frameCount": 7
+  },
+  {
+    "id": "gray-cat-stand-to-sit-sheet",
+    "file": "Gray Cat Stand to Sit-Sheet.aseprite",
+    "key": "cat-gray-cat-stand-to-sit-sheet",
+    "path": "cats/gray-cat-stand-to-sit-sheet.png",
+    "width": 100,
+    "height": 20,
+    "frameWidth": 20,
+    "frameHeight": 20,
+    "frameCount": 5
+  },
+  {
+    "id": "gray-cat-walking-sheet",
+    "file": "Gray Cat Walking-Sheet.aseprite",
+    "key": "cat-gray-cat-walking-sheet",
+    "path": "cats/gray-cat-walking-sheet.png",
+    "width": 200,
+    "height": 20,
+    "frameWidth": 20,
+    "frameHeight": 20,
+    "frameCount": 10
+  },
+  {
+    "id": "marshmellow-sitting",
+    "file": "Marshmellow Sitting.aseprite",
+    "key": "cat-marshmellow-sitting",
+    "path": "cats/marshmellow-sitting.png",
+    "width": 300,
+    "height": 20,
+    "frameWidth": 25,
+    "frameHeight": 20,
+    "frameCount": 12
+  },
+  {
+    "id": "marshmellow-sitting-sheet",
+    "file": "Marshmellow Sitting-Sheet.aseprite",
+    "key": "cat-marshmellow-sitting-sheet",
+    "path": "cats/marshmellow-sitting-sheet.png",
+    "width": 300,
+    "height": 20,
+    "frameWidth": 20,
+    "frameHeight": 20,
+    "frameCount": 15
+  },
+  {
+    "id": "orange-cat-sitting-sheet",
+    "file": "Orange Cat Sitting-Sheet.aseprite",
+    "key": "cat-orange-cat-sitting-sheet",
+    "path": "cats/orange-cat-sitting-sheet.png",
+    "width": 140,
+    "height": 20,
+    "frameWidth": 20,
+    "frameHeight": 20,
+    "frameCount": 7
+  },
+  {
+    "id": "orange-cat-stand-to-sit-sheet",
+    "file": "Orange Cat Stand to Sit-Sheet.aseprite",
+    "key": "cat-orange-cat-stand-to-sit-sheet",
+    "path": "cats/orange-cat-stand-to-sit-sheet.png",
+    "width": 100,
+    "height": 20,
+    "frameWidth": 20,
+    "frameHeight": 20,
+    "frameCount": 5
+  },
+  {
+    "id": "orange-cat-walking-sheet",
+    "file": "Orange Cat Walking-Sheet.aseprite",
+    "key": "cat-orange-cat-walking-sheet",
+    "path": "cats/orange-cat-walking-sheet.png",
+    "width": 200,
+    "height": 20,
+    "frameWidth": 20,
+    "frameHeight": 20,
+    "frameCount": 10
+  }
+]

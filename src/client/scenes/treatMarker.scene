@@ -1,0 +1,39 @@
+{
+    "id": "a1b2c3d4-treat-marker-prefab",
+    "sceneType": "PREFAB",
+    "settings": {
+        "compilerInsertSpaces": true,
+        "compilerTabSize": 2,
+        "exportClass": true,
+        "autoImport": true,
+        "importFileExtension": true,
+        "createMethodName": "editorCreate",
+        "compilerOutputLanguage": "TYPE_SCRIPT",
+        "prefabObjDisplayFmt": "Object",
+        "superClassName": "Phaser.GameObjects.Ellipse",
+        "preloadMethodName": ""
+    },
+    "displayList": [
+        {
+            "type": "Ellipse",
+            "id": "treat-marker-ellipse",
+            "label": "treat_15",
+            "x": 0,
+            "y": 0,
+            "width": 22,
+            "height": 22,
+            "isFilled": true,
+            "fillColor": "#ffd54a",
+            "strokeColor": "#7a5200",
+            "isStroked": true,
+            "lineWidth": 2
+        }
+    ],
+    "plainObjects": [],
+    "meta": {
+        "app": "Phaser Editor - Scene Editor",
+        "url": "https://phaser.io/editor",
+        "contentType": "phasereditor2d.core.scene.SceneContentType",
+        "version": 5
+    }
+}
