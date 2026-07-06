@@ -316,7 +316,7 @@ export class SneakGame {
     const body = this.cat.body as Phaser.Physics.Arcade.Body;
     const left = this.input.cursors.left.isDown || this.input.touchLeft;
     const right = this.input.cursors.right.isDown || this.input.touchRight;
-    const jump = this.input.spaceKey.isDown || this.input.cursors.up.isDown || this.input.touchJump;
+    const jump = this.input.consumeJumpPressed();
     const onGround = body.blocked.down || body.touching.down;
     const crouching = this.input.crouching && onGround && !jump;
 

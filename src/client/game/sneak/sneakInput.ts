@@ -13,6 +13,9 @@ export class SneakInput {
   touchJump = false;
   touchCrouch = false;
 
+  /** One-shot flag set on touch-jump pointerdown, consumed by consumeJumpPressed(). */
+  private touchJumpQueued = false;
+
   private lastDownTapAt = 0;
   dropThroughUntil = 0;
 
@@ -36,7 +39,7 @@ export class SneakInput {
       .setScrollFactor(0)
       .setInteractive();
     trackHud(jumpZone);
-    jumpZone.on('pointerdown', () => { this.touchJump = true; });
+    jumpZone.on('pointerdown', () => { this.touchJump = true; this.touchJumpQueued = true; });
     jumpZone.on('pointerup', () => { this.touchJump = false; });
     jumpZone.on('pointerupoutside', () => { this.touchJump = false; });
 
@@ -68,6 +71,20 @@ export class SneakInput {
 
   get crouching(): boolean {
     return this.crouchKey.isDown || this.touchCrouch;
+  }
+
+  /**
+   * True only on the frame jump was first pressed (keyboard or touch).
+   * Edge-detected so holding the button doesn't auto-bounce the cat on every
+   * landing. Call at most once per update — JustDown consumes the key event.
+   */
+  consumeJumpPressed(): boolean {
+    const keyboard =
+      Phaser.Input.Keyboard.JustDown(this.spaceKey) ||
+      Phaser.Input.Keyboard.JustDown(this.cursors.up);
+    const touch = this.touchJumpQueued;
+    this.touchJumpQueued = false;
+    return keyboard || touch;
   }
 
   applyDropThrough(cat: Phaser.Physics.Arcade.Sprite, onGround: boolean): void {

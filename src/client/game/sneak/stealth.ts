@@ -88,7 +88,10 @@ export class StealthSystem {
       this.state = 'patrol';
     }
 
-    this.draw(granny, facing);
+    // Draw the cone at its effective range so the visual matches detection:
+    // crouching visibly shrinks how far granny can spot the cat.
+    const drawRange = this.baseRange() * (catState.crouching ? CROUCH_VISION_SCALE : 1);
+    this.draw(granny, facing, drawRange);
   }
 
   private canSee(
@@ -133,6 +136,7 @@ export class StealthSystem {
   private draw(
     granny: { x: number; y: number; displayHeight: number },
     facing: number,
+    range: number,
   ): void {
     const g = this.coneGfx;
     g.clear();
@@ -142,7 +146,7 @@ export class StealthSystem {
 
     const x = granny.x;
     const y = this.eyeY(granny);
-    const r = this.baseRange();
+    const r = range;
     const base = Math.sign(facing || 1) > 0 ? 0 : Math.PI;
     const p1 = { x: x + Math.cos(base - VISION_HALF_ANGLE) * r, y: y + Math.sin(base - VISION_HALF_ANGLE) * r };
     const p2 = { x: x + Math.cos(base + VISION_HALF_ANGLE) * r, y: y + Math.sin(base + VISION_HALF_ANGLE) * r };

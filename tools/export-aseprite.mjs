@@ -6,7 +6,7 @@ import sharp from 'sharp';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, '..');
-const sourceRoot = path.join(root, 'assests');
+const sourceRoot = path.join(root, 'assets');
 
 const OUTPUTS = [
   { input: sourceRoot, output: path.join(root, 'src', 'client', 'assets', 'furniture'), prefix: 'furniture' },

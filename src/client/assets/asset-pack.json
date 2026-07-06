@@ -13,6 +13,16 @@
             },
             {
                 "url": "furniture/cat-chaser-bathroom.png",
+                "type": "image",
+                "key": "cat-chaser-bathroom"
+            },
+            {
+                "url": "furniture/cat-chaser-hallway.png",
+                "type": "image",
+                "key": "cat-chaser-hallway"
+            },
+            {
+                "url": "furniture/cat-chaser-intro.png",
                 "frameConfig": {
                     "frameWidth": 32,
                     "frameHeight": 32,
@@ -22,12 +32,7 @@
                     "margin": 0
                 },
                 "type": "spritesheet",
-                "key": "cat-chaser-bathroom"
-            },
-            {
-                "url": "furniture/cat-chaser-hallway.png",
-                "type": "image",
-                "key": "cat-chaser-hallway"
+                "key": "cat-chaser-intro"
             },
             {
                 "url": "furniture/cat-chaser-kitchen.png",
@@ -89,69 +94,69 @@
                 "key": "flower-picture"
             },
             {
+                "url": "furniture/cabinets.png",
                 "type": "image",
-                "key": "furniture-cabinets",
-                "url": "furniture/cabinets.png"
+                "key": "furniture-cabinets"
             },
             {
+                "url": "furniture/clock.png",
                 "type": "image",
-                "key": "furniture-clock",
-                "url": "furniture/clock.png"
+                "key": "furniture-clock"
             },
             {
+                "url": "furniture/fish-bowl-table.png",
                 "type": "image",
-                "key": "furniture-fish-bowl-table",
-                "url": "furniture/fish-bowl-table.png"
+                "key": "furniture-fish-bowl-table"
             },
             {
+                "url": "furniture/kitchen-chair.png",
                 "type": "image",
-                "key": "furniture-kitchen-chair",
-                "url": "furniture/kitchen-chair.png"
+                "key": "furniture-kitchen-chair"
             },
             {
+                "url": "furniture/kitchen-table.png",
                 "type": "image",
-                "key": "furniture-kitchen-table",
-                "url": "furniture/kitchen-table.png"
+                "key": "furniture-kitchen-table"
             },
             {
+                "url": "furniture/kitchen-trash-can.png",
                 "type": "image",
-                "key": "furniture-kitchen-trash-can",
-                "url": "furniture/kitchen-trash-can.png"
+                "key": "furniture-kitchen-trash-can"
             },
             {
+                "url": "furniture/livingroom-bookshelf.png",
                 "type": "image",
-                "key": "furniture-livingroom-bookshelf",
-                "url": "furniture/livingroom-bookshelf.png"
+                "key": "furniture-livingroom-bookshelf"
             },
             {
+                "url": "furniture/side-table.png",
                 "type": "image",
-                "key": "furniture-side-table",
-                "url": "furniture/side-table.png"
+                "key": "furniture-side-table"
             },
             {
+                "url": "furniture/sofa-couch.png",
                 "type": "image",
-                "key": "furniture-sofa-couch",
-                "url": "furniture/sofa-couch.png"
+                "key": "furniture-sofa-couch"
             },
             {
+                "url": "furniture/sofa-matching-chair.png",
                 "type": "image",
-                "key": "furniture-sofa-matching-chair",
-                "url": "furniture/sofa-matching-chair.png"
+                "key": "furniture-sofa-matching-chair"
             },
             {
+                "url": "furniture/standing-livingroom-lamp.png",
                 "type": "image",
-                "key": "furniture-standing-livingroom-lamp",
-                "url": "furniture/standing-livingroom-lamp.png"
+                "key": "furniture-standing-livingroom-lamp"
             },
             {
+                "url": "furniture/tv.png",
                 "type": "image",
-                "key": "furniture-tv",
-                "url": "furniture/tv.png"
+                "key": "furniture-tv"
             },
             {
+                "url": "furniture/tv-stand-table.png",
                 "type": "image",
-                "key": "furniture-tv-stand-table",
-                "url": "furniture/tv-stand-table.png"
+                "key": "furniture-tv-stand-table"
             },
             {
                 "url": "furniture/grandpa-throwing.png",
@@ -302,7 +307,7 @@
                 "url": "furniture/orange-cat-jump.png",
                 "frameConfig": {
                     "frameWidth": 32,
-                    "frameHeight": 20,
+                    "frameHeight": 21,
                     "startFrame": 0,
                     "endFrame": -1,
                     "spacing": 0,
@@ -336,6 +341,19 @@
                 },
                 "type": "spritesheet",
                 "key": "orange-cat-stand-to-sit-sheet"
+            },
+            {
+                "url": "furniture/orange-cat-walking.png",
+                "frameConfig": {
+                    "frameWidth": 19,
+                    "frameHeight": 17,
+                    "startFrame": 0,
+                    "endFrame": -1,
+                    "spacing": 0,
+                    "margin": 0
+                },
+                "type": "spritesheet",
+                "key": "orange-cat-walking"
             },
             {
                 "url": "cats/orange-cat-walking-sheet.png",

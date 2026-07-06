@@ -1,6 +1,6 @@
 # Cat Burglary
 
-A push-your-luck sneak game for Reddit (Devvit Web) and local play. You are a stray cat who slips in through the kitchen window, grabs treats from furniture, and escapes back out to bank your score — but the old lady patrols with her slipper, and three hits ends the run.
+A push-your-luck sneak game for Reddit (Devvit Web) and local play. You are a stray cat working your way through a house room by room, grabbing treats from furniture — but granny patrols each room with her slipper. Crossing each room's forward exit banks whatever you're carrying; getting hit drops it. Three hits ends the run.
 
 Built with **Phaser 3**, **Phaser Editor 2D**, **TypeScript**, **Vite**, and **Devvit**.
 
@@ -28,17 +28,17 @@ npm install
 npm run dev:local
 ```
 
-Opens `game.html` in the browser and boots straight into the house level.
+Opens `game.html` in the browser and boots straight into the first room.
 
 ## Phaser Editor workflow
 
 1. Run `npm run dev:local` (Vite on port 5173).
 2. Open this project in **Phaser Editor 2D** (`phasereditor2d.config.json` points play URL to `http://localhost:5173/game.html`).
-3. Edit [`src/client/scenes/HouseLevel.scene`](src/client/scenes/HouseLevel.scene) — place furniture, floor rectangles, and the `player` ArcadeSprite spawn.
-4. Compile the scene in the editor (updates `HouseLevel.ts`).
+3. Edit a room scene (`src/client/scenes/KitchenRoom.scene`, `LivingRoomRoom.scene`, `HallwayRoom.scene`, `BathroomRoom.scene`) — place furniture, floor rectangles, the `player` ArcadeSprite spawn, `granny`, an `exit` rectangle, and optional `treat_N` markers.
+4. Compile the scene in the editor (updates the matching `*.ts`).
 5. Press **Play** in the editor to preview in the browser.
 
-**Layout** lives in the editor scene; **gameplay** (treats, old lady, lives, banking at the window) lives in [`src/client/scenes/SneakGame.ts`](src/client/scenes/SneakGame.ts), started from `HouseLevel` user-code after `editorCreate()`.
+**Layout** lives in the editor scenes; **gameplay** (treats, granny AI, lives, banking at the exit) lives in [`src/client/scenes/SneakGame.ts`](src/client/scenes/SneakGame.ts), which every room scene hands control to with its `RoomConfig`.
 
 ## Build & deploy
 
@@ -52,9 +52,9 @@ npm run launch     # submit for review
 
 ```
 src/
-├── client/          # Phaser webview (HouseLevel scene, SneakGame, splash)
-├── server/          # Hono API — Reddit post creation
-└── shared/          # Shared types (cat roster for future use)
+├── client/          # Phaser webview (room scenes, sneak systems, splash + shop)
+├── server/          # Hono API — profiles, coins, shop, post creation
+└── shared/          # Types + catalogs shared by client and server
 devvit.json          # Reddit app configuration
 ```
 
@@ -62,31 +62,45 @@ devvit.json          # Reddit app configuration
 
 | Module | Path | Role |
 |--------|------|------|
-| **HouseLevel** | `src/client/scenes/HouseLevel.scene` | Editor-driven room layout |
-| **SneakGame** | `src/client/scenes/SneakGame.ts` | Treats, slipper lady, banking, HUD |
-| **CatDefinition** | `src/shared/CatDefinition.ts` | Cat roster (for future cat selection) |
+| **Room scenes** | `src/client/scenes/*Room.scene` / `.ts` | Editor-driven per-room layout |
+| **SneakGame** | `src/client/scenes/SneakGame.ts` | Per-room driver: treats, granny, banking, HUD |
+| **Sneak systems** | `src/client/game/sneak/` | Stealth cone, slipper, granny AI, platforms, run state |
+| **Room configs** | `src/client/game/sneak/roomConfig.ts` | Room order + difficulty multipliers |
+| **Player API** | `src/client/api/playerApi.ts` | Server sync with localStorage fallback |
+| **Profiles** | `src/shared/playerProfile.ts` | Coins, owned cats/cosmetics, validation |
 
 ## Gameplay
 
 ```
-Reddit splash (inline) → Play → expanded game → HouseLevel + SneakGame
+Reddit splash (inline) → Play → expanded game → BootScene → KitchenRoom → ... → BathroomRoom
 ```
 
-**Goal:** Collect treats from furniture (higher = more points = more risk). Return to the **kitchen window** spawn to bank carried points. Three slipper hits from the old lady ends the run and you lose whatever you were still carrying.
+**Goal:** Collect treats from furniture, then cross the room's forward exit to bank them and move into the next (harder) room. Getting hit — a chase touch or a thrown slipper — costs a life and drops everything you're carrying. Three hits ends the run; clearing the final room wins it. Banked score converts to coins for cats and cosmetics in the shop.
 
-**Controls:** ← → move, Space / ↑ jump. Touch controls on mobile.
+**Stealth:** Granny has a vision cone with line-of-sight (furniture blocks it). Being seen fills a detection meter — suspicious, then searching, then full alert (chase + slipper throws). Crouching makes you slower but much harder to spot.
 
-**Rooms (current layout):** Kitchen (entry/window) → Dining → Living room (deepest, highest risk).
+**Controls:** ← → move, Space / ↑ jump, Shift crouch, double-tap ↓/S to drop through shelves. Touch controls on mobile.
+
+**Rooms (current order):** Kitchen → Living Room → Hallway → Bathroom (deepest, highest risk).
 
 ## API (server)
 
 | Endpoint | Method | Description |
 |----------|--------|-------------|
 | `/api/init` | GET | Reddit username + post context |
+| `/api/profile` | GET | Player profile (coins, cats, cosmetics) |
+| `/api/run-complete` | POST | Bank a finished run's score as coins |
+| `/api/select-cat` | POST | Set the active cat |
+| `/api/unlock-cat` | POST | Buy a cat with coins |
+| `/api/shop` | GET | Shop view (items + coin balance) |
+| `/api/shop/buy` | POST | Buy a cosmetic |
+| `/api/shop/equip` | POST | Equip/unequip a cosmetic |
+
+All state is per-user in Redis; the client falls back to localStorage when logged out or playing locally.
 
 ## Assets
 
-Furniture and cat sprites are exported from Aseprite sources in `assests/`. **Run this before your first playtest** (and after art changes):
+Furniture and cat sprites are exported from Aseprite sources in `assets/`. **Run this before your first playtest** (and after art changes):
 
 ```bash
 npm run export-assets

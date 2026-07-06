@@ -113,6 +113,8 @@ export function getNextRoom(room: RoomConfig): RoomConfig | null {
   return room.isFinal ? null : (ROOM_ORDER[room.index + 1] ?? null);
 }
 
+// Local clamp so this config module stays engine-free (no Phaser import needed
+// just for Phaser.Math.Clamp) — keeps it cheap to import from anywhere.
 function Phaser_clamp(value: number, min: number, max: number): number {
   return Math.min(Math.max(value, min), max);
 }

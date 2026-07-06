@@ -3,3 +3,7 @@ dist
 dist-local
 *.local
 .devvit
+
+# Local environment/secrets
+.env
+.env.*
