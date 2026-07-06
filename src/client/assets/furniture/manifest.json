@@ -1,5 +1,27 @@
 [
   {
+    "id": "black-cat-sitting-w-13-h-17",
+    "file": "Black Cat Sitting W-13 H-17.aseprite",
+    "key": "furniture-black-cat-sitting-w-13-h-17",
+    "path": "furniture/black-cat-sitting-w-13-h-17.png",
+    "width": 98,
+    "height": 17,
+    "frameWidth": 14,
+    "frameHeight": 17,
+    "frameCount": 7
+  },
+  {
+    "id": "black-cat-walking-w-19-h-17",
+    "file": "Black Cat Walking w-19 h-17.aseprite",
+    "key": "furniture-black-cat-walking-w-19-h-17",
+    "path": "furniture/black-cat-walking-w-19-h-17.png",
+    "width": 152,
+    "height": 17,
+    "frameWidth": 19,
+    "frameHeight": 17,
+    "frameCount": 8
+  },
+  {
     "id": "bottle-of-wine",
     "file": "Bottle of Wine.aseprite",
     "key": "furniture-bottle-of-wine",
@@ -99,6 +121,17 @@
     "frameCount": 4
   },
   {
+    "id": "chihuahua-walking-and-barking-w-21-h-14",
+    "file": "Chihuahua Walking and barking W-21 H-14.aseprite",
+    "key": "furniture-chihuahua-walking-and-barking-w-21-h-14",
+    "path": "furniture/chihuahua-walking-and-barking-w-21-h-14.png",
+    "width": 126,
+    "height": 14,
+    "frameWidth": 21,
+    "frameHeight": 14,
+    "frameCount": 6
+  },
+  {
     "id": "clock",
     "file": "Clock.aseprite",
     "key": "furniture-clock",
@@ -154,6 +187,17 @@
     "frameCount": 1
   },
   {
+    "id": "grandma-talking",
+    "file": "Grandma Talking.aseprite",
+    "key": "furniture-grandma-talking",
+    "path": "furniture/grandma-talking.png",
+    "width": 216,
+    "height": 30,
+    "frameWidth": 27,
+    "frameHeight": 30,
+    "frameCount": 8
+  },
+  {
     "id": "grandpa-throwing",
     "file": "Grandpa Throwing.aseprite",
     "key": "furniture-grandpa-throwing",
@@ -174,6 +218,28 @@
     "frameWidth": 32,
     "frameHeight": 33,
     "frameCount": 6
+  },
+  {
+    "id": "gray-cat-sitting",
+    "file": "Gray Cat Sitting.aseprite",
+    "key": "furniture-gray-cat-sitting",
+    "path": "furniture/gray-cat-sitting.png",
+    "width": 98,
+    "height": 17,
+    "frameWidth": 14,
+    "frameHeight": 17,
+    "frameCount": 7
+  },
+  {
+    "id": "gray-cat-walking",
+    "file": "Gray Cat Walking.aseprite",
+    "key": "furniture-gray-cat-walking",
+    "path": "furniture/gray-cat-walking.png",
+    "width": 152,
+    "height": 17,
+    "frameWidth": 19,
+    "frameHeight": 17,
+    "frameCount": 8
   },
   {
     "id": "kitchen-chair",
@@ -240,6 +306,28 @@
     "frameWidth": 90,
     "frameHeight": 90,
     "frameCount": 1
+  },
+  {
+    "id": "marshmello-sitting2",
+    "file": "Marshmello Sitting2.aseprite",
+    "key": "furniture-marshmello-sitting2",
+    "path": "furniture/marshmello-sitting2.png",
+    "width": 91,
+    "height": 17,
+    "frameWidth": 13,
+    "frameHeight": 17,
+    "frameCount": 7
+  },
+  {
+    "id": "marshmellow-walking",
+    "file": "Marshmellow Walking.aseprite",
+    "key": "furniture-marshmellow-walking",
+    "path": "furniture/marshmellow-walking.png",
+    "width": 152,
+    "height": 17,
+    "frameWidth": 19,
+    "frameHeight": 17,
+    "frameCount": 8
   },
   {
     "id": "mirror",

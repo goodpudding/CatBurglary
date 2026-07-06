@@ -3,6 +3,9 @@
 
 /* START OF COMPILED CODE */
 
+import Player from "./Player.js";
+import Granny from "./Granny.js";
+import treatMarker from "./treatMarker.js";
 /* START-USER-IMPORTS */
 import { SneakGame } from './SneakGame.js';
 import { assignEditorNames } from '../game/sneak/editorObjects.js';
@@ -84,36 +87,13 @@ export default class KitchenRoom extends Phaser.Scene {
     chair.body.allowGravity = false;
     chair.body.immovable = true;
 
-    // treat_10
-    const treat_10 = this.add.ellipse(161, 37, 14, 14);
-    treat_10.isFilled = true;
-    treat_10.fillColor = 16766282;
-
-    // treat_15
-    const treat_15 = this.add.ellipse(33, 1, 14, 14);
-    treat_15.isFilled = true;
-    treat_15.fillColor = 16766282;
-
-    // treat_20
-    const treat_20 = this.add.ellipse(256, 27, 14, 14);
-    treat_20.isFilled = true;
-    treat_20.fillColor = 16740419;
-
     // player
-    const player = this.physics.add.sprite(202, 35, "orange-cat-sitting-sheet", 0);
-    player.body.setOffset(1, 4);
-    player.body.setCircle(8);
-    player.play("orange-idle");
+    const player = new Player(this, 202, 35);
+    this.add.existing(player);
 
     // granny
-    const granny = this.physics.add.sprite(99, 1, "Granny_Walking-Sheet", 0);
-    granny.scaleX = 1.5;
-    granny.scaleY = 1.5;
-    granny.flipX = true;
-    granny.body.pushable = false;
-    granny.body.setOffset(7, 0);
-    granny.body.setSize(11, 28, false);
-    granny.play("newgrannywalk");
+    const granny = new Granny(this, -12, 60);
+    this.add.existing(granny);
 
     // exit
     const exit = this.add.rectangle(314, 36, 128, 128);
@@ -170,6 +150,14 @@ export default class KitchenRoom extends Phaser.Scene {
     upperCabinets_1.body.pushable = false;
     upperCabinets_1.body.immovable = true;
     upperCabinets_1.body.setSize(117, 127, false);
+
+    // kitchenTreat
+    const kitchenTreat = new treatMarker(this, 15, 16);
+    this.add.existing(kitchenTreat);
+
+    // kitchenTreat2
+    const kitchenTreat2 = new treatMarker(this, 177, 6);
+    this.add.existing(kitchenTreat2);
 
     this.events.emit("scene-awake");
   }

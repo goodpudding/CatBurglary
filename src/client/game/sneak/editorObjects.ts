@@ -1,5 +1,9 @@
 import Phaser from 'phaser';
 import { isGrannyTextureKey } from '../grannyAnimator.js';
+import Player from '../../scenes/Player.js';
+import Granny from '../../scenes/Granny.js';
+import Chihuahua from '../../scenes/Chihuahua.js';
+import treatMarker from '../../scenes/treatMarker.js';
 import type { Bodied, CollectedObjects, GrannyObject } from './types.js';
 
 export function isExitRect(rect: Phaser.GameObjects.Rectangle): boolean {
@@ -33,6 +37,14 @@ export function isSurfaceRect(rect: Phaser.GameObjects.Rectangle): boolean {
   return name === 'surface' || name.startsWith('surface_');
 }
 
+export function isChihuahuaObject(obj: Phaser.GameObjects.GameObject): boolean {
+  if (obj instanceof Chihuahua) return true;
+  const name = obj.name.toLowerCase();
+  const key =
+    (obj as Phaser.Physics.Arcade.Sprite).texture?.key?.toLowerCase() ?? '';
+  return name === 'chihuahua' || key.includes('chihuahua');
+}
+
 export function isGrannyObject(obj: Phaser.GameObjects.GameObject): boolean {
   const name = obj.name.toLowerCase();
   const key =
@@ -43,6 +55,7 @@ export function isGrannyObject(obj: Phaser.GameObjects.GameObject): boolean {
 }
 
 export function isTreatMarker(obj: Phaser.GameObjects.GameObject): boolean {
+  if (obj instanceof treatMarker) return true;
   return obj.name.toLowerCase().startsWith('treat');
 }
 
@@ -61,12 +74,20 @@ export function collectEditorObjects(scene: Phaser.Scene): CollectedObjects {
   let window: Phaser.GameObjects.Rectangle | undefined;
   let exit: Phaser.GameObjects.Rectangle | undefined;
   let granny: GrannyObject | undefined;
+  const chihuahuas: Chihuahua[] = [];
 
   const visit = (obj: Phaser.GameObjects.GameObject): void => {
     const bodied = obj as Bodied;
-    if (obj instanceof Phaser.GameObjects.Sprite && bodied.body) {
+    if (obj instanceof Chihuahua) {
+      chihuahuas.push(obj);
+    } else if (obj instanceof Player) {
+      player = obj;
+    } else if (obj instanceof Granny) {
+      granny = obj;
+    } else if (obj instanceof Phaser.GameObjects.Sprite && bodied.body) {
       const sprite = obj as Phaser.Physics.Arcade.Sprite;
-      if (isGrannyObject(sprite)) granny = sprite;
+      if (isChihuahuaObject(sprite)) chihuahuas.push(sprite as unknown as Chihuahua);
+      else if (isGrannyObject(sprite)) granny = sprite;
       else if (sprite.name === 'player' || sprite.texture?.key?.includes('orange-cat')) player = sprite;
       else if (!player) player = sprite;
     } else if (obj instanceof Phaser.GameObjects.Rectangle) {
@@ -76,6 +97,8 @@ export function collectEditorObjects(scene: Phaser.Scene): CollectedObjects {
       else if (isFloorRect(rect)) floors.push(rect);
       else if (isSurfaceRect(rect) && (rect.body as Phaser.Physics.Arcade.Body | null)?.enable !== false)
         surfaces.push(rect);
+    } else if (obj instanceof treatMarker) {
+      treatMarkers.push(obj);
     } else if (obj instanceof Phaser.GameObjects.Image) {
       if (isGrannyObject(obj)) granny = obj as GrannyObject;
       else if (isTreatMarker(obj)) treatMarkers.push(obj);
@@ -98,7 +121,7 @@ export function collectEditorObjects(scene: Phaser.Scene): CollectedObjects {
     if (found) granny = found as GrannyObject;
   }
 
-  return { player, furniture, floors, surfaces, window, exit, granny, treatMarkers };
+  return { player, furniture, floors, surfaces, window, exit, granny, treatMarkers, chihuahuas };
 }
 
 /**
@@ -115,7 +138,16 @@ export function assignEditorNames(scene: Phaser.Scene): void {
       child.destroy();
       continue;
     }
+    if (child instanceof treatMarker) {
+      if (!child.name) child.setName(`treat_${child.points}`);
+      continue;
+    }
+
     if (child.name) continue;
+
+    if (child instanceof Player || child instanceof Granny || child instanceof Chihuahua) {
+      continue;
+    }
 
     if (child instanceof Phaser.GameObjects.Rectangle) {
       const rect = child;
@@ -132,7 +164,8 @@ export function assignEditorNames(scene: Phaser.Scene): void {
       }
     } else if (child instanceof Phaser.Physics.Arcade.Sprite) {
       const key = child.texture?.key?.toLowerCase() ?? '';
-      if (key.includes('granny') || key.includes('wizard')) child.setName('granny');
+      if (key.includes('chihuahua')) child.setName('chihuahua');
+      else if (key.includes('granny') || key.includes('wizard')) child.setName('granny');
       else if (key.includes('orange-cat') || key.includes('cat')) child.setName('player');
     } else if (
       child instanceof Phaser.GameObjects.Ellipse ||

@@ -122,77 +122,26 @@
             "height": 128
         },
         {
-            "type": "Ellipse",
-            "id": "kitchen-treat-1",
-            "label": "treat_10",
-            "x": 161,
-            "y": 37,
-            "isFilled": true,
-            "fillColor": "#ffd54a",
-            "width": 14,
-            "height": 14
-        },
-        {
-            "type": "Ellipse",
-            "id": "kitchen-treat-2",
-            "label": "treat_15",
-            "x": 33,
-            "y": 1,
-            "isFilled": true,
-            "fillColor": "#ffd54a",
-            "width": 14,
-            "height": 14
-        },
-        {
-            "type": "Ellipse",
-            "id": "kitchen-treat-4",
-            "label": "treat_20",
-            "x": 256,
-            "y": 27,
-            "isFilled": true,
-            "fillColor": "#ff7043",
-            "width": 14,
-            "height": 14
-        },
-        {
-            "type": "ArcadeSprite",
+            "prefabId": "c859151a-8106-480f-8eed-6a5f5cbe9efd",
             "id": "kitchen-player",
+            "unlock": [
+                "x",
+                "y"
+            ],
             "label": "player",
-            "texture": {
-                "key": "orange-cat-sitting-sheet",
-                "frame": 0
-            },
             "x": 202,
-            "y": 35,
-            "animationPlayMethod": 1,
-            "animationKey": "orange-idle",
-            "animationPreview": true,
-            "body.geometry": 0,
-            "body.radius": 8,
-            "body.width": 20,
-            "body.height": 20,
-            "body.offset.x": 1,
-            "body.offset.y": 4
+            "y": 35
         },
         {
-            "type": "ArcadeSprite",
+            "prefabId": "31f6b5bb-125e-47bb-8c20-20187b1efd22",
             "id": "kitchen-granny",
+            "unlock": [
+                "x",
+                "y"
+            ],
             "label": "granny",
-            "texture": {
-                "key": "Granny_Walking-Sheet",
-                "frame": 0
-            },
-            "x": 99,
-            "y": 1,
-            "scaleX": 1.5,
-            "scaleY": 1.5,
-            "flipX": true,
-            "animationPlayMethod": 1,
-            "animationKey": "newgrannywalk",
-            "body.pushable": false,
-            "body.width": 11,
-            "body.height": 28,
-            "body.offset.x": 7
+            "x": -12,
+            "y": 60
         },
         {
             "type": "Rectangle",
@@ -283,6 +232,28 @@
             "body.height": 127,
             "width": 128,
             "height": 128
+        },
+        {
+            "prefabId": "a1b2c3d4-treat-marker-prefab",
+            "id": "ebe97457-3b3f-4358-b7c1-b441a723059a",
+            "unlock": [
+                "x",
+                "y"
+            ],
+            "label": "kitchenTreat",
+            "x": 15,
+            "y": 16
+        },
+        {
+            "prefabId": "a1b2c3d4-treat-marker-prefab",
+            "id": "0de76b4d-580f-4bbb-afa1-18d5a349ee51",
+            "unlock": [
+                "x",
+                "y"
+            ],
+            "label": "kitchenTreat2",
+            "x": 177,
+            "y": 6
         }
     ],
     "plainObjects": [],

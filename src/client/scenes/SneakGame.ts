@@ -5,6 +5,7 @@ import { getEquippedCosmetics, getSelectedCatId } from '../game/runConfig.js';
 import { collectEditorObjects } from '../game/sneak/editorObjects.js';
 import { setupCat } from '../game/sneak/catSetup.js';
 import { GrannyController } from '../game/sneak/grannyController.js';
+import { ChihuahuaController } from '../game/sneak/chihuahuaController.js';
 import { PlatformSystem } from '../game/sneak/platforms.js';
 import { RunEndScreen } from '../game/sneak/runEnd.js';
 import { SneakHud } from '../game/sneak/sneakHud.js';
@@ -16,10 +17,12 @@ import {
   CHASE_SPEED,
   CROUCH_SPEED_SCALE,
   DEBUG_PHYSICS,
+  FURNITURE_LAND_TOLERANCE,
   GRANNY_SPEED,
   GRANNY_ENTRY_DELAY_MS,
-  GRANNY_ENTRY_MIN_GAP,
+  GRANNY_ENTRY_OFFSCREEN_PAD,
   INVULN_MS,
+  PATROL_SPEED,
   RETRIEVE_SPEED,
 } from '../game/sneak/constants.js';
 import { StealthSystem } from '../game/sneak/stealth.js';
@@ -30,7 +33,6 @@ import { runState, bankCarriedAndAdvance, resetRun } from '../game/sneak/runStat
 import { FIRST_ROOM_KEY, getNextRoom, ROOM_ORDER, type RoomConfig } from '../game/sneak/roomConfig.js';
 import {
   enterFromLeft,
-  ensureGrannySeparationFromCat,
   isCatAtExit,
   playEntryFlourish,
   playExitTransition,
@@ -38,6 +40,7 @@ import {
   type RoomExit,
 } from '../game/sneak/roomTransition.js';
 import type { TreatTarget } from '../game/sneak/types.js';
+import type Chihuahua from './Chihuahua.js';
 import { WorldLayout, syncAllPhysicsBodies } from '../game/sneak/worldLayout.js';
 
 /**
@@ -64,6 +67,7 @@ export class SneakGame {
   private world!: WorldLayout;
   private platforms!: PlatformSystem;
   private grannyCtrl!: GrannyController;
+  private chihuahuaCtrl!: ChihuahuaController;
   private hud!: SneakHud;
   private input!: SneakInput;
   private runEnd!: RunEndScreen;
@@ -109,6 +113,7 @@ export class SneakGame {
     this.world = new WorldLayout(this.scene);
     this.platforms = new PlatformSystem(this.scene);
     this.grannyCtrl = new GrannyController(this.scene);
+    this.chihuahuaCtrl = new ChihuahuaController(this.scene);
     this.hud = new SneakHud(this.scene);
     this.runEnd = new RunEndScreen(this.scene);
 
@@ -175,27 +180,27 @@ export class SneakGame {
     collected.window?.setVisible(false);
 
     this.grannyCtrl.setup(collected.granny, this.world.groundTop, this.world.roomLeft, this.world.roomRight);
+    this.chihuahuaCtrl.setup(
+      collected.chihuahuas,
+      this.world.groundTop,
+      this.room.index,
+      this.world.worldScale,
+    );
     this.catBaseScaleX = this.cat.scaleX;
     this.catBaseScaleY = this.cat.scaleY;
 
     // Fresh run / first room: keep the editor-authored spawn. Later rooms: enter
     // from the left as if walking in from the previous room.
     if (this.room.index > 0) {
+      const grannySpawnX = this.grannyCtrl.x;
       enterFromLeft(this.scene, this.cat, this.world.roomLeft, this.world.groundTop);
-      this.grannyEntryDelayUntil = this.scene.time.now + GRANNY_ENTRY_DELAY_MS;
-      ensureGrannySeparationFromCat(
-        this.grannyCtrl.granny,
-        this.cat,
+      this.grannyCtrl.stageOffscreenEntry(
         this.world.roomLeft,
-        this.world.roomRight,
         this.world.groundTop,
-        GRANNY_ENTRY_MIN_GAP,
+        grannySpawnX,
+        GRANNY_ENTRY_OFFSCREEN_PAD,
       );
-      this.grannyCtrl.beginEntryGrace(
-        this.grannyEntryDelayUntil,
-        this.world.groundTop,
-        this.cat.x,
-      );
+      this.grannyEntryDelayUntil = this.scene.time.now + GRANNY_ENTRY_DELAY_MS;
       this.invulnUntil = Math.max(this.invulnUntil, this.grannyEntryDelayUntil);
     }
 
@@ -231,6 +236,9 @@ export class SneakGame {
     );
     this.scene.physics.add.overlap(this.cat, this.treats, this.onCollectTreat, undefined, this);
     this.scene.physics.add.overlap(this.cat, this.grannyCtrl.granny, this.onHitByGranny, undefined, this);
+    for (const dog of this.chihuahuaCtrl.sprites) {
+      this.scene.physics.add.overlap(this.cat, dog, this.onHitByChihuahua, undefined, this);
+    }
 
     const w = this.world.roomWidth;
     const viewW = this.scene.scale.width;
@@ -325,6 +333,20 @@ export class SneakGame {
     if (this.stealth?.state !== 'alert') return;
     this.hitCat();
   };
+
+  private onHitByChihuahua: Phaser.Types.Physics.Arcade.ArcadePhysicsCallback = (_cat, dogObj) => {
+    if (!this.chihuahuaCtrl.isCharging(dogObj as Chihuahua)) return;
+    if (!this.isCatOnFloor()) return;
+    this.hitCat();
+  };
+
+  /** True when the cat is standing on the room floor, not a shelf/sofa/counter. */
+  private isCatOnFloor(): boolean {
+    const body = this.cat.body as Phaser.Physics.Arcade.Body;
+    if (!body.blocked.down && !body.touching.down) return false;
+    if (this.platforms.getPlatformUnderCat(this.cat)) return false;
+    return body.bottom <= this.world.groundTop + FURNITURE_LAND_TOLERANCE + 8;
+  }
 
   /** Shared damage from a chase touch or a slipper hit: lose a life + drop carried treats. */
   private hitCat(): void {
@@ -426,6 +448,7 @@ export class SneakGame {
     }
 
     this.updateGranny(delta);
+    this.chihuahuaCtrl.update(delta, this.cat, this.world.groundTop, () => this.isCatOnFloor());
 
     if (isCatAtExit(this.exit, this.cat)) this.tryExit();
     const nearExit = this.cat.x > this.world.roomRight - 170;
@@ -444,6 +467,17 @@ export class SneakGame {
       return;
     }
 
+    const groundTop = this.world.groundTop;
+    const chaseMul = this.room.difficulty.chaseMul;
+
+    if (this.grannyCtrl.isEnteringRoom()) {
+      this.grannyCtrl.enterRoom(delta, groundTop, PATROL_SPEED * this.grannyCtrl.patrolSpeedMul);
+      if (this.grannyCtrl.moved) this.grannyCtrl.animateWalk();
+      else this.grannyCtrl.stopWalk();
+      this.hud.updateDetection(0, 'patrol');
+      return;
+    }
+
     const body = this.cat.body as Phaser.Physics.Arcade.Body;
     const moving = Math.abs(body.velocity.x) > 4;
     const crouching = this.input.crouching && (body.blocked.down || body.touching.down);
@@ -455,9 +489,6 @@ export class SneakGame {
       this.slipper.tryThrow(this.grannyCtrl.granny, this.grannyCtrl.facing, this.cat);
     }
     this.slipper.update(this.world.groundTop, this.cat);
-
-    const groundTop = this.world.groundTop;
-    const chaseMul = this.room.difficulty.chaseMul;
 
     if (this.slipper.needsRetrieve) {
       const target = this.slipper.retrieveTargetX ?? this.grannyCtrl.x;

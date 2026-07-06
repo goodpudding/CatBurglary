@@ -50,7 +50,7 @@ export class WorldLayout {
     const tx = view.width / 2 - cx;
     const ty = playCenterY - cy;
     for (const child of [...this.scene.children.list]) {
-      this.transformChild(child, cx, cy, scale, tx, ty);
+      this.transformHierarchy(child, cx, cy, scale, tx, ty);
     }
 
     this.worldScale = scale;
@@ -85,6 +85,24 @@ export class WorldLayout {
     }
 
     return found ? { left, right, top, bottom } : null;
+  }
+
+  private transformHierarchy(
+    obj: Phaser.GameObjects.GameObject,
+    anchorX: number,
+    anchorY: number,
+    scale: number,
+    tx: number,
+    ty: number,
+  ): void {
+    if (obj instanceof Phaser.GameObjects.Container) {
+      for (const nested of obj.list) {
+        this.transformHierarchy(nested as Phaser.GameObjects.GameObject, anchorX, anchorY, scale, tx, ty);
+      }
+      return;
+    }
+
+    this.transformChild(obj, anchorX, anchorY, scale, tx, ty);
   }
 
   private transformChild(

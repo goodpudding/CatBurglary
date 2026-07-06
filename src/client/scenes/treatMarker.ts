@@ -6,18 +6,17 @@
 /* START-USER-IMPORTS */
 /* END-USER-IMPORTS */
 
+/** Editor-only placement marker; SneakGame spawns real treats from its position. */
 export default class treatMarker extends Phaser.GameObjects.Ellipse {
 
-  constructor(scene: Phaser.Scene, x?: number, y?: number, width?: number, height?: number) {
-    super(scene, x ?? 0, y ?? 0, width ?? 22, height ?? 22);
-    this.isFilled = true;
-    this.fillColor = 16766794;
-    this.isStroked = true;
-    this.strokeColor = 8069120;
-    this.lineWidth = 2;
+  public points: number = 10;
+
+  constructor(scene: Phaser.Scene, x?: number, y?: number) {
+    super(scene, x ?? 0, y ?? 0, 14, 14, 0xffd54a, 0.45);
+    this.setStrokeStyle(1, 0x7a5200, 0.8);
 
     /* START-USER-CTR-CODE */
-    // Write your code here.
+    this.setName(`treat_${this.points}`);
     /* END-USER-CTR-CODE */
   }
 

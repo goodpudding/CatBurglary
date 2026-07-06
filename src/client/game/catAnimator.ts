@@ -22,9 +22,9 @@ export class CatAnimator {
 
   update(moving: boolean, onGround: boolean): void {
     if (!onGround) {
-      if (this.state !== 'idle') {
-        this.state = 'idle';
-        this.play('idle');
+      if (this.state !== 'walk') {
+        this.state = 'walk';
+        this.play('walk');
       }
       return;
     }

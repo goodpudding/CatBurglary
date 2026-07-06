@@ -16,10 +16,24 @@ export const JUMP_HEIGHT_SCALE = 1 / 3;
 export const FURNITURE_LAND_TOLERANCE = 14;
 export const DOUBLE_TAP_MS = 320;
 
-/** How long granny idles after the cat enters a new room (rooms 2+). */
+/** How long granny waits off-screen before walking into a new room (rooms 2+). */
 export const GRANNY_ENTRY_DELAY_MS = 4000;
-/** Minimum horizontal gap between cat entrance and granny on room entry. */
-export const GRANNY_ENTRY_MIN_GAP = 300;
+/** How far left of the room edge granny stands before her entrance walk. */
+export const GRANNY_ENTRY_OFFSCREEN_PAD = 110;
+
+/** Room index (0-based) where the chihuahua ambush runs — Living Room = 1. */
+export const CHIHUAHUA_CHARGE_ROOM_INDEX = 1;
+/** Ms after room load before the dog charges (room 2 entry). */
+export const CHIHUAHUA_CHARGE_DELAY_MS = 900;
+export const CHIHUAHUA_CHARGE_SPEED = 195;
+export const CHIHUAHUA_CHARGE_OVERSHOOT = 56;
+export const CHIHUAHUA_CHARGE_RECOVER_SPEED = 70;
+/** Horizontal gap (px) between dog and cat that counts as "reached" the player. */
+export const CHIHUAHUA_REACH_DISTANCE = 34;
+/** Ms the dog barks in place before charging again. */
+export const CHIHUAHUA_BARK_PAUSE_MS = 1000;
+/** Ms after trotting home before the dog may charge again. */
+export const CHIHUAHUA_RECHARGE_DELAY_MS = 700;
 
 // --- Stealth / detection ---------------------------------------------------
 /** How far (world px) granny can see straight ahead. */

@@ -69,8 +69,8 @@
                 "key": "Granny_Walking-Sheet",
                 "frame": 0
             },
-            "x": -206,
-            "y": -1,
+            "x": -175,
+            "y": 4,
             "scaleX": 1.5,
             "scaleY": 1.5,
             "animationPlayMethod": 1,

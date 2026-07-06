@@ -1,0 +1,44 @@
+{
+    "id": "62eb21cc-e38f-4114-ba09-2fe2913463e4",
+    "sceneType": "PREFAB",
+    "settings": {
+        "compilerInsertSpaces": true,
+        "compilerTabSize": 2,
+        "exportClass": true,
+        "autoImport": true,
+        "importFileExtension": true,
+        "preloadMethodName": "",
+        "preloadPackFiles": [],
+        "createMethodName": "",
+        "compilerOutputLanguage": "TYPE_SCRIPT",
+        "borderWidth": 250,
+        "borderHeight": 100
+    },
+    "displayList": [
+        {
+            "type": "ArcadeSprite",
+            "id": "0ba13dca-e130-42e5-96bf-093d3b68727d",
+            "label": "arcadesprite_1",
+            "texture": {
+                "key": "chihuahua-barking",
+                "frame": 0
+            },
+            "animationPlayMethod": 1,
+            "animationKey": "chihuahua-walkingchihuahua-walking",
+            "animationPreview": true,
+            "body.geometry": 0,
+            "body.radius": 7,
+            "body.width": 128,
+            "body.height": 128,
+            "body.offset.x": 6,
+            "body.offset.y": 2
+        }
+    ],
+    "plainObjects": [],
+    "meta": {
+        "app": "Phaser Editor - Scene Editor",
+        "url": "https://phaser.io/editor",
+        "contentType": "phasereditor2d.core.scene.SceneContentType",
+        "version": 5
+    }
+}

@@ -7,26 +7,29 @@
         "exportClass": true,
         "autoImport": true,
         "importFileExtension": true,
-        "createMethodName": "editorCreate",
-        "compilerOutputLanguage": "TYPE_SCRIPT",
         "prefabObjDisplayFmt": "Object",
         "superClassName": "Phaser.GameObjects.Ellipse",
-        "preloadMethodName": ""
+        "preloadMethodName": "",
+        "preloadPackFiles": [],
+        "createMethodName": "editorCreate",
+        "compilerOutputLanguage": "TYPE_SCRIPT"
     },
     "displayList": [
         {
-            "type": "Ellipse",
-            "id": "treat-marker-ellipse",
-            "label": "treat_15",
-            "x": 0,
-            "y": 0,
-            "width": 22,
-            "height": 22,
-            "isFilled": true,
-            "fillColor": "#ffd54a",
-            "strokeColor": "#7a5200",
-            "isStroked": true,
-            "lineWidth": 2
+            "type": "ArcadeSprite",
+            "id": "b45f8c45-792a-49e4-bbcb-930f55117feb",
+            "label": "arcadesprite_1",
+            "texture": {
+                "key": "fish-treat",
+                "frame": 0
+            },
+            "x": 569,
+            "y": 251,
+            "animationPlayMethod": 1,
+            "animationKey": "treat",
+            "animationPreview": true,
+            "body.width": 16,
+            "body.height": 16
         }
     ],
     "plainObjects": [],
@@ -35,5 +38,20 @@
         "url": "https://phaser.io/editor",
         "contentType": "phasereditor2d.core.scene.SceneContentType",
         "version": 5
-    }
+    },
+    "prefabProperties": [
+        {
+            "name": "points",
+            "label": "points",
+            "tooltip": "",
+            "defValue": 10,
+            "customDefinition": false,
+            "editorOnly": false,
+            "deprecated": false,
+            "type": {
+                "id": "number",
+                "isArray": false
+            }
+        }
+    ]
 }

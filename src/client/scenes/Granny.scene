@@ -1,0 +1,50 @@
+{
+    "id": "31f6b5bb-125e-47bb-8c20-20187b1efd22",
+    "settings": {
+        "createMethodName": "",
+        "preloadMethodName": "",
+        "compilerOutputLanguage": "TYPE_SCRIPT",
+        "exportClass": true,
+        "autoImport": true,
+        "importFileExtension": true,
+        "generateAwakeHandler": false,
+        "compilerInsertSpaces": true,
+        "compilerTabSize": 2,
+        "borderWidth": 250,
+        "borderHeight": 100,
+        "borderX": 0,
+        "borderY": 0
+    },
+    "sceneType": "PREFAB",
+    "displayList": [
+        {
+            "unlock": [
+                "x",
+                "y"
+            ],
+            "type": "ArcadeSprite",
+            "id": "5b1eeb58-0be2-402b-83f1-b4e8cba64b69",
+            "label": "granny",
+            "texture": {
+                "key": "Granny_Walking-Sheet",
+                "frame": 0
+            },
+            "x": 0,
+            "y": 0,
+            "scaleX": 1.5,
+            "scaleY": 1.5,
+            "flipX": true,
+            "animationPlayMethod": 1,
+            "animationKey": "newgrannywalk",
+            "body.pushable": false,
+            "body.width": 11,
+            "body.height": 28,
+            "body.offset.x": 7
+        }
+    ],
+    "meta": {
+        "app": "Phaser Editor 2D - Scene Editor",
+        "url": "https://phasereditor2d.com",
+        "contentType": "phasereditor2d.core.scene.SceneContentType"
+    }
+}

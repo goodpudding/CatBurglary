@@ -1,4 +1,5 @@
 import type Phaser from 'phaser';
+import type Chihuahua from '../../scenes/Chihuahua.js';
 
 export type Bodied = Phaser.GameObjects.GameObject & {
   body: Phaser.Physics.Arcade.Body | Phaser.Physics.Arcade.StaticBody | null;
@@ -21,6 +22,7 @@ export interface CollectedObjects {
   exit: Phaser.GameObjects.Rectangle | undefined;
   granny: GrannyObject | undefined;
   treatMarkers: Phaser.GameObjects.GameObject[];
+  chihuahuas: Chihuahua[];
 }
 
 export interface WorldBounds {

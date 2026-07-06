@@ -2,6 +2,32 @@
     "section1": {
         "files": [
             {
+                "url": "furniture/black-cat-sitting-w-13-h-17.png",
+                "frameConfig": {
+                    "frameWidth": 13,
+                    "frameHeight": 17,
+                    "startFrame": 0,
+                    "endFrame": -1,
+                    "spacing": 0,
+                    "margin": 0
+                },
+                "type": "spritesheet",
+                "key": "black-cat-sitting-w-13-h-17"
+            },
+            {
+                "url": "furniture/black-cat-walking-w-19-h-17.png",
+                "frameConfig": {
+                    "frameWidth": 19,
+                    "frameHeight": 17,
+                    "startFrame": 0,
+                    "endFrame": -1,
+                    "spacing": 0,
+                    "margin": 0
+                },
+                "type": "spritesheet",
+                "key": "black-cat-walking-w-19-h-17"
+            },
+            {
                 "url": "furniture/bottle-of-wine.png",
                 "type": "image",
                 "key": "bottle-of-wine"
@@ -69,6 +95,19 @@
                 },
                 "type": "spritesheet",
                 "key": "chihuahua-walking"
+            },
+            {
+                "url": "furniture/chihuahua-walking-and-barking-w-21-h-14.png",
+                "frameConfig": {
+                    "frameWidth": 21,
+                    "frameHeight": 14,
+                    "startFrame": 0,
+                    "endFrame": -1,
+                    "spacing": 0,
+                    "margin": 0
+                },
+                "type": "spritesheet",
+                "key": "chihuahua-walking-and-barking-w-21-h-14"
             },
             {
                 "url": "furniture/cooking-pot.png",
@@ -159,6 +198,19 @@
                 "key": "furniture-tv-stand-table"
             },
             {
+                "url": "furniture/grandma-talking.png",
+                "frameConfig": {
+                    "frameWidth": 27,
+                    "frameHeight": 30,
+                    "startFrame": 0,
+                    "endFrame": -1,
+                    "spacing": 0,
+                    "margin": 0
+                },
+                "type": "spritesheet",
+                "key": "grandma-talking"
+            },
+            {
                 "url": "furniture/grandpa-throwing.png",
                 "frameConfig": {
                     "frameWidth": 32,
@@ -243,6 +295,19 @@
                 "key": "gray-cat-sitting"
             },
             {
+                "url": "furniture/gray-cat-sitting.png",
+                "frameConfig": {
+                    "frameWidth": 32,
+                    "frameHeight": 32,
+                    "startFrame": 0,
+                    "endFrame": -1,
+                    "spacing": 0,
+                    "margin": 0
+                },
+                "type": "spritesheet",
+                "key": "gray-cat-sitting_1"
+            },
+            {
                 "url": "cats/gray-cat-stand-to-sit-sheet.png",
                 "frameConfig": {
                     "frameWidth": 25,
@@ -254,6 +319,19 @@
                 },
                 "type": "spritesheet",
                 "key": "gray-cat-stand-to-sit-sheet"
+            },
+            {
+                "url": "furniture/gray-cat-walking.png",
+                "frameConfig": {
+                    "frameWidth": 32,
+                    "frameHeight": 32,
+                    "startFrame": 0,
+                    "endFrame": -1,
+                    "spacing": 0,
+                    "margin": 0
+                },
+                "type": "spritesheet",
+                "key": "gray-cat-walking"
             },
             {
                 "url": "cats/gray-cat-walking-sheet.png",
@@ -284,6 +362,19 @@
                 "key": "living-room-fllor"
             },
             {
+                "url": "furniture/marshmello-sitting2.png",
+                "frameConfig": {
+                    "frameWidth": 32,
+                    "frameHeight": 32,
+                    "startFrame": 0,
+                    "endFrame": -1,
+                    "spacing": 0,
+                    "margin": 0
+                },
+                "type": "spritesheet",
+                "key": "marshmello-sitting2"
+            },
+            {
                 "url": "cats/marshmellow-sitting.png",
                 "frameConfig": {
                     "frameWidth": 25,
@@ -308,6 +399,19 @@
                 },
                 "type": "spritesheet",
                 "key": "marshmellow-sitting-sheet"
+            },
+            {
+                "url": "furniture/marshmellow-walking.png",
+                "frameConfig": {
+                    "frameWidth": 32,
+                    "frameHeight": 32,
+                    "startFrame": 0,
+                    "endFrame": -1,
+                    "spacing": 0,
+                    "margin": 0
+                },
+                "type": "spritesheet",
+                "key": "marshmellow-walking"
             },
             {
                 "url": "furniture/mirror.png",
@@ -438,6 +542,11 @@
                 },
                 "type": "spritesheet",
                 "key": "tp-flying"
+            },
+            {
+                "url": "Treat.json",
+                "type": "animation",
+                "key": "Treat"
             },
             {
                 "url": "furniture/wall-phone.png",

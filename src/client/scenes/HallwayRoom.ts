@@ -43,7 +43,7 @@ export default class HallwayRoom extends Phaser.Scene {
     player.play("orange-idle");
 
     // granny
-    const granny = this.physics.add.sprite(-206, -1, "Granny_Walking-Sheet", 0);
+    const granny = this.physics.add.sprite(-175, 4, "Granny_Walking-Sheet", 0);
     granny.scaleX = 1.5;
     granny.scaleY = 1.5;
     granny.body.setOffset(5, 0);

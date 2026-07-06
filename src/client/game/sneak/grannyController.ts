@@ -21,6 +21,9 @@ export class GrannyController {
 
   private patrolTargetX: number | null = null;
   private pauseUntil = 0;
+  private entryTargetX: number | null = null;
+  private enteringRoom = false;
+  private entryMinX = 0;
 
   granny!: GrannyObject;
 
@@ -92,16 +95,52 @@ export class GrannyController {
     this.maxX = roomRight - pad;
   }
 
-  /** Hold position and face away from the cat while the entry grace period runs. */
-  beginEntryGrace(until: number, groundTop: number, faceAwayFromX: number): void {
-    this.pauseUntil = until;
+  /** Hold off-screen left, then walk to the editor spawn once the delay ends. */
+  stageOffscreenEntry(
+    roomLeft: number,
+    groundTop: number,
+    editorX: number,
+    offscreenPad: number,
+  ): void {
+    this.entryTargetX = editorX;
+    this.enteringRoom = true;
+    this.entryMinX = roomLeft - offscreenPad;
     this.patrolTargetX = null;
-    this.moved = false;
+    this.pauseUntil = 0;
+    this.granny.x = this.entryMinX;
+    this.dir = 1;
     this.pinToFloor(groundTop);
     this.syncBody();
-    this.dir = this.granny.x <= faceAwayFromX ? -1 : 1;
-    this.setFlip(this.dir < 0);
+    this.setFlip(false);
     this.stopWalk();
+    this.moved = false;
+  }
+
+  isEnteringRoom(): boolean {
+    return this.enteringRoom;
+  }
+
+  /** Walk from off-screen to the editor spawn; returns true once she has arrived. */
+  enterRoom(delta: number, groundTop: number, speed: number): boolean {
+    if (!this.enteringRoom || this.entryTargetX === null) return true;
+
+    const targetX = this.entryTargetX;
+    const gap = targetX - this.granny.x;
+    if (Math.abs(gap) > 6) {
+      const dir = Math.sign(gap);
+      this.dir = dir;
+      const nextX = this.granny.x + dir * speed * (delta / 1000);
+      this.granny.x = Phaser.Math.Clamp(nextX, this.entryMinX, this.maxX);
+      this.moved = true;
+    } else {
+      this.dir = Math.sign(gap) || this.dir;
+      this.moved = false;
+      this.enteringRoom = false;
+      this.entryTargetX = null;
+    }
+
+    this.settle(groundTop);
+    return !this.enteringRoom;
   }
 
   /** Slow, lazy wandering: amble to a random spot, pause and look, repeat. */

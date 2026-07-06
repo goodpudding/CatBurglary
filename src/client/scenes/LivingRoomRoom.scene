@@ -66,12 +66,16 @@
             "type": "ArcadeSprite",
             "id": "livingroom-granny",
             "label": "granny",
+            "hitArea.shape": "RECTANGLE",
+            "hitArea.x": 5,
+            "hitArea.width": 10.74227135655199,
+            "hitArea.height": 28.50165601507459,
             "texture": {
                 "key": "Granny_Walking-Sheet",
                 "frame": 0
             },
-            "x": -87,
-            "y": 55,
+            "x": -46,
+            "y": 59,
             "scaleX": 1.5,
             "scaleY": 1.5,
             "animationPlayMethod": 1,
@@ -530,6 +534,50 @@
             "body.height": 128,
             "width": 128,
             "height": 128
+        },
+        {
+            "prefabId": "62eb21cc-e38f-4114-ba09-2fe2913463e4",
+            "id": "5078336e-6ac5-4cf6-aede-167e6c9b4636",
+            "unlock": [
+                "x",
+                "y"
+            ],
+            "label": "arcadesprite_1",
+            "x": 101,
+            "y": 74
+        },
+        {
+            "prefabId": "a1b2c3d4-treat-marker-prefab",
+            "id": "ff3dc021-929e-4e58-adf3-0fe275cfedbf",
+            "unlock": [
+                "x",
+                "y"
+            ],
+            "label": "livingroomTreat1",
+            "x": 25,
+            "y": 42
+        },
+        {
+            "prefabId": "a1b2c3d4-treat-marker-prefab",
+            "id": "b59d9803-a950-4519-9fef-de993f53b261",
+            "unlock": [
+                "x",
+                "y"
+            ],
+            "label": "livingroomTreat2",
+            "x": 101,
+            "y": 20
+        },
+        {
+            "prefabId": "a1b2c3d4-treat-marker-prefab",
+            "id": "bd9a743f-a130-420a-8db6-89be8fc634eb",
+            "unlock": [
+                "x",
+                "y"
+            ],
+            "label": "livingroomTreat3",
+            "x": 200,
+            "y": 20
         }
     ],
     "plainObjects": [],

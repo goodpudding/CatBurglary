@@ -3,6 +3,8 @@
 
 /* START OF COMPILED CODE */
 
+import Chihuahua from "./Chihuahua.js";
+import treatMarker from "./treatMarker.js";
 /* START-USER-IMPORTS */
 import { SneakGame } from './SneakGame.js';
 import { assignEditorNames } from '../game/sneak/editorObjects.js';
@@ -43,7 +45,8 @@ export default class LivingRoomRoom extends Phaser.Scene {
     player.play("orange-idle");
 
     // granny
-    const granny = this.physics.add.sprite(-87, 55, "Granny_Walking-Sheet", 0);
+    const granny = this.physics.add.sprite(-46, 59, "Granny_Walking-Sheet", 0);
+    granny.setInteractive(new Phaser.Geom.Rectangle(5, 0, 10.74227135655199, 28.50165601507459), Phaser.Geom.Rectangle.Contains);
     granny.scaleX = 1.5;
     granny.scaleY = 1.5;
     granny.body.setOffset(5, 0);
@@ -340,6 +343,22 @@ export default class LivingRoomRoom extends Phaser.Scene {
     bookshelf5.body.pushable = false;
     bookshelf5.body.immovable = true;
     bookshelf5.body.setSize(128, 128, false);
+
+    // arcadesprite_1
+    const arcadesprite_1 = new Chihuahua(this, 101, 74);
+    this.add.existing(arcadesprite_1);
+
+    // livingroomTreat1
+    const livingroomTreat1 = new treatMarker(this, 25, 42);
+    this.add.existing(livingroomTreat1);
+
+    // livingroomTreat2
+    const livingroomTreat2 = new treatMarker(this, 101, 20);
+    this.add.existing(livingroomTreat2);
+
+    // livingroomTreat3
+    const livingroomTreat3 = new treatMarker(this, 200, 20);
+    this.add.existing(livingroomTreat3);
 
     this.events.emit("scene-awake");
   }
