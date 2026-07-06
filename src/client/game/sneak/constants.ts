@@ -1,6 +1,11 @@
 import Phaser from 'phaser';
 
 export const MAX_LIVES = 3;
+/** Draw accurate hitbox overlays (custom renderer; Arcade's built-in debug drifts after layout). */
+export const DEBUG_PHYSICS = true;
+/** Space reserved above the room so HUD text sits over empty padding, not the art. */
+export const HUD_TOP_PADDING = 96;
+export const HUD_BOTTOM_PADDING = 8;
 export const INVULN_MS = 1200;
 export const GRANNY_SPEED = 90;
 export const FALLBACK_HEIGHT = 540;
@@ -9,8 +14,12 @@ export const ROOM_VIEWPORT_HEIGHT_RATIO = 0.48;
 export const ROOM_VIEWPORT_WIDTH_RATIO = 0.5;
 export const JUMP_HEIGHT_SCALE = 1 / 3;
 export const FURNITURE_LAND_TOLERANCE = 14;
-export const DROP_THROUGH_MS = 450;
 export const DOUBLE_TAP_MS = 320;
+
+/** How long granny idles after the cat enters a new room (rooms 2+). */
+export const GRANNY_ENTRY_DELAY_MS = 4000;
+/** Minimum horizontal gap between cat entrance and granny on room entry. */
+export const GRANNY_ENTRY_MIN_GAP = 300;
 
 // --- Stealth / detection ---------------------------------------------------
 /** How far (world px) granny can see straight ahead. */

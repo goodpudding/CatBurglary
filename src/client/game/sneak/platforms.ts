@@ -84,13 +84,14 @@ export class PlatformSystem {
     return this.readGroundTop(groundTop);
   }
 
-  createLandFilter(getDropThroughUntil: () => number): Phaser.Types.Physics.Arcade.ArcadePhysicsCallback {
+  createLandFilter(
+    getDropThroughBody: () => Phaser.Physics.Arcade.StaticBody | null,
+  ): Phaser.Types.Physics.Arcade.ArcadePhysicsCallback {
     return (cat, furniture) => {
-      if (getDropThroughUntil() > this.scene.time.now) return false;
-
       const catBody = (cat as Phaser.Physics.Arcade.Sprite).body as Phaser.Physics.Arcade.Body;
       const platBody = (furniture as Bodied).body as Phaser.Physics.Arcade.StaticBody;
       if (!catBody || !platBody) return false;
+      if (getDropThroughBody() === platBody) return false;
       if (catBody.velocity.y < 0) return false;
 
       const platTop = platBody.top;
@@ -108,14 +109,64 @@ export class PlatformSystem {
     };
   }
 
-  pinCatFeet(cat: Phaser.Physics.Arcade.Sprite, groundTop: number): void {
+  pinCatFeet(cat: Phaser.Physics.Arcade.Sprite, standTop: number): void {
     const body = cat.body as Phaser.Physics.Arcade.Body;
-    const delta = groundTop - body.bottom;
+    const delta = standTop - body.bottom;
     if (Math.abs(delta) < 0.5) return;
 
     cat.y += delta;
     body.setVelocity(body.velocity.x, 0);
     body.updateFromGameObject();
+  }
+
+  /** Match the editor spawn to the highest shelf/counter supporting the cat. */
+  findStandTopNear(cat: Phaser.Physics.Arcade.Sprite, fallback: number): number {
+    const body = cat.body as Phaser.Physics.Arcade.Body;
+    const feetX = body.center.x;
+    const feetY = body.bottom;
+    let bestTop = fallback;
+    let bestSupport = -Infinity;
+
+    for (const platform of this.furniturePlatforms) {
+      const platBody = (platform as Bodied).body as Phaser.Physics.Arcade.StaticBody | null;
+      if (!platBody) continue;
+      if (feetX < platBody.left - 6 || feetX > platBody.right + 6) continue;
+
+      const supportGap = feetY - platBody.top;
+      if (supportGap < -12 || supportGap > 72) continue;
+
+      if (platBody.top > bestSupport) {
+        bestSupport = platBody.top;
+        bestTop = platBody.top;
+      }
+    }
+
+    return bestTop;
+  }
+
+  /** Platform the cat is currently standing on (highest match under the feet). */
+  getPlatformUnderCat(cat: Phaser.Physics.Arcade.Sprite): Phaser.Physics.Arcade.StaticBody | null {
+    const catBody = cat.body as Phaser.Physics.Arcade.Body;
+    const feetX = catBody.center.x;
+    const feetY = catBody.bottom;
+    let best: Phaser.Physics.Arcade.StaticBody | null = null;
+    let bestTop = -Infinity;
+
+    for (const platform of this.furniturePlatforms) {
+      const platBody = (platform as Bodied).body as Phaser.Physics.Arcade.StaticBody | null;
+      if (!platBody) continue;
+      if (feetX < platBody.left - 4 || feetX > platBody.right + 4) continue;
+      if (feetY < platBody.top - FURNITURE_LAND_TOLERANCE || feetY > platBody.top + FURNITURE_LAND_TOLERANCE) {
+        continue;
+      }
+
+      if (platBody.top > bestTop) {
+        bestTop = platBody.top;
+        best = platBody;
+      }
+    }
+
+    return best;
   }
 
   clampCatAboveFloor(cat: Phaser.Physics.Arcade.Sprite, groundTop: number): void {
@@ -143,11 +194,24 @@ export class PlatformSystem {
   private syncStaticBody(obj: Phaser.GameObjects.GameObject): void {
     const body = (obj as Bodied).body;
     if (!body || !('updateFromGameObject' in body)) return;
-    body.updateFromGameObject();
 
-    if (!(obj instanceof Phaser.GameObjects.Rectangle)) return;
-    const rect = obj;
-    body.setSize(Math.max(4, rect.displayWidth), Math.max(8, rect.displayHeight));
+    if (obj instanceof Phaser.GameObjects.Rectangle) {
+      const rect = obj;
+      body.setSize(
+        Math.max(4, rect.displayWidth),
+        Math.max(4, rect.displayHeight),
+        true,
+      );
+    } else if (obj instanceof Phaser.GameObjects.Arc || obj instanceof Phaser.GameObjects.Ellipse) {
+      const shape = obj as Phaser.GameObjects.Arc;
+      const radius = Math.max(4, shape.displayWidth * 0.5);
+      if ('setCircle' in body && typeof body.setCircle === 'function') {
+        body.setCircle(radius, 0, 0);
+      } else {
+        body.setSize(radius * 2, radius * 2, true);
+      }
+    }
+
     body.updateFromGameObject();
   }
 }

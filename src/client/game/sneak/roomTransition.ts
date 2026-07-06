@@ -1,5 +1,7 @@
 import Phaser from 'phaser';
 
+import type { GrannyObject } from './types.js';
+
 export interface RoomExit {
   zone: Phaser.GameObjects.Zone;
   hint: Phaser.GameObjects.Text;
@@ -61,6 +63,30 @@ export function setupRoomExit(
 export function isCatAtExit(exit: RoomExit | undefined, cat: Phaser.Physics.Arcade.Sprite): boolean {
   if (!exit) return false;
   return Phaser.Geom.Rectangle.Overlaps(exit.zone.getBounds(), cat.getBounds());
+}
+
+/**
+ * If the editor placed granny too close to the left-side entrance, park her on
+ * the far side so she is not on top of the cat when the room loads.
+ */
+export function ensureGrannySeparationFromCat(
+  granny: GrannyObject,
+  cat: Phaser.Physics.Arcade.Sprite,
+  roomLeft: number,
+  roomRight: number,
+  groundTop: number,
+  minGap: number,
+): void {
+  if (Math.abs(granny.x - cat.x) >= minGap) return;
+
+  const pad = 90;
+  granny.x = Phaser.Math.Clamp(roomRight - pad, roomLeft + pad, roomRight - pad);
+
+  const b = granny.getBounds();
+  granny.y += groundTop - b.bottom;
+  const body = granny.body as Phaser.Physics.Arcade.Body;
+  body.setVelocity(0, 0);
+  body.updateFromGameObject();
 }
 
 /**

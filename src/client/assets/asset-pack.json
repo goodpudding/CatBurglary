@@ -24,8 +24,8 @@
             {
                 "url": "furniture/cat-chaser-intro.png",
                 "frameConfig": {
-                    "frameWidth": 32,
-                    "frameHeight": 32,
+                    "frameWidth": 62,
+                    "frameHeight": 41,
                     "startFrame": 0,
                     "endFrame": -1,
                     "spacing": 0,
@@ -61,7 +61,7 @@
                 "url": "furniture/chihuahua-walking.png",
                 "frameConfig": {
                     "frameWidth": 27,
-                    "frameHeight": 27,
+                    "frameHeight": 16,
                     "startFrame": 0,
                     "endFrame": -1,
                     "spacing": 0,
@@ -79,7 +79,7 @@
                 "url": "furniture/fish-treat.png",
                 "frameConfig": {
                     "frameWidth": 16,
-                    "frameHeight": 32,
+                    "frameHeight": 16,
                     "startFrame": 0,
                     "endFrame": -1,
                     "spacing": 0,
@@ -162,7 +162,7 @@
                 "url": "furniture/grandpa-throwing.png",
                 "frameConfig": {
                     "frameWidth": 32,
-                    "frameHeight": 32,
+                    "frameHeight": 33,
                     "startFrame": 0,
                     "endFrame": -1,
                     "spacing": 0,
@@ -175,7 +175,7 @@
                 "url": "furniture/grandpa-throwing-1.png",
                 "frameConfig": {
                     "frameWidth": 32,
-                    "frameHeight": 32,
+                    "frameHeight": 33,
                     "startFrame": 0,
                     "endFrame": -1,
                     "spacing": 0,
@@ -183,6 +183,19 @@
                 },
                 "type": "spritesheet",
                 "key": "grandpa-throwing-1"
+            },
+            {
+                "url": "Granny_Walking-Sheet.png",
+                "frameConfig": {
+                    "frameWidth": 24,
+                    "frameHeight": 29,
+                    "startFrame": 0,
+                    "endFrame": -1,
+                    "spacing": 0,
+                    "margin": 0
+                },
+                "type": "spritesheet",
+                "key": "Granny_Walking-Sheet"
             },
             {
                 "url": "granny/granny-1-sheet.png",
@@ -209,6 +222,12 @@
                 },
                 "type": "spritesheet",
                 "key": "granny-2-sheet"
+            },
+            {
+                "atlasURL": "/assets/Cats/Gray Cat Walking-Sheet.aseprite",
+                "textureURL": "/assets/Cats/Gray Cat Walking-Sheet.png",
+                "type": "aseprite",
+                "key": "Gray Cat Walking-Sheet"
             },
             {
                 "url": "cats/gray-cat-sitting.png",
@@ -268,7 +287,7 @@
                 "url": "cats/marshmellow-sitting.png",
                 "frameConfig": {
                     "frameWidth": 25,
-                    "frameHeight": 32,
+                    "frameHeight": 20,
                     "startFrame": 0,
                     "endFrame": -1,
                     "spacing": 0,

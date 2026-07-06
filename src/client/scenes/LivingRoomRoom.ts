@@ -29,33 +29,34 @@ export default class LivingRoomRoom extends Phaser.Scene {
   editorCreate(): void {
 
     // cat_chaser_livingroom_1
-    this.add.image(0, -6, "cat-chaser-livingroom");
+    this.add.image(136, 42, "cat-chaser-livingroom");
 
     // floor
-    const floor = this.add.rectangle(0, 44, 128, 128);
+    const floor = this.add.rectangle(136, 92, 128, 128);
     floor.scaleX = 3.75;
     floor.scaleY = 0.1875;
 
     // player
-    const player = this.physics.add.sprite(-173, 23, "orange-cat-sitting-sheet", 0);
+    const player = this.physics.add.sprite(-37, 71, "orange-cat-sitting-sheet", 0);
     player.body.setOffset(1, 4);
     player.body.setCircle(8);
     player.play("orange-idle");
 
     // granny
-    const granny = this.physics.add.sprite(60, 5, "granny-2-sheet", 0);
+    const granny = this.physics.add.sprite(-87, 55, "Granny_Walking-Sheet", 0);
     granny.scaleX = 1.5;
     granny.scaleY = 1.5;
-    granny.body.setOffset(13, 9);
-    granny.body.setSize(12, 33, false);
+    granny.body.setOffset(5, 0);
+    granny.body.setSize(11, 28, false);
+    granny.play("newgrannywalk");
 
     // exit
-    const exit = this.add.rectangle(169, -15, 128, 128);
+    const exit = this.add.rectangle(305, 33, 128, 128);
     exit.scaleX = 0.19303263008284394;
     exit.scaleY = 0.7396473973216114;
 
     // chairSeat
-    const chairSeat = this.add.rectangle(-150, 24, 128, 128) as Phaser.GameObjects.Rectangle & { body: Phaser.Physics.Arcade.Body };
+    const chairSeat = this.add.rectangle(-14, 72, 128, 128) as Phaser.GameObjects.Rectangle & { body: Phaser.Physics.Arcade.Body };
     chairSeat.scaleX = 0.13639484769901022;
     chairSeat.scaleY = 0.03635253630518463;
     this.physics.add.existing(chairSeat, false);
@@ -68,7 +69,7 @@ export default class LivingRoomRoom extends Phaser.Scene {
     chairSeat.body.setSize(128, 128, false);
 
     // tvStand
-    const tvStand = this.add.rectangle(-110, 22, 128, 128) as Phaser.GameObjects.Rectangle & { body: Phaser.Physics.Arcade.Body };
+    const tvStand = this.add.rectangle(26, 70, 128, 128) as Phaser.GameObjects.Rectangle & { body: Phaser.Physics.Arcade.Body };
     tvStand.scaleX = 0.34051626123162715;
     tvStand.scaleY = 0.017293580830998065;
     this.physics.add.existing(tvStand, false);
@@ -81,7 +82,7 @@ export default class LivingRoomRoom extends Phaser.Scene {
     tvStand.body.setSize(128, 128, false);
 
     // tvTop
-    const tvTop = this.add.rectangle(-111, 1, 128, 128) as Phaser.GameObjects.Rectangle & { body: Phaser.Physics.Arcade.Body };
+    const tvTop = this.add.rectangle(25, 49, 128, 128) as Phaser.GameObjects.Rectangle & { body: Phaser.Physics.Arcade.Body };
     tvTop.scaleX = 0.20493352890319508;
     tvTop.scaleY = 0.014204021469748637;
     this.physics.add.existing(tvTop, false);
@@ -94,7 +95,7 @@ export default class LivingRoomRoom extends Phaser.Scene {
     tvTop.body.setSize(128, 128, false);
 
     // shelf1
-    const shelf1 = this.add.rectangle(-96, -37, 128, 128) as Phaser.GameObjects.Rectangle & { body: Phaser.Physics.Arcade.Body };
+    const shelf1 = this.add.rectangle(40, 11, 128, 128) as Phaser.GameObjects.Rectangle & { body: Phaser.Physics.Arcade.Body };
     shelf1.scaleX = 0.11560052847628377;
     shelf1.scaleY = 0.008867510416294662;
     this.physics.add.existing(shelf1, false);
@@ -107,7 +108,7 @@ export default class LivingRoomRoom extends Phaser.Scene {
     shelf1.body.setSize(128, 128, false);
 
     // shelf2
-    const shelf2 = this.add.rectangle(-76, -27, 128, 128) as Phaser.GameObjects.Rectangle & { body: Phaser.Physics.Arcade.Body };
+    const shelf2 = this.add.rectangle(60, 21, 128, 128) as Phaser.GameObjects.Rectangle & { body: Phaser.Physics.Arcade.Body };
     shelf2.scaleX = 0.11560052847628377;
     shelf2.scaleY = 0.008867510416294662;
     this.physics.add.existing(shelf2, false);
@@ -120,7 +121,7 @@ export default class LivingRoomRoom extends Phaser.Scene {
     shelf2.body.setSize(128, 128, false);
 
     // shelf4
-    const shelf4 = this.add.rectangle(-32, -9, 128, 128) as Phaser.GameObjects.Rectangle & { body: Phaser.Physics.Arcade.Body };
+    const shelf4 = this.add.rectangle(104, 39, 128, 128) as Phaser.GameObjects.Rectangle & { body: Phaser.Physics.Arcade.Body };
     shelf4.scaleX = 0.11560052847628377;
     shelf4.scaleY = 0.008867510416294662;
     this.physics.add.existing(shelf4, false);
@@ -133,7 +134,7 @@ export default class LivingRoomRoom extends Phaser.Scene {
     shelf4.body.setSize(128, 128, false);
 
     // shelf3
-    const shelf3 = this.add.rectangle(-35, -22, 128, 128) as Phaser.GameObjects.Rectangle & { body: Phaser.Physics.Arcade.Body };
+    const shelf3 = this.add.rectangle(101, 26, 128, 128) as Phaser.GameObjects.Rectangle & { body: Phaser.Physics.Arcade.Body };
     shelf3.scaleX = 0.2500096479077242;
     shelf3.scaleY = 0.010974028293181833;
     this.physics.add.existing(shelf3, false);
@@ -146,7 +147,7 @@ export default class LivingRoomRoom extends Phaser.Scene {
     shelf3.body.setSize(128, 128, false);
 
     // shelf5
-    const shelf5 = this.add.rectangle(-14, -15, 128, 128) as Phaser.GameObjects.Rectangle & { body: Phaser.Physics.Arcade.Body };
+    const shelf5 = this.add.rectangle(122, 33, 128, 128) as Phaser.GameObjects.Rectangle & { body: Phaser.Physics.Arcade.Body };
     shelf5.scaleX = 0.17125938070385924;
     shelf5.scaleY = 0.015110156673315774;
     this.physics.add.existing(shelf5, false);
@@ -159,7 +160,7 @@ export default class LivingRoomRoom extends Phaser.Scene {
     shelf5.body.setSize(128, 128, false);
 
     // endTable
-    const endTable = this.add.rectangle(-54, 18, 128, 128) as Phaser.GameObjects.Rectangle & { body: Phaser.Physics.Arcade.Body };
+    const endTable = this.add.rectangle(82, 66, 128, 128) as Phaser.GameObjects.Rectangle & { body: Phaser.Physics.Arcade.Body };
     endTable.scaleX = 0.14357039152693443;
     endTable.scaleY = 0.010285234854737129;
     this.physics.add.existing(endTable, false);
@@ -172,7 +173,7 @@ export default class LivingRoomRoom extends Phaser.Scene {
     endTable.body.setSize(128, 128, false);
 
     // couchTop
-    const couchTop = this.add.rectangle(-6, 5, 128, 128) as Phaser.GameObjects.Rectangle & { body: Phaser.Physics.Arcade.Body };
+    const couchTop = this.add.rectangle(130, 53, 128, 128) as Phaser.GameObjects.Rectangle & { body: Phaser.Physics.Arcade.Body };
     couchTop.scaleX = 0.4151705436687662;
     couchTop.scaleY = 0.02737810757995794;
     this.physics.add.existing(couchTop, false);
@@ -185,7 +186,7 @@ export default class LivingRoomRoom extends Phaser.Scene {
     couchTop.body.setSize(128, 128, false);
 
     // couchSeat
-    const couchSeat = this.add.rectangle(-7, 21, 128, 128) as Phaser.GameObjects.Rectangle & { body: Phaser.Physics.Arcade.Body };
+    const couchSeat = this.add.rectangle(129, 69, 128, 128) as Phaser.GameObjects.Rectangle & { body: Phaser.Physics.Arcade.Body };
     couchSeat.scaleX = 0.44656098782266507;
     couchSeat.scaleY = 0.02331888568057807;
     this.physics.add.existing(couchSeat, false);
@@ -198,7 +199,7 @@ export default class LivingRoomRoom extends Phaser.Scene {
     couchSeat.body.setSize(128, 128, false);
 
     // couchArmrest
-    const couchArmrest = this.add.rectangle(-39, 16, 128, 128) as Phaser.GameObjects.Rectangle & { body: Phaser.Physics.Arcade.Body };
+    const couchArmrest = this.add.rectangle(97, 64, 128, 128) as Phaser.GameObjects.Rectangle & { body: Phaser.Physics.Arcade.Body };
     couchArmrest.scaleX = 0.05423738735133331;
     couchArmrest.scaleY = 0.010004365842817744;
     this.physics.add.existing(couchArmrest, false);
@@ -211,7 +212,7 @@ export default class LivingRoomRoom extends Phaser.Scene {
     couchArmrest.body.setSize(128, 128, false);
 
     // couchArmrest_1
-    const couchArmrest_1 = this.add.rectangle(27, 16, 128, 128) as Phaser.GameObjects.Rectangle & { body: Phaser.Physics.Arcade.Body };
+    const couchArmrest_1 = this.add.rectangle(163, 64, 128, 128) as Phaser.GameObjects.Rectangle & { body: Phaser.Physics.Arcade.Body };
     couchArmrest_1.scaleX = 0.05423738735133331;
     couchArmrest_1.scaleY = 0.010004365842817744;
     this.physics.add.existing(couchArmrest_1, false);
@@ -224,7 +225,7 @@ export default class LivingRoomRoom extends Phaser.Scene {
     couchArmrest_1.body.setSize(128, 128, false);
 
     // shelf7
-    const shelf7 = this.add.rectangle(65, -21, 128, 128) as Phaser.GameObjects.Rectangle & { body: Phaser.Physics.Arcade.Body };
+    const shelf7 = this.add.rectangle(201, 27, 128, 128) as Phaser.GameObjects.Rectangle & { body: Phaser.Physics.Arcade.Body };
     shelf7.scaleX = 0.2500096479077242;
     shelf7.scaleY = 0.010974028293181833;
     this.physics.add.existing(shelf7, false);
@@ -237,7 +238,7 @@ export default class LivingRoomRoom extends Phaser.Scene {
     shelf7.body.setSize(128, 128, false);
 
     // shelf8
-    const shelf8 = this.add.rectangle(69, -7, 128, 128) as Phaser.GameObjects.Rectangle & { body: Phaser.Physics.Arcade.Body };
+    const shelf8 = this.add.rectangle(205, 41, 128, 128) as Phaser.GameObjects.Rectangle & { body: Phaser.Physics.Arcade.Body };
     shelf8.scaleX = 0.11560052847628377;
     shelf8.scaleY = 0.008867510416294662;
     this.physics.add.existing(shelf8, false);
@@ -250,7 +251,7 @@ export default class LivingRoomRoom extends Phaser.Scene {
     shelf8.body.setSize(128, 128, false);
 
     // shelf9
-    const shelf9 = this.add.rectangle(86, -14, 128, 128) as Phaser.GameObjects.Rectangle & { body: Phaser.Physics.Arcade.Body };
+    const shelf9 = this.add.rectangle(222, 34, 128, 128) as Phaser.GameObjects.Rectangle & { body: Phaser.Physics.Arcade.Body };
     shelf9.scaleX = 0.17125938070385924;
     shelf9.scaleY = 0.015110156673315774;
     this.physics.add.existing(shelf9, false);
@@ -263,7 +264,7 @@ export default class LivingRoomRoom extends Phaser.Scene {
     shelf9.body.setSize(128, 128, false);
 
     // chairSeat_1
-    const chairSeat_1 = this.add.rectangle(73, 24, 128, 128) as Phaser.GameObjects.Rectangle & { body: Phaser.Physics.Arcade.Body };
+    const chairSeat_1 = this.add.rectangle(209, 72, 128, 128) as Phaser.GameObjects.Rectangle & { body: Phaser.Physics.Arcade.Body };
     chairSeat_1.scaleX = 0.13639484769901022;
     chairSeat_1.scaleY = 0.03635253630518463;
     this.physics.add.existing(chairSeat_1, false);
@@ -276,7 +277,7 @@ export default class LivingRoomRoom extends Phaser.Scene {
     chairSeat_1.body.setSize(128, 128, false);
 
     // bookshelf1
-    const bookshelf1 = this.add.rectangle(128, -43, 128, 128) as Phaser.GameObjects.Rectangle & { body: Phaser.Physics.Arcade.Body };
+    const bookshelf1 = this.add.rectangle(264, 5, 128, 128) as Phaser.GameObjects.Rectangle & { body: Phaser.Physics.Arcade.Body };
     bookshelf1.scaleX = 0.31559330039357175;
     bookshelf1.scaleY = 0.014494846553710807;
     this.physics.add.existing(bookshelf1, false);
@@ -289,7 +290,7 @@ export default class LivingRoomRoom extends Phaser.Scene {
     bookshelf1.body.setSize(128, 128, false);
 
     // bookshelf2
-    const bookshelf2 = this.add.rectangle(128, -30, 128, 128) as Phaser.GameObjects.Rectangle & { body: Phaser.Physics.Arcade.Body };
+    const bookshelf2 = this.add.rectangle(264, 18, 128, 128) as Phaser.GameObjects.Rectangle & { body: Phaser.Physics.Arcade.Body };
     bookshelf2.scaleX = 0.31559330039357175;
     bookshelf2.scaleY = 0.014494846553710807;
     this.physics.add.existing(bookshelf2, false);
@@ -302,7 +303,7 @@ export default class LivingRoomRoom extends Phaser.Scene {
     bookshelf2.body.setSize(128, 128, false);
 
     // bookshelf3
-    const bookshelf3 = this.add.rectangle(128, -17, 128, 128) as Phaser.GameObjects.Rectangle & { body: Phaser.Physics.Arcade.Body };
+    const bookshelf3 = this.add.rectangle(264, 31, 128, 128) as Phaser.GameObjects.Rectangle & { body: Phaser.Physics.Arcade.Body };
     bookshelf3.scaleX = 0.31559330039357175;
     bookshelf3.scaleY = 0.014494846553710807;
     this.physics.add.existing(bookshelf3, false);
@@ -315,7 +316,7 @@ export default class LivingRoomRoom extends Phaser.Scene {
     bookshelf3.body.setSize(128, 128, false);
 
     // bookshelf4
-    const bookshelf4 = this.add.rectangle(128, -4, 128, 128) as Phaser.GameObjects.Rectangle & { body: Phaser.Physics.Arcade.Body };
+    const bookshelf4 = this.add.rectangle(264, 44, 128, 128) as Phaser.GameObjects.Rectangle & { body: Phaser.Physics.Arcade.Body };
     bookshelf4.scaleX = 0.31559330039357175;
     bookshelf4.scaleY = 0.014494846553710807;
     this.physics.add.existing(bookshelf4, false);
@@ -328,7 +329,7 @@ export default class LivingRoomRoom extends Phaser.Scene {
     bookshelf4.body.setSize(128, 128, false);
 
     // bookshelf5
-    const bookshelf5 = this.add.rectangle(128, 8, 128, 128) as Phaser.GameObjects.Rectangle & { body: Phaser.Physics.Arcade.Body };
+    const bookshelf5 = this.add.rectangle(264, 56, 128, 128) as Phaser.GameObjects.Rectangle & { body: Phaser.Physics.Arcade.Body };
     bookshelf5.scaleX = 0.31559330039357175;
     bookshelf5.scaleY = 0.014494846553710807;
     this.physics.add.existing(bookshelf5, false);

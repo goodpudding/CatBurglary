@@ -15,8 +15,8 @@ export function setupCat(
   cat: Phaser.Physics.Arcade.Sprite,
   catId: string,
   worldScale: number,
-  groundTop: number,
-  pinFeet: (cat: Phaser.Physics.Arcade.Sprite, groundTop: number) => void,
+  pinFeet: (cat: Phaser.Physics.Arcade.Sprite, standTop: number) => void,
+  resolveStandTop: () => number,
 ): { animator: CatAnimator; stats: CatStats } {
   const catDef = getCatDefinition(catId);
 
@@ -46,7 +46,7 @@ export function setupCat(
 
   cat.setCollideWorldBounds(true);
   cat.setDepth(10);
-  pinFeet(cat, groundTop);
+  pinFeet(cat, resolveStandTop());
 
   return { animator: new CatAnimator(scene, cat, catId), stats };
 }

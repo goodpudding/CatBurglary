@@ -6,7 +6,7 @@ export class CatAnimator {
   private sprite: Phaser.Physics.Arcade.Sprite;
   private scene: Phaser.Scene;
   private visualId: CatVisualId;
-  private state: 'idle' | 'walk' | 'air' = 'idle';
+  private state: 'idle' | 'walk' = 'idle';
 
   constructor(scene: Phaser.Scene, sprite: Phaser.Physics.Arcade.Sprite, catId: string) {
     this.scene = scene;
@@ -20,16 +20,14 @@ export class CatAnimator {
     this.sprite.texture?.setFilter(Phaser.Textures.FilterMode.NEAREST);
   };
 
-  update(moving: boolean, onGround: boolean, verticalVelocity: number): void {
-    if (!onGround && verticalVelocity < -30) {
-      if (this.state !== 'air') {
-        this.play('jump');
-        this.state = 'air';
+  update(moving: boolean, onGround: boolean): void {
+    if (!onGround) {
+      if (this.state !== 'idle') {
+        this.state = 'idle';
+        this.play('idle');
       }
       return;
     }
-
-    if (!onGround) return;
 
     const next: 'idle' | 'walk' = moving ? 'walk' : 'idle';
     if (this.state === next) return;
@@ -42,7 +40,7 @@ export class CatAnimator {
     this.sprite.setFlipX(!facingLeft);
   }
 
-  private play(kind: 'idle' | 'walk' | 'jump'): void {
+  private play(kind: 'idle' | 'walk'): void {
     const key = `${this.visualId}-${kind}`;
     if (!this.scene.anims.exists(key)) return;
     this.sprite.play(key, true);

@@ -25,19 +25,20 @@
             "type": "Image",
             "id": "bathroom-bg",
             "label": "cat_chaser_bathroom_1",
-            "texture": { "key": "cat-chaser-bathroom" },
-            "x": 0,
-            "y": -6
+            "texture": {
+                "key": "cat-chaser-bathroom"
+            },
+            "y": -6,
+            "flipX": true
         },
         {
             "type": "Rectangle",
             "id": "bathroom-floor",
             "label": "floor",
-            "x": 0,
-            "y": 44,
+            "x": -1,
+            "y": 30,
             "scaleX": 3.75,
             "scaleY": 0.1875,
-            "isFilled": false,
             "width": 128,
             "height": 128
         },
@@ -45,14 +46,19 @@
             "type": "ArcadeSprite",
             "id": "bathroom-player",
             "label": "player",
-            "texture": { "key": "orange-cat-sitting-sheet", "frame": 0 },
-            "x": -150,
-            "y": -14,
+            "texture": {
+                "key": "orange-cat-sitting-sheet",
+                "frame": 0
+            },
+            "x": -177,
+            "y": 7,
             "animationPlayMethod": 1,
             "animationKey": "orange-idle",
             "animationPreview": true,
             "body.geometry": 0,
             "body.radius": 8,
+            "body.width": 20,
+            "body.height": 20,
             "body.offset.x": 1,
             "body.offset.y": 4
         },
@@ -60,9 +66,12 @@
             "type": "ArcadeSprite",
             "id": "bathroom-granny",
             "label": "granny",
-            "texture": { "key": "granny-2-sheet", "frame": 0 },
-            "x": 60,
-            "y": 5,
+            "texture": {
+                "key": "granny-2-sheet",
+                "frame": 0
+            },
+            "x": -201,
+            "y": -10,
             "scaleX": 1.5,
             "scaleY": 1.5,
             "body.width": 12,
@@ -78,7 +87,6 @@
             "y": -14,
             "scaleX": 0.171875,
             "scaleY": 0.9375,
-            "isFilled": false,
             "width": 128,
             "height": 128
         }
@@ -89,6 +97,5 @@
         "url": "https://phaser.io/editor",
         "contentType": "phasereditor2d.core.scene.SceneContentType",
         "version": 5
-    },
-    "lists": []
+    }
 }

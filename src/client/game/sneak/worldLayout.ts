@@ -1,5 +1,5 @@
 import Phaser from 'phaser';
-import { FALLBACK_HEIGHT } from './constants.js';
+import { FALLBACK_HEIGHT, HUD_BOTTOM_PADDING, HUD_TOP_PADDING } from './constants.js';
 
 /**
  * One room fills the screen. We find the room's background art (a `cat-chaser-*`
@@ -40,13 +40,15 @@ export class WorldLayout {
     const cx = bg ? (bg.left + bg.right) / 2 : view.width / 2;
     const cy = bg ? (bg.top + bg.bottom) / 2 : view.height / 2;
 
-    // Contain-fit: the entire room is visible (letterboxed on the long axis).
-    const scale = Math.min(view.width / bgW, view.height / bgH);
+    // Contain-fit inside the play area below the HUD strip.
+    const availW = view.width;
+    const availH = view.height - HUD_TOP_PADDING - HUD_BOTTOM_PADDING;
+    const scale = Math.min(availW / bgW, availH / bgH);
 
-    // Scale every object around the room center, then translate the room center
-    // to the viewport center so the fixed camera shows the whole room.
+    // Scale around the room center, then place that center in the padded play area.
+    const playCenterY = HUD_TOP_PADDING + availH / 2;
     const tx = view.width / 2 - cx;
-    const ty = view.height / 2 - cy;
+    const ty = playCenterY - cy;
     for (const child of [...this.scene.children.list]) {
       this.transformChild(child, cx, cy, scale, tx, ty);
     }
@@ -57,8 +59,8 @@ export class WorldLayout {
     const scaledH = bgH * scale;
     this.roomLeft = view.width / 2 - scaledW / 2;
     this.roomRight = view.width / 2 + scaledW / 2;
-    this.roomTop = view.height / 2 - scaledH / 2;
-    this.roomBottom = view.height / 2 + scaledH / 2;
+    this.roomTop = playCenterY - scaledH / 2;
+    this.roomBottom = playCenterY + scaledH / 2;
     this.roomHeight = scaledH;
     this.groundTop = this.roomBottom - 60;
   }
@@ -109,7 +111,27 @@ export class WorldLayout {
       go.scaleY = (go.scaleY ?? 1) * scale;
     }
 
-    const body = (obj as { body?: { updateFromGameObject?: () => void } }).body;
-    body?.updateFromGameObject?.();
+    syncPhysicsBody(obj);
   }
+}
+
+/** Re-sync every Arcade body after layout moves/scales scene objects. */
+export function syncAllPhysicsBodies(scene: Phaser.Scene): void {
+  for (const child of scene.children.list) {
+    syncPhysicsBody(child);
+  }
+}
+
+function syncPhysicsBody(obj: Phaser.GameObjects.GameObject): void {
+  const body = (obj as {
+    body?: Phaser.Physics.Arcade.Body & { refreshBody?: () => void };
+  }).body;
+  if (!body) return;
+
+  if (typeof body.refreshBody === 'function') {
+    body.refreshBody();
+    return;
+  }
+
+  body.updateFromGameObject();
 }

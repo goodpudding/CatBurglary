@@ -48,6 +48,7 @@ export class GrannyController {
       body.setImmovable(true);
 
       this.pinToFloor(groundTop);
+      this.syncBody();
       this.initPatrolDirection();
       return;
     }
@@ -89,6 +90,18 @@ export class GrannyController {
     const pad = 80;
     this.minX = roomLeft + pad;
     this.maxX = roomRight - pad;
+  }
+
+  /** Hold position and face away from the cat while the entry grace period runs. */
+  beginEntryGrace(until: number, groundTop: number, faceAwayFromX: number): void {
+    this.pauseUntil = until;
+    this.patrolTargetX = null;
+    this.moved = false;
+    this.pinToFloor(groundTop);
+    this.syncBody();
+    this.dir = this.granny.x <= faceAwayFromX ? -1 : 1;
+    this.setFlip(this.dir < 0);
+    this.stopWalk();
   }
 
   /** Slow, lazy wandering: amble to a random spot, pause and look, repeat. */
@@ -156,7 +169,7 @@ export class GrannyController {
     this.pinToFloor(groundTop);
     const body = this.granny.body as Phaser.Physics.Arcade.Body;
     body.setVelocity(0, 0);
-    body.updateFromGameObject();
+    this.syncBody();
     this.setFlip(this.dir < 0);
   }
 
@@ -186,8 +199,12 @@ export class GrannyController {
   private pinToFloor(groundTop: number): void {
     const b = this.granny.getBounds();
     this.granny.y += groundTop - b.bottom;
-    const body = this.granny.body as Phaser.Physics.Arcade.Body;
-    body.updateFromGameObject();
+  }
+
+  private syncBody(): void {
+    const body = this.granny.body as Phaser.Physics.Arcade.Body & { refreshBody?: () => void };
+    if (typeof body.refreshBody === 'function') body.refreshBody();
+    else body.updateFromGameObject();
   }
 
   private setFlip(facingLeft: boolean): void {

@@ -15,16 +15,22 @@ import {
   CAT_DRAG,
   CHASE_SPEED,
   CROUCH_SPEED_SCALE,
+  DEBUG_PHYSICS,
   GRANNY_SPEED,
+  GRANNY_ENTRY_DELAY_MS,
+  GRANNY_ENTRY_MIN_GAP,
   INVULN_MS,
   RETRIEVE_SPEED,
 } from '../game/sneak/constants.js';
 import { StealthSystem } from '../game/sneak/stealth.js';
 import { SlipperSystem } from '../game/sneak/slipper.js';
+import { playIntroReveal } from '../game/sneak/introCutscene.js';
+import { PhysicsDebugOverlay } from '../game/sneak/physicsDebug.js';
 import { runState, bankCarriedAndAdvance, resetRun } from '../game/sneak/runState.js';
 import { FIRST_ROOM_KEY, getNextRoom, ROOM_ORDER, type RoomConfig } from '../game/sneak/roomConfig.js';
 import {
   enterFromLeft,
+  ensureGrannySeparationFromCat,
   isCatAtExit,
   playEntryFlourish,
   playExitTransition,
@@ -32,7 +38,7 @@ import {
   type RoomExit,
 } from '../game/sneak/roomTransition.js';
 import type { TreatTarget } from '../game/sneak/types.js';
-import { WorldLayout } from '../game/sneak/worldLayout.js';
+import { WorldLayout, syncAllPhysicsBodies } from '../game/sneak/worldLayout.js';
 
 /**
  * SneakGame — the shared per-room gameplay driver. Each room scene builds its
@@ -64,18 +70,22 @@ export class SneakGame {
   private exit?: RoomExit;
   private stealth!: StealthSystem;
   private slipper!: SlipperSystem;
+  private physicsDebug?: PhysicsDebugOverlay;
 
   private treats: TreatTarget[] = [];
   private moveSpeed = 280;
   private jumpVelocity = -720;
   private knockbackMultiplier = 1;
   private scoreMultiplier = 1;
+  private catBaseScaleX = 1;
   private catBaseScaleY = 1;
 
   private invulnUntil = 0;
   private runOver = false;
   private reachedExit = false;
   private started = false;
+  private introLock = false;
+  private grannyEntryDelayUntil = 0;
 
   constructor(
     private scene: Phaser.Scene,
@@ -127,8 +137,11 @@ export class SneakGame {
       this.cat,
       getSelectedCatId(),
       this.world.worldScale,
-      this.world.groundTop,
-      (c, gt) => this.platforms.pinCatFeet(c, gt),
+      (c, top) => this.platforms.pinCatFeet(c, top),
+      () =>
+        this.room.index === 0
+          ? this.platforms.findStandTopNear(this.cat, this.world.groundTop)
+          : this.world.groundTop,
     );
     this.catAnimator = animator;
     this.moveSpeed = stats.moveSpeed;
@@ -162,10 +175,29 @@ export class SneakGame {
     collected.window?.setVisible(false);
 
     this.grannyCtrl.setup(collected.granny, this.world.groundTop, this.world.roomLeft, this.world.roomRight);
+    this.catBaseScaleX = this.cat.scaleX;
     this.catBaseScaleY = this.cat.scaleY;
 
-    // Enter from the left as if walking in from the previous room.
-    enterFromLeft(this.scene, this.cat, this.world.roomLeft, this.world.groundTop);
+    // Fresh run / first room: keep the editor-authored spawn. Later rooms: enter
+    // from the left as if walking in from the previous room.
+    if (this.room.index > 0) {
+      enterFromLeft(this.scene, this.cat, this.world.roomLeft, this.world.groundTop);
+      this.grannyEntryDelayUntil = this.scene.time.now + GRANNY_ENTRY_DELAY_MS;
+      ensureGrannySeparationFromCat(
+        this.grannyCtrl.granny,
+        this.cat,
+        this.world.roomLeft,
+        this.world.roomRight,
+        this.world.groundTop,
+        GRANNY_ENTRY_MIN_GAP,
+      );
+      this.grannyCtrl.beginEntryGrace(
+        this.grannyEntryDelayUntil,
+        this.world.groundTop,
+        this.cat.x,
+      );
+      this.invulnUntil = Math.max(this.invulnUntil, this.grannyEntryDelayUntil);
+    }
 
     const occluders = [...collected.furniture, ...collected.surfaces];
     this.stealth = new StealthSystem(
@@ -194,22 +226,53 @@ export class SneakGame {
       this.cat,
       this.platforms.furniturePlatforms,
       undefined,
-      this.platforms.createLandFilter(() => this.input.dropThroughUntil),
+      this.platforms.createLandFilter(() => this.input.dropThroughBody),
       this,
     );
     this.scene.physics.add.overlap(this.cat, this.treats, this.onCollectTreat, undefined, this);
     this.scene.physics.add.overlap(this.cat, this.grannyCtrl.granny, this.onHitByGranny, undefined, this);
 
-    this.platforms.pinCatFeet(this.cat, this.world.groundTop);
-
     const w = this.world.roomWidth;
+    const viewW = this.scene.scale.width;
+    const viewH = this.scene.scale.height;
     this.scene.physics.world.setBounds(this.world.roomLeft, this.world.roomTop - 200, w, this.world.roomHeight + 260);
-    this.scene.cameras.main.setBounds(this.world.roomLeft, this.world.roomTop, w, this.world.roomHeight);
-    this.scene.cameras.main.setBackgroundColor('#241c2b');
-    this.scene.cameras.main.setZoom(1);
-    this.scene.cameras.main.centerOn(this.world.roomCenterX, this.world.roomCenterY);
+    const cam = this.scene.cameras.main;
+    // Room objects already live in viewport space — keep scroll at origin so
+    // sprites and Arcade debug hitboxes stay aligned.
+    cam.setBounds(0, 0, viewW, viewH);
+    cam.setScroll(0, 0);
+    cam.setBackgroundColor('#241c2b');
+    cam.setZoom(1);
     this.hud.applyScale(1);
-    playEntryFlourish(this.scene);
+    syncAllPhysicsBodies(this.scene);
+
+    if (this.room.index === 0) {
+      // First room of the run: play the pop-in + zoom-out intro before handing
+      // control to the player. Freeze the world so nothing moves mid-cutscene.
+      this.introLock = true;
+      this.scene.physics.world.pause();
+      playIntroReveal(this.scene, cam, {
+        cat: this.cat,
+        catScaleX: this.catBaseScaleX,
+        catScaleY: this.catBaseScaleY,
+        focusX: this.cat.x,
+        focusY: this.cat.y,
+        roomCenterX: this.world.roomCenterX,
+        roomCenterY: this.world.roomCenterY,
+        startZoom: 2.4,
+        onComplete: () => {
+          this.introLock = false;
+          this.scene.physics.world.resume();
+          syncAllPhysicsBodies(this.scene);
+        },
+      });
+    } else {
+      playEntryFlourish(this.scene);
+    }
+
+    if (DEBUG_PHYSICS) {
+      this.physicsDebug = new PhysicsDebugOverlay(this.scene);
+    }
 
     this.scene.events.on(Phaser.Scenes.Events.UPDATE, this.onUpdate, this);
     this.scene.events.once(Phaser.Scenes.Events.SHUTDOWN, this.teardown, this);
@@ -258,6 +321,7 @@ export class SneakGame {
 
   /** Overlap with granny only hurts once she is fully alert and chasing. */
   private onHitByGranny: Phaser.Types.Physics.Arcade.ArcadePhysicsCallback = () => {
+    if (this.scene.time.now < this.grannyEntryDelayUntil) return;
     if (this.stealth?.state !== 'alert') return;
     this.hitCat();
   };
@@ -265,9 +329,10 @@ export class SneakGame {
   /** Shared damage from a chase touch or a slipper hit: lose a life + drop carried treats. */
   private hitCat(): void {
     if (this.runOver || this.scene.time.now < this.invulnUntil) return;
+    if (this.scene.time.now < this.grannyEntryDelayUntil) return;
     runState.lives -= 1;
     this.invulnUntil = this.scene.time.now + INVULN_MS;
-    this.input.dropThroughUntil = 0;
+    this.input.dropThroughBody = null;
 
     if (runState.carried > 0) {
       this.hud.showBankFlash(`Dropped ${runState.carried} treats!`);
@@ -311,7 +376,7 @@ export class SneakGame {
   }
 
   private onUpdate(time: number, delta: number): void {
-    if (this.runOver || !this.cat) return;
+    if (this.runOver || this.introLock || !this.cat) return;
 
     const body = this.cat.body as Phaser.Physics.Arcade.Body;
     const left = this.input.cursors.left.isDown || this.input.touchLeft;
@@ -320,7 +385,7 @@ export class SneakGame {
     const onGround = body.blocked.down || body.touching.down;
     const crouching = this.input.crouching && onGround && !jump;
 
-    this.input.applyDropThrough(this.cat, onGround);
+    this.input.applyDropThrough(this.cat, onGround, () => this.platforms.getPlatformUnderCat(this.cat));
     this.applyCrouchSquash(crouching);
 
     // Acceleration-based movement: light taps ease in slowly (little speed),
@@ -341,18 +406,22 @@ export class SneakGame {
       this.cat.setVelocityY(this.jumpVelocity);
     }
 
-    const dropping = this.input.dropThroughUntil > time;
+    const dropping = this.input.dropThroughBody !== null;
     if (onGround && !jump && !dropping) {
       body.setVelocityY(0);
     }
 
+    if (this.input.dropThroughBody && body.bottom > this.input.dropThroughBody.top + 10) {
+      this.input.dropThroughBody = null;
+    }
+
     const moving = Math.abs(body.velocity.x) > 8;
-    this.catAnimator.update(moving, onGround, body.velocity.y);
+    this.catAnimator.update(moving, onGround);
 
     // Safety net: only if the cat clearly slips well below the floor line
     // (genuine tunneling), snap it back up. The margin avoids touching normal
     // landings or shelf drop-throughs.
-    if (body.bottom > this.world.groundTop + 24) {
+    if (body.bottom > this.world.groundTop + 24 && !this.input.dropThroughBody) {
       this.platforms.clampCatAboveFloor(this.cat, this.world.groundTop);
     }
 
@@ -368,6 +437,13 @@ export class SneakGame {
 
   /** Drives granny's awareness, throwing, and movement mode each frame. */
   private updateGranny(delta: number): void {
+    if (this.scene.time.now < this.grannyEntryDelayUntil) {
+      this.grannyCtrl.moved = false;
+      this.grannyCtrl.stopWalk();
+      this.hud.updateDetection(0, 'patrol');
+      return;
+    }
+
     const body = this.cat.body as Phaser.Physics.Arcade.Body;
     const moving = Math.abs(body.velocity.x) > 4;
     const crouching = this.input.crouching && (body.blocked.down || body.touching.down);
@@ -422,6 +498,7 @@ export class SneakGame {
   }
 
   private teardown(): void {
+    this.physicsDebug?.destroy();
     this.cosmeticAttachments?.destroy();
     this.stealth?.destroy();
     this.slipper?.destroy();

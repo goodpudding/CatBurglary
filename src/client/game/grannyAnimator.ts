@@ -17,11 +17,11 @@ export function applyGrannyTextureFilters(scene: Phaser.Scene): void {
 
 /** 4-frame walk on the pink granny sheet only (granny-1 is purple — kept for later). */
 export function ensureGrannyWalkAnim(scene: Phaser.Scene): void {
-  if (scene.anims.exists('granny-walk')) return;
+  if (scene.anims.exists('newgrannywalk')) return;
 
   if (scene.textures.exists('granny-2-sheet')) {
     scene.anims.create({
-      key: 'granny-walk',
+      key: 'newgrannywalk',
       frames: scene.anims.generateFrameNumbers('granny-2-sheet', { start: 0, end: 3 }),
       frameRate: 10,
       repeat: -1,
@@ -31,7 +31,7 @@ export function ensureGrannyWalkAnim(scene: Phaser.Scene): void {
 
   if (scene.textures.exists('granny-1-sheet')) {
     scene.anims.create({
-      key: 'granny-walk',
+      key: 'newgrannywalk',
       frames: scene.anims.generateFrameNumbers('granny-1-sheet', { start: 0, end: 3 }),
       frameRate: 10,
       repeat: -1,
@@ -43,7 +43,7 @@ export function ensureGrannyWalkAnim(scene: Phaser.Scene): void {
     const total = scene.textures.get('Wizard_Walking-Sheet').frameTotal;
     if (total > 1) {
       scene.anims.create({
-        key: 'granny-walk',
+        key: 'newgrannywalk',
         frames: scene.anims.generateFrameNumbers('Wizard_Walking-Sheet', { start: 0, end: total - 1 }),
         frameRate: 8,
         repeat: -1,
@@ -61,7 +61,7 @@ export function playGrannyWalk(
   applyGrannyTextureFilters(scene);
   ensureGrannyWalkAnim(scene);
 
-  if (granny instanceof Phaser.Physics.Arcade.Sprite && scene.anims.exists('granny-walk')) {
-    granny.anims.play('granny-walk', true);
+  if (granny instanceof Phaser.Physics.Arcade.Sprite && scene.anims.exists('newgrannywalk')) {
+    granny.anims.play('newgrannywalk', true);
   }
 }

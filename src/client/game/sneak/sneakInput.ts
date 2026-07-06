@@ -1,5 +1,5 @@
 import Phaser from 'phaser';
-import { DOUBLE_TAP_MS, DROP_THROUGH_MS } from './constants.js';
+import { DOUBLE_TAP_MS } from './constants.js';
 
 export class SneakInput {
   readonly cursors: Phaser.Types.Input.Keyboard.CursorKeys;
@@ -17,7 +17,7 @@ export class SneakInput {
   private touchJumpQueued = false;
 
   private lastDownTapAt = 0;
-  dropThroughUntil = 0;
+  dropThroughBody: Phaser.Physics.Arcade.StaticBody | null = null;
 
   constructor(
     private scene: Phaser.Scene,
@@ -87,7 +87,11 @@ export class SneakInput {
     return keyboard || touch;
   }
 
-  applyDropThrough(cat: Phaser.Physics.Arcade.Sprite, onGround: boolean): void {
+  applyDropThrough(
+    cat: Phaser.Physics.Arcade.Sprite,
+    onGround: boolean,
+    getStandingPlatform: () => Phaser.Physics.Arcade.StaticBody | null,
+  ): void {
     const downJust =
       Phaser.Input.Keyboard.JustDown(this.cursors.down) ||
       Phaser.Input.Keyboard.JustDown(this.downKey);
@@ -95,9 +99,11 @@ export class SneakInput {
 
     const now = this.scene.time.now;
     if (onGround && now - this.lastDownTapAt < DOUBLE_TAP_MS) {
-      this.dropThroughUntil = now + DROP_THROUGH_MS;
-      const body = cat.body as Phaser.Physics.Arcade.Body;
-      body.setVelocityY(Math.max(body.velocity.y, 80));
+      this.dropThroughBody = getStandingPlatform();
+      if (this.dropThroughBody) {
+        cat.y += 2;
+        (cat.body as Phaser.Physics.Arcade.Body).updateFromGameObject();
+      }
     }
     this.lastDownTapAt = now;
   }
