@@ -1,5 +1,16 @@
 [
   {
+    "id": "bottle-of-wine",
+    "file": "Bottle of Wine.aseprite",
+    "key": "furniture-bottle-of-wine",
+    "path": "furniture/bottle-of-wine.png",
+    "width": 7,
+    "height": 12,
+    "frameWidth": 7,
+    "frameHeight": 12,
+    "frameCount": 1
+  },
+  {
     "id": "cabinets",
     "file": "Cabinets.aseprite",
     "key": "furniture-cabinets",
@@ -11,6 +22,83 @@
     "frameCount": 1
   },
   {
+    "id": "cat-chaser-bathroom",
+    "file": "Cat Chaser Bathroom.aseprite",
+    "key": "furniture-cat-chaser-bathroom",
+    "path": "furniture/cat-chaser-bathroom.png",
+    "width": 362,
+    "height": 98,
+    "frameWidth": 362,
+    "frameHeight": 98,
+    "frameCount": 1
+  },
+  {
+    "id": "cat-chaser-hallway",
+    "file": "Cat Chaser Hallway.aseprite",
+    "key": "furniture-cat-chaser-hallway",
+    "path": "furniture/cat-chaser-hallway.png",
+    "width": 362,
+    "height": 114,
+    "frameWidth": 362,
+    "frameHeight": 114,
+    "frameCount": 1
+  },
+  {
+    "id": "cat-chaser-intro",
+    "file": "Cat Chaser Intro.aseprite",
+    "key": "furniture-cat-chaser-intro",
+    "path": "furniture/cat-chaser-intro.png",
+    "width": 2976,
+    "height": 41,
+    "frameWidth": 62,
+    "frameHeight": 41,
+    "frameCount": 48
+  },
+  {
+    "id": "cat-chaser-kitchen",
+    "file": "Cat Chaser Kitchen.aseprite",
+    "key": "furniture-cat-chaser-kitchen",
+    "path": "furniture/cat-chaser-kitchen.png",
+    "width": 362,
+    "height": 122,
+    "frameWidth": 362,
+    "frameHeight": 122,
+    "frameCount": 1
+  },
+  {
+    "id": "cat-chaser-livingroom",
+    "file": "Cat Chaser Livingroom.aseprite",
+    "key": "furniture-cat-chaser-livingroom",
+    "path": "furniture/cat-chaser-livingroom.png",
+    "width": 362,
+    "height": 109,
+    "frameWidth": 362,
+    "frameHeight": 109,
+    "frameCount": 1
+  },
+  {
+    "id": "chihuahua-barking",
+    "file": "Chihuahua Barking.aseprite",
+    "key": "furniture-chihuahua-barking",
+    "path": "furniture/chihuahua-barking.png",
+    "width": 64,
+    "height": 32,
+    "frameWidth": 32,
+    "frameHeight": 32,
+    "frameCount": 2
+  },
+  {
+    "id": "chihuahua-walking",
+    "file": "Chihuahua Walking.aseprite",
+    "key": "furniture-chihuahua-walking",
+    "path": "furniture/chihuahua-walking.png",
+    "width": 108,
+    "height": 16,
+    "frameWidth": 27,
+    "frameHeight": 16,
+    "frameCount": 4
+  },
+  {
     "id": "clock",
     "file": "Clock.aseprite",
     "key": "furniture-clock",
@@ -19,6 +107,17 @@
     "height": 32,
     "frameWidth": 23,
     "frameHeight": 32,
+    "frameCount": 1
+  },
+  {
+    "id": "cooking-pot",
+    "file": "Cooking Pot.aseprite",
+    "key": "furniture-cooking-pot",
+    "path": "furniture/cooking-pot.png",
+    "width": 16,
+    "height": 12,
+    "frameWidth": 16,
+    "frameHeight": 12,
     "frameCount": 1
   },
   {
@@ -33,6 +132,50 @@
     "frameCount": 1
   },
   {
+    "id": "fish-treat",
+    "file": "Fish Treat.aseprite",
+    "key": "furniture-fish-treat",
+    "path": "furniture/fish-treat.png",
+    "width": 64,
+    "height": 16,
+    "frameWidth": 16,
+    "frameHeight": 16,
+    "frameCount": 4
+  },
+  {
+    "id": "flower-picture",
+    "file": "Flower Picture.aseprite",
+    "key": "furniture-flower-picture",
+    "path": "furniture/flower-picture.png",
+    "width": 27,
+    "height": 31,
+    "frameWidth": 27,
+    "frameHeight": 31,
+    "frameCount": 1
+  },
+  {
+    "id": "grandpa-throwing",
+    "file": "Grandpa Throwing.aseprite",
+    "key": "furniture-grandpa-throwing",
+    "path": "furniture/grandpa-throwing.png",
+    "width": 128,
+    "height": 33,
+    "frameWidth": 32,
+    "frameHeight": 33,
+    "frameCount": 4
+  },
+  {
+    "id": "grandpa-throwing-1",
+    "file": "Grandpa Throwing (1).aseprite",
+    "key": "furniture-grandpa-throwing-1",
+    "path": "furniture/grandpa-throwing-1.png",
+    "width": 192,
+    "height": 33,
+    "frameWidth": 32,
+    "frameHeight": 33,
+    "frameCount": 6
+  },
+  {
     "id": "kitchen-chair",
     "file": "Kitchen Chair.aseprite",
     "key": "furniture-kitchen-chair",
@@ -41,6 +184,17 @@
     "height": 32,
     "frameWidth": 32,
     "frameHeight": 32,
+    "frameCount": 1
+  },
+  {
+    "id": "kitchen-floor",
+    "file": "Kitchen Floor.aseprite",
+    "key": "furniture-kitchen-floor",
+    "path": "furniture/kitchen-floor.png",
+    "width": 84,
+    "height": 22,
+    "frameWidth": 84,
+    "frameHeight": 22,
     "frameCount": 1
   },
   {
@@ -66,6 +220,17 @@
     "frameCount": 1
   },
   {
+    "id": "living-room-fllor",
+    "file": "Living Room Fllor.aseprite",
+    "key": "furniture-living-room-fllor",
+    "path": "furniture/living-room-fllor.png",
+    "width": 51,
+    "height": 15,
+    "frameWidth": 51,
+    "frameHeight": 15,
+    "frameCount": 1
+  },
+  {
     "id": "livingroom-bookshelf",
     "file": "Livingroom Bookshelf.aseprite",
     "key": "furniture-livingroom-bookshelf",
@@ -74,6 +239,50 @@
     "height": 90,
     "frameWidth": 90,
     "frameHeight": 90,
+    "frameCount": 1
+  },
+  {
+    "id": "mirror",
+    "file": "Mirror.aseprite",
+    "key": "furniture-mirror",
+    "path": "furniture/mirror.png",
+    "width": 15,
+    "height": 27,
+    "frameWidth": 15,
+    "frameHeight": 27,
+    "frameCount": 1
+  },
+  {
+    "id": "orange-cat-jump",
+    "file": "Orange Cat Jump.aseprite",
+    "key": "furniture-orange-cat-jump",
+    "path": "furniture/orange-cat-jump.png",
+    "width": 192,
+    "height": 32,
+    "frameWidth": 32,
+    "frameHeight": 32,
+    "frameCount": 6
+  },
+  {
+    "id": "orange-cat-walking",
+    "file": "Orange Cat Walking.aseprite",
+    "key": "furniture-orange-cat-walking",
+    "path": "furniture/orange-cat-walking.png",
+    "width": 152,
+    "height": 17,
+    "frameWidth": 19,
+    "frameHeight": 17,
+    "frameCount": 8
+  },
+  {
+    "id": "plate",
+    "file": "Plate.aseprite",
+    "key": "furniture-plate",
+    "path": "furniture/plate.png",
+    "width": 12,
+    "height": 11,
+    "frameWidth": 12,
+    "frameHeight": 11,
     "frameCount": 1
   },
   {
@@ -86,6 +295,17 @@
     "frameWidth": 28,
     "frameHeight": 23,
     "frameCount": 1
+  },
+  {
+    "id": "slipper",
+    "file": "Slipper.aseprite",
+    "key": "furniture-slipper",
+    "path": "furniture/slipper.png",
+    "width": 64,
+    "height": 16,
+    "frameWidth": 16,
+    "frameHeight": 16,
+    "frameCount": 4
   },
   {
     "id": "sofa-couch",
@@ -121,6 +341,28 @@
     "frameCount": 1
   },
   {
+    "id": "toaster",
+    "file": "Toaster.aseprite",
+    "key": "furniture-toaster",
+    "path": "furniture/toaster.png",
+    "width": 24,
+    "height": 13,
+    "frameWidth": 24,
+    "frameHeight": 13,
+    "frameCount": 1
+  },
+  {
+    "id": "tp-flying",
+    "file": "TP Flying.aseprite",
+    "key": "furniture-tp-flying",
+    "path": "furniture/tp-flying.png",
+    "width": 32,
+    "height": 16,
+    "frameWidth": 16,
+    "frameHeight": 16,
+    "frameCount": 2
+  },
+  {
     "id": "tv",
     "file": "TV.aseprite",
     "key": "furniture-tv",
@@ -140,6 +382,17 @@
     "height": 25,
     "frameWidth": 53,
     "frameHeight": 25,
+    "frameCount": 1
+  },
+  {
+    "id": "wall-phone",
+    "file": "Wall Phone.aseprite",
+    "key": "furniture-wall-phone",
+    "path": "furniture/wall-phone.png",
+    "width": 15,
+    "height": 19,
+    "frameWidth": 15,
+    "frameHeight": 19,
     "frameCount": 1
   }
 ]

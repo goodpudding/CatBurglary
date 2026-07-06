@@ -2,6 +2,93 @@
     "section1": {
         "files": [
             {
+                "url": "furniture/bottle-of-wine.png",
+                "type": "image",
+                "key": "bottle-of-wine"
+            },
+            {
+                "url": "Cat Chaser Intro.aseprite",
+                "type": "binary",
+                "key": "Cat Chaser Intro"
+            },
+            {
+                "url": "furniture/cat-chaser-bathroom.png",
+                "frameConfig": {
+                    "frameWidth": 32,
+                    "frameHeight": 32,
+                    "startFrame": 0,
+                    "endFrame": -1,
+                    "spacing": 0,
+                    "margin": 0
+                },
+                "type": "spritesheet",
+                "key": "cat-chaser-bathroom"
+            },
+            {
+                "url": "furniture/cat-chaser-hallway.png",
+                "type": "image",
+                "key": "cat-chaser-hallway"
+            },
+            {
+                "url": "furniture/cat-chaser-kitchen.png",
+                "type": "image",
+                "key": "cat-chaser-kitchen"
+            },
+            {
+                "url": "furniture/cat-chaser-livingroom.png",
+                "type": "image",
+                "key": "cat-chaser-livingroom"
+            },
+            {
+                "url": "furniture/chihuahua-barking.png",
+                "frameConfig": {
+                    "frameWidth": 32,
+                    "frameHeight": 32,
+                    "startFrame": 0,
+                    "endFrame": -1,
+                    "spacing": 0,
+                    "margin": 0
+                },
+                "type": "spritesheet",
+                "key": "chihuahua-barking"
+            },
+            {
+                "url": "furniture/chihuahua-walking.png",
+                "frameConfig": {
+                    "frameWidth": 27,
+                    "frameHeight": 27,
+                    "startFrame": 0,
+                    "endFrame": -1,
+                    "spacing": 0,
+                    "margin": 0
+                },
+                "type": "spritesheet",
+                "key": "chihuahua-walking"
+            },
+            {
+                "url": "furniture/cooking-pot.png",
+                "type": "image",
+                "key": "cooking-pot"
+            },
+            {
+                "url": "furniture/fish-treat.png",
+                "frameConfig": {
+                    "frameWidth": 16,
+                    "frameHeight": 32,
+                    "startFrame": 0,
+                    "endFrame": -1,
+                    "spacing": 0,
+                    "margin": 0
+                },
+                "type": "spritesheet",
+                "key": "fish-treat"
+            },
+            {
+                "url": "furniture/flower-picture.png",
+                "type": "image",
+                "key": "flower-picture"
+            },
+            {
                 "type": "image",
                 "key": "furniture-cabinets",
                 "url": "furniture/cabinets.png"
@@ -67,6 +154,32 @@
                 "url": "furniture/tv-stand-table.png"
             },
             {
+                "url": "furniture/grandpa-throwing.png",
+                "frameConfig": {
+                    "frameWidth": 32,
+                    "frameHeight": 32,
+                    "startFrame": 0,
+                    "endFrame": -1,
+                    "spacing": 0,
+                    "margin": 0
+                },
+                "type": "spritesheet",
+                "key": "grandpa-throwing"
+            },
+            {
+                "url": "furniture/grandpa-throwing-1.png",
+                "frameConfig": {
+                    "frameWidth": 32,
+                    "frameHeight": 32,
+                    "startFrame": 0,
+                    "endFrame": -1,
+                    "spacing": 0,
+                    "margin": 0
+                },
+                "type": "spritesheet",
+                "key": "grandpa-throwing-1"
+            },
+            {
                 "url": "granny/granny-1-sheet.png",
                 "frameConfig": {
                     "frameWidth": 48,
@@ -91,6 +204,216 @@
                 },
                 "type": "spritesheet",
                 "key": "granny-2-sheet"
+            },
+            {
+                "url": "cats/gray-cat-sitting.png",
+                "frameConfig": {
+                    "frameWidth": 20,
+                    "frameHeight": 32,
+                    "startFrame": 0,
+                    "endFrame": -1,
+                    "spacing": 0,
+                    "margin": 0
+                },
+                "type": "spritesheet",
+                "key": "gray-cat-sitting"
+            },
+            {
+                "url": "cats/gray-cat-stand-to-sit-sheet.png",
+                "frameConfig": {
+                    "frameWidth": 25,
+                    "frameHeight": 32,
+                    "startFrame": 0,
+                    "endFrame": -1,
+                    "spacing": 0,
+                    "margin": 0
+                },
+                "type": "spritesheet",
+                "key": "gray-cat-stand-to-sit-sheet"
+            },
+            {
+                "url": "cats/gray-cat-walking-sheet.png",
+                "frameConfig": {
+                    "frameWidth": 25,
+                    "frameHeight": 32,
+                    "startFrame": 0,
+                    "endFrame": -1,
+                    "spacing": 0,
+                    "margin": 0
+                },
+                "type": "spritesheet",
+                "key": "gray-cat-walking-sheet"
+            },
+            {
+                "url": "Kitchen Floor.aseprite",
+                "type": "binary",
+                "key": "Kitchen Floor"
+            },
+            {
+                "url": "furniture/kitchen-floor.png",
+                "type": "image",
+                "key": "kitchen-floor"
+            },
+            {
+                "url": "furniture/living-room-fllor.png",
+                "type": "image",
+                "key": "living-room-fllor"
+            },
+            {
+                "url": "cats/marshmellow-sitting.png",
+                "frameConfig": {
+                    "frameWidth": 25,
+                    "frameHeight": 32,
+                    "startFrame": 0,
+                    "endFrame": -1,
+                    "spacing": 0,
+                    "margin": 0
+                },
+                "type": "spritesheet",
+                "key": "marshmellow-sitting"
+            },
+            {
+                "url": "cats/marshmellow-sitting-sheet.png",
+                "frameConfig": {
+                    "frameWidth": 25,
+                    "frameHeight": 25,
+                    "startFrame": 0,
+                    "endFrame": -1,
+                    "spacing": 0,
+                    "margin": 0
+                },
+                "type": "spritesheet",
+                "key": "marshmellow-sitting-sheet"
+            },
+            {
+                "url": "furniture/mirror.png",
+                "frameConfig": {
+                    "frameWidth": 32,
+                    "frameHeight": 32,
+                    "startFrame": 0,
+                    "endFrame": -1,
+                    "spacing": 0,
+                    "margin": 0
+                },
+                "type": "spritesheet",
+                "key": "mirror"
+            },
+            {
+                "url": "furniture/orange-cat-jump.png",
+                "frameConfig": {
+                    "frameWidth": 32,
+                    "frameHeight": 20,
+                    "startFrame": 0,
+                    "endFrame": -1,
+                    "spacing": 0,
+                    "margin": 0
+                },
+                "type": "spritesheet",
+                "key": "orange-cat-jump"
+            },
+            {
+                "url": "cats/orange-cat-sitting-sheet.png",
+                "frameConfig": {
+                    "frameWidth": 20,
+                    "frameHeight": 20,
+                    "startFrame": 0,
+                    "endFrame": -1,
+                    "spacing": 0,
+                    "margin": 0
+                },
+                "type": "spritesheet",
+                "key": "orange-cat-sitting-sheet"
+            },
+            {
+                "url": "cats/orange-cat-stand-to-sit-sheet.png",
+                "frameConfig": {
+                    "frameWidth": 24,
+                    "frameHeight": 20,
+                    "startFrame": 0,
+                    "endFrame": -1,
+                    "spacing": 0,
+                    "margin": 0
+                },
+                "type": "spritesheet",
+                "key": "orange-cat-stand-to-sit-sheet"
+            },
+            {
+                "url": "cats/orange-cat-walking-sheet.png",
+                "frameConfig": {
+                    "frameWidth": 25,
+                    "frameHeight": 20,
+                    "startFrame": 0,
+                    "endFrame": -1,
+                    "spacing": 0,
+                    "margin": 0
+                },
+                "type": "spritesheet",
+                "key": "orange-cat-walking-sheet"
+            },
+            {
+                "url": "furniture/plate.png",
+                "frameConfig": {
+                    "frameWidth": 32,
+                    "frameHeight": 32,
+                    "startFrame": 0,
+                    "endFrame": -1,
+                    "spacing": 0,
+                    "margin": 0
+                },
+                "type": "spritesheet",
+                "key": "plate"
+            },
+            {
+                "url": "furniture/slipper.png",
+                "frameConfig": {
+                    "frameWidth": 16,
+                    "frameHeight": 16,
+                    "startFrame": 0,
+                    "endFrame": -1,
+                    "spacing": 0,
+                    "margin": 0
+                },
+                "type": "spritesheet",
+                "key": "slipper"
+            },
+            {
+                "url": "furniture/toaster.png",
+                "frameConfig": {
+                    "frameWidth": 32,
+                    "frameHeight": 32,
+                    "startFrame": 0,
+                    "endFrame": -1,
+                    "spacing": 0,
+                    "margin": 0
+                },
+                "type": "spritesheet",
+                "key": "toaster"
+            },
+            {
+                "url": "furniture/tp-flying.png",
+                "frameConfig": {
+                    "frameWidth": 16,
+                    "frameHeight": 32,
+                    "startFrame": 0,
+                    "endFrame": -1,
+                    "spacing": 0,
+                    "margin": 0
+                },
+                "type": "spritesheet",
+                "key": "tp-flying"
+            },
+            {
+                "url": "furniture/wall-phone.png",
+                "frameConfig": {
+                    "frameWidth": 32,
+                    "frameHeight": 32,
+                    "startFrame": 0,
+                    "endFrame": -1,
+                    "spacing": 0,
+                    "margin": 0
+                },
+                "type": "spritesheet",
+                "key": "wall-phone"
             },
             {
                 "url": "Wizard_Walking-Sheet.png",

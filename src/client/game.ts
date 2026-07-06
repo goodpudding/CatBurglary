@@ -1,5 +1,9 @@
 import Phaser from 'phaser';
-import HouseLevel from './scenes/HouseLevel.js';
+import BootScene from './scenes/BootScene.js';
+import KitchenRoom from './scenes/KitchenRoom.js';
+import LivingRoomRoom from './scenes/LivingRoomRoom.js';
+import HallwayRoom from './scenes/HallwayRoom.js';
+import BathroomRoom from './scenes/BathroomRoom.js';
 
 const config: Phaser.Types.Core.GameConfig = {
   type: Phaser.AUTO,
@@ -22,7 +26,7 @@ const config: Phaser.Types.Core.GameConfig = {
       debug: false,
     },
   },
-  scene: [HouseLevel],
+  scene: [BootScene, KitchenRoom, LivingRoomRoom, HallwayRoom, BathroomRoom],
 };
 
 document.addEventListener('DOMContentLoaded', () => {

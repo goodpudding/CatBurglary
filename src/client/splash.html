@@ -11,10 +11,17 @@
       <div class="logo-circle"></div>
       <div class="content">
         <h1 class="title" id="title">Cat Burglary</h1>
+        <p class="coins" id="coins" hidden></p>
         <p class="description">
           Sneak in through the kitchen window. Grab treats, dodge the slipper, bank your score at the window.
         </p>
       </div>
+      <nav class="splash-tabs" aria-label="Menu sections">
+        <button type="button" class="splash-tab active" data-panel="cats" aria-selected="true">Cats</button>
+        <button type="button" class="splash-tab" data-panel="shop" aria-selected="false">Shop</button>
+      </nav>
+      <section class="splash-panel" data-panel="cats" id="cat-picker" aria-label="Choose your cat"></section>
+      <section class="splash-panel" data-panel="shop" id="shop" aria-label="Cosmetic shop" hidden></section>
       <button class="start-button" id="start-button">Play</button>
       <div class="footer">
         <span class="docs-link" id="docs-link">Docs</span>

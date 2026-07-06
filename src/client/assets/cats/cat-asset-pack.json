@@ -24,7 +24,7 @@
                 "type": "spritesheet",
                 "key": "gray-cat-stand-to-sit-sheet",
                 "frameConfig": {
-                    "frameWidth": 25,
+                    "frameWidth": 20,
                     "frameHeight": 20,
                     "startFrame": 0,
                     "endFrame": -1,
@@ -37,7 +37,7 @@
                 "type": "spritesheet",
                 "key": "gray-cat-walking-sheet",
                 "frameConfig": {
-                    "frameWidth": 25,
+                    "frameWidth": 20,
                     "frameHeight": 20,
                     "startFrame": 0,
                     "endFrame": -1,
@@ -63,7 +63,7 @@
                 "type": "spritesheet",
                 "key": "marshmellow-sitting-sheet",
                 "frameConfig": {
-                    "frameWidth": 25,
+                    "frameWidth": 20,
                     "frameHeight": 20,
                     "startFrame": 0,
                     "endFrame": -1,
@@ -89,7 +89,7 @@
                 "type": "spritesheet",
                 "key": "orange-cat-stand-to-sit-sheet",
                 "frameConfig": {
-                    "frameWidth": 25,
+                    "frameWidth": 20,
                     "frameHeight": 20,
                     "startFrame": 0,
                     "endFrame": -1,

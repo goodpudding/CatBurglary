@@ -25,13 +25,14 @@ export default defineConfig({
   plugins: [clientAssetsCompat()],
   server: {
     port: 5173,
-    open: '/game.html',
+    open: '/splash.html',
   },
   build: {
     outDir: resolve(__dirname, 'dist-local'),
     emptyOutDir: true,
     rollupOptions: {
       input: {
+        splash: resolve(clientRoot, 'splash.html'),
         game: resolve(clientRoot, 'game.html'),
       },
     },
