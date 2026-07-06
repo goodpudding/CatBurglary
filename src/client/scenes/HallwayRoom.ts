@@ -9,41 +9,50 @@ import { assignEditorNames } from '../game/sneak/editorObjects.js';
 import { getRoomByKey } from '../game/sneak/roomConfig.js';
 /* END-USER-IMPORTS */
 
-/**
- * Hallway — MINIMAL scaffold. Background + floor + left-entrance player +
- * granny + a forward exit (right edge, toward the bathroom).
- * Place shelves (name "surface") and treats (name "treat_N") in Phaser Editor.
- */
 export default class HallwayRoom extends Phaser.Scene {
 
   constructor() {
     super("HallwayRoom");
+
+    /* START-USER-CTR-CODE */
+    // Write your code here.
+    /* END-USER-CTR-CODE */
+  }
+
+  preload(): void {
+
+    this.load.pack("cat-asset-pack", "client/assets/cats/cat-asset-pack.json");
+    this.load.pack("asset-pack", "client/assets/asset-pack.json");
+    this.load.pack("granny-asset-pack", "client/assets/granny/granny-asset-pack.json");
   }
 
   editorCreate(): void {
-    // Room background (swap for real hallway art in the editor)
+
+    // cat_chaser_hallway_1
     this.add.image(0, -6, "cat-chaser-hallway");
 
-    // Floor (invisible ground reference; the art draws the visible floor)
-    const floor = this.add.rectangle(0, 44, 480, 24, 0x000000, 0);
-    floor.name = 'floor';
+    // floor
+    const floor = this.add.rectangle(-1, 38, 128, 128);
+    floor.scaleX = 3.75;
+    floor.scaleY = 0.1875;
 
-    // player (left entrance)
-    const player = this.physics.add.sprite(-150, -14, "orange-cat-sitting-sheet", 0);
-    player.name = 'player';
+    // player
+    const player = this.physics.add.sprite(-168, 16, "orange-cat-sitting-sheet", 0);
+    player.body.setOffset(1, 4);
+    player.body.setCircle(8);
     player.play("orange-idle");
 
     // granny
-    const granny = this.physics.add.sprite(60, 5, "granny-2-sheet", 0);
-    granny.name = 'granny';
+    const granny = this.physics.add.sprite(-206, -1, "granny-2-sheet", 0);
     granny.scaleX = 1.5;
     granny.scaleY = 1.5;
     granny.body.setOffset(13, 9);
     granny.body.setSize(12, 33, false);
 
-    // exit → into the Bathroom (tall trigger strip, no physics body)
-    const exit = this.add.rectangle(165, -14, 22, 120, 0x3a6ea5, 0);
-    exit.name = 'exit';
+    // exit
+    const exit = this.add.rectangle(165, -14, 128, 128);
+    exit.scaleX = 0.171875;
+    exit.scaleY = 0.9375;
 
     this.events.emit("scene-awake");
   }
