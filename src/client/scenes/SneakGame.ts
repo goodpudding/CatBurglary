@@ -109,7 +109,7 @@ export class SneakGame {
       collected.surfaces,
       this.world.roomLeft,
       this.world.roomRight,
-      this.world.roomHeight,
+      this.world.roomBottom,
     );
     this.platforms.refreshBodies();
     this.world.groundTop = this.platforms.readGroundTop(this.world.groundTop);

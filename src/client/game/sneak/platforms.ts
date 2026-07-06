@@ -18,25 +18,32 @@ export class PlatformSystem {
     surfaces: Phaser.GameObjects.Rectangle[],
     roomLeft: number,
     roomRight: number,
-    roomHeight: number,
+    roomBottom: number,
   ): number {
-    let groundTop = roomHeight - 60;
+    // Fallback stand line for scenes with no editor floor rect. roomBottom is a
+    // y-coordinate (bottom edge of the room), NOT a height — passing a height
+    // here once hoisted the ground far above the art and floated everyone.
+    const fallbackGroundTop = roomBottom - 60;
+    let groundTop: number;
 
     if (floors.length > 0) {
       for (const floor of floors) {
         this.makeStatic(floor, this.floorPlatforms);
       }
-      groundTop = this.readGroundTop(groundTop);
+      // Trust the editor floor rect: the ground line is its (highest) top.
+      // Only fall back if the floor bodies somehow failed to materialize.
+      groundTop = this.readGroundTop(Number.POSITIVE_INFINITY);
+      if (!Number.isFinite(groundTop)) groundTop = fallbackGroundTop;
     } else {
       const ground = this.scene.add.rectangle(
         (roomLeft + roomRight) / 2,
-        groundTop + 30,
+        fallbackGroundTop + 30,
         roomRight - roomLeft,
         60,
         0x6e4a2a,
       );
       this.makeStatic(ground, this.floorPlatforms);
-      groundTop = this.readGroundTop(groundTop);
+      groundTop = this.readGroundTop(fallbackGroundTop);
     }
 
     for (const surf of surfaces) {
