@@ -1,5 +1,6 @@
 import { context, navigateTo } from '@devvit/web/client';
 import { fetchProfile } from './api/playerApi.js';
+import { startMenuMusic } from './game/menuAudio.js';
 import { startGame } from './game/startGame.js';
 import { renderCatPicker, updateCoinsDisplayFromProfile } from './splashCatPicker.js';
 import { initSplashNavigation } from './splashNavigation.js';
@@ -30,6 +31,7 @@ titleElement.textContent = context.username
   ? `Hey ${context.username} — ready to sneak?`
   : 'Cat Burglary';
 
+startMenuMusic();
 void loadProfile();
 
 async function loadProfile(): Promise<void> {

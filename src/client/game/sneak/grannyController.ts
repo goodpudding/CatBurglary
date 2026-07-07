@@ -8,8 +8,13 @@ import {
 } from './constants.js';
 import type { GrannyObject } from './types.js';
 
+const MOVE_STOP_DIST = 8;
+/** Ignore tiny left/right wobble so granny does not flip every frame when close. */
+const FACE_DEADZONE = 18;
+
 export class GrannyController {
   private dir = 1;
+  private facingLeft = false;
   private minX = 120;
   private maxX = 840;
 
@@ -51,8 +56,9 @@ export class GrannyController {
       body.setImmovable(true);
 
       this.pinToFloor(groundTop);
-      this.syncBody();
+      this.syncHitbox();
       this.initPatrolDirection();
+      this.setFlip(this.dir < 0);
       return;
     }
 
@@ -110,7 +116,7 @@ export class GrannyController {
     this.granny.x = this.entryMinX;
     this.dir = 1;
     this.pinToFloor(groundTop);
-    this.syncBody();
+    this.syncHitbox();
     this.setFlip(false);
     this.stopWalk();
     this.moved = false;
@@ -126,14 +132,13 @@ export class GrannyController {
 
     const targetX = this.entryTargetX;
     const gap = targetX - this.granny.x;
-    if (Math.abs(gap) > 6) {
-      const dir = Math.sign(gap);
-      this.dir = dir;
-      const nextX = this.granny.x + dir * speed * (delta / 1000);
+    if (Math.abs(gap) > MOVE_STOP_DIST) {
+      this.dir = Math.sign(gap);
+      const nextX = this.granny.x + this.dir * speed * (delta / 1000);
       this.granny.x = Phaser.Math.Clamp(nextX, this.entryMinX, this.maxX);
       this.moved = true;
     } else {
-      this.dir = Math.sign(gap) || this.dir;
+      if (Math.abs(gap) > FACE_DEADZONE) this.dir = Math.sign(gap);
       this.moved = false;
       this.enteringRoom = false;
       this.entryTargetX = null;
@@ -184,15 +189,22 @@ export class GrannyController {
     if (!this.granny?.body) return;
 
     const gap = targetX - this.granny.x;
-    if (Math.abs(gap) > 6) {
-      const dir = Math.sign(gap);
-      this.dir = dir;
-      const nextX = this.granny.x + dir * speed * (delta / 1000);
+    const dt = delta / 1000;
+
+    if (Math.abs(gap) > MOVE_STOP_DIST) {
+      this.dir = Math.sign(gap);
+      const nextX = this.granny.x + this.dir * speed * dt;
       this.granny.x = Phaser.Math.Clamp(nextX, this.minX, this.maxX);
       this.moved = true;
+    } else if (Math.abs(gap) > 1) {
+      // Creep the last few pixels instead of snapping idle/walk every frame.
+      this.dir = Math.sign(gap);
+      this.granny.x += this.dir * Math.min(speed * dt, Math.abs(gap));
+      this.moved = true;
+    } else if (Math.abs(gap) > FACE_DEADZONE) {
+      this.dir = Math.sign(gap);
+      this.moved = false;
     } else {
-      // Face the target while standing next to it.
-      this.dir = Math.sign(gap) || this.dir;
       this.moved = false;
     }
 
@@ -219,7 +231,7 @@ export class GrannyController {
   /** Freeze on the current frame while standing still (idle look). */
   stopWalk(): void {
     const g = this.granny;
-    if (g instanceof Phaser.Physics.Arcade.Sprite) g.anims?.pause();
+    if (g instanceof Phaser.Physics.Arcade.Sprite && g.anims?.isPlaying) g.anims.pause();
   }
 
   private initPatrolDirection(): void {
@@ -236,8 +248,28 @@ export class GrannyController {
   }
 
   private pinToFloor(groundTop: number): void {
-    const b = this.granny.getBounds();
-    this.granny.y += groundTop - b.bottom;
+    const delta = groundTop - this.granny.getBounds().bottom;
+    if (Math.abs(delta) < 0.5) return;
+    this.granny.y += delta;
+  }
+
+  /** Feet-aligned collider tuned to match Granny_Walking-Sheet across all granny sheets. */
+  private syncHitbox(): void {
+    if (!(this.granny instanceof Phaser.Physics.Arcade.Sprite)) {
+      this.syncBody();
+      return;
+    }
+
+    const body = this.granny.body as Phaser.Physics.Arcade.Body;
+    const frameW = this.granny.width;
+    const frameH = this.granny.height;
+    if (frameW <= 0 || frameH <= 0) return;
+
+    const bodyW = Math.max(8, (frameW * 11) / 24);
+    const bodyH = Math.max(10, (frameH * 28) / 29);
+    body.setSize(bodyW, bodyH, false);
+    body.setOffset((frameW * 5) / 24, 0);
+    this.syncBody();
   }
 
   private syncBody(): void {
@@ -247,11 +279,16 @@ export class GrannyController {
   }
 
   private setFlip(facingLeft: boolean): void {
+    if (facingLeft === this.facingLeft) return;
+    this.facingLeft = facingLeft;
+
     if (typeof (this.granny as Phaser.GameObjects.Sprite).setFlipX === 'function') {
       (this.granny as Phaser.GameObjects.Sprite).setFlipX(facingLeft);
+      this.syncBody();
       return;
     }
     const sx = Math.abs(this.granny.scaleX) || 1;
     this.granny.scaleX = facingLeft ? -sx : sx;
+    this.syncBody();
   }
 }

@@ -33,11 +33,6 @@
                 "key": "bottle-of-wine"
             },
             {
-                "url": "Cat Chaser Intro.aseprite",
-                "type": "binary",
-                "key": "Cat Chaser Intro"
-            },
-            {
                 "url": "furniture/cat-chaser-bathroom.png",
                 "type": "image",
                 "key": "cat-chaser-bathroom"
@@ -113,6 +108,13 @@
                 "url": "furniture/cooking-pot.png",
                 "type": "image",
                 "key": "cooking-pot"
+            },
+            {
+                "url": [
+                    "sound/dog-small-barking-angrily.mp3"
+                ],
+                "type": "audio",
+                "key": "dog-small-barking-angrily"
             },
             {
                 "url": "furniture/fish-treat.png",
@@ -196,6 +198,20 @@
                 "url": "furniture/tv-stand-table.png",
                 "type": "image",
                 "key": "furniture-tv-stand-table"
+            },
+            {
+                "url": [
+                    "sound/game-over.mp3"
+                ],
+                "type": "audio",
+                "key": "game-over"
+            },
+            {
+                "url": [
+                    "sound/game-start.mp3"
+                ],
+                "type": "audio",
+                "key": "game-start"
             },
             {
                 "url": "furniture/grandma-talking.png",
@@ -427,6 +443,13 @@
                 "key": "mirror"
             },
             {
+                "url": [
+                    "sound/music-for-game-fun-kid-game.mp3"
+                ],
+                "type": "audio",
+                "key": "music-for-game-fun-kid-game"
+            },
+            {
                 "url": "furniture/orange-cat-jump.png",
                 "frameConfig": {
                     "frameWidth": 32,
@@ -516,6 +539,20 @@
                 },
                 "type": "spritesheet",
                 "key": "slipper"
+            },
+            {
+                "url": [
+                    "sound/stop-your-silly-antics.mp3"
+                ],
+                "type": "audio",
+                "key": "stop-your-silly-antics"
+            },
+            {
+                "url": [
+                    "sound/thud-impact.mp3"
+                ],
+                "type": "audio",
+                "key": "thud-impact"
             },
             {
                 "url": "furniture/toaster.png",

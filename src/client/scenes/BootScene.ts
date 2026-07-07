@@ -18,6 +18,9 @@ export default class BootScene extends Phaser.Scene {
 
   create(): void {
     resetRun();
+    this.scene.launch('Audio');
+    this.input.once('pointerdown', () => this.sound.unlock());
+    this.input.keyboard?.once('keydown', () => this.sound.unlock());
     this.scene.start(FIRST_ROOM_KEY);
   }
 }

@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 import BootScene from './scenes/BootScene.js';
+import AudioScene from './scenes/AudioScene.js';
 import KitchenRoom from './scenes/KitchenRoom.js';
 import LivingRoomRoom from './scenes/LivingRoomRoom.js';
 import HallwayRoom from './scenes/HallwayRoom.js';
@@ -26,7 +27,7 @@ const config: Phaser.Types.Core.GameConfig = {
       debug: false,
     },
   },
-  scene: [BootScene, KitchenRoom, LivingRoomRoom, HallwayRoom, BathroomRoom],
+  scene: [BootScene, AudioScene, KitchenRoom, LivingRoomRoom, HallwayRoom, BathroomRoom],
 };
 
 document.addEventListener('DOMContentLoaded', () => {

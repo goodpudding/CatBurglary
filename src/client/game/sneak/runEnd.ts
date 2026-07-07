@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import { completeRun } from '../../api/playerApi.js';
 import { goToMenu } from '../goToMenu.js';
+import { stopLevelMusic } from '../gameAudio.js';
 
 export class RunEndScreen {
   private runSubmitted = false;
@@ -9,6 +10,7 @@ export class RunEndScreen {
 
   /** Cleared the final room — the whole house has been robbed. */
   showWin(score: number, onPlayAgain: () => void): void {
+    stopLevelMusic();
     const w = this.scene.scale.width;
     const hh = this.scene.scale.height;
 

@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 import type Chihuahua from '../../scenes/Chihuahua.js';
+import { playBark as playBarkSfx } from '../gameAudio.js';
 import {
   CHIHUAHUA_BARK_PAUSE_MS,
   CHIHUAHUA_CHARGE_RECOVER_SPEED,
@@ -54,7 +55,7 @@ export class ChihuahuaController {
 
       const armed = dog.chargeOnEntry && roomIndex === dog.chargeOnRoomIndex;
 
-      this.entries.push({
+      const entry: DogEntry = {
         sprite: dog,
         homeX: dog.x,
         state: 'idle',
@@ -62,9 +63,10 @@ export class ChihuahuaController {
         chargeSpeed: dog.chargeSpeed,
         armed,
         feetLine: groundTop,
-      });
+      };
+      this.entries.push(entry);
 
-      if (armed) this.playBark(dog);
+      if (armed) this.playBark(entry);
     }
   }
 
@@ -74,21 +76,22 @@ export class ChihuahuaController {
     groundTop: number,
     isCatOnFloor: () => boolean,
   ): void {
+    if (this.entries.length === 0) return;
+
     const now = this.scene.time.now;
     const dt = delta / 1000;
     const catOnFloor = isCatOnFloor();
 
     for (const entry of this.entries) {
+      if (!entry.armed) continue;
+
       const dog = entry.sprite;
       entry.feetLine = groundTop;
 
       switch (entry.state) {
         case 'idle':
           this.syncDogPose(dog, entry);
-          if (!catOnFloor) {
-            this.playBark(dog);
-            break;
-          }
+          if (!catOnFloor) break;
           if (now >= entry.chargeAt) {
             this.beginCharge(entry, cat, now);
           }
@@ -153,7 +156,7 @@ export class ChihuahuaController {
             entry.state = 'idle';
             entry.chargeAt = now + CHIHUAHUA_RECHARGE_DELAY_MS;
             this.syncDogPose(dog, entry);
-            this.playBark(dog);
+            this.playBark(entry);
             break;
           }
 
@@ -189,7 +192,7 @@ export class ChihuahuaController {
     delete entry.chargeDir;
     entry.barkUntil = now + CHIHUAHUA_BARK_PAUSE_MS;
     this.faceCat(entry.sprite, cat);
-    this.playBark(entry.sprite);
+    this.playBark(entry);
   }
 
   private beginReturn(entry: DogEntry): void {
@@ -238,8 +241,12 @@ export class ChihuahuaController {
     if (this.scene.anims.exists(WALK_KEY)) dog.play(WALK_KEY, true);
   }
 
-  private playBark(dog: Chihuahua): void {
+  private playBark(entry: DogEntry): void {
+    if (!entry.armed) return;
+
+    const dog = entry.sprite;
     if (this.scene.anims.exists(BARK_KEY)) dog.play(BARK_KEY, true);
     else if (this.scene.anims.exists(WALK_KEY)) dog.anims?.pause();
+    playBarkSfx(this.scene);
   }
 }

@@ -2,6 +2,50 @@ import Phaser from 'phaser';
 import { parseTreatPoints } from './editorObjects.js';
 import type { TreatTarget } from './types.js';
 
+const TREAT_TEXTURE = 'fish-treat';
+const TREAT_ANIM = 'treat';
+
+function ensureTreatAnim(scene: Phaser.Scene): void {
+  if (scene.anims.exists(TREAT_ANIM)) return;
+  if (!scene.textures.exists(TREAT_TEXTURE)) return;
+
+  scene.textures.get(TREAT_TEXTURE).setFilter(Phaser.Textures.FilterMode.NEAREST);
+  scene.anims.create({
+    key: TREAT_ANIM,
+    frames: scene.anims.generateFrameNumbers(TREAT_TEXTURE, { start: 0, end: 3 }),
+    frameRate: 6,
+    repeat: -1,
+  });
+}
+
+function spawnTreat(
+  scene: Phaser.Scene,
+  x: number,
+  y: number,
+  points: number,
+  displayScale: number,
+): TreatTarget {
+  ensureTreatAnim(scene);
+
+  const treat = scene.add.sprite(x, y, TREAT_TEXTURE, 0).setDepth(5);
+  treat.setScale(displayScale);
+  if (scene.anims.exists(TREAT_ANIM)) {
+    treat.play(TREAT_ANIM);
+  }
+
+  scene.physics.add.existing(treat, true);
+  const body = treat.body as Phaser.Physics.Arcade.StaticBody & { refreshBody?: () => void };
+  body.setCircle(Math.max(8, 10 * displayScale));
+  if (typeof body.refreshBody === 'function') {
+    body.refreshBody();
+  } else {
+    body.updateFromGameObject();
+  }
+
+  treat.setData('points', points);
+  return treat;
+}
+
 export function placeTreats(
   scene: Phaser.Scene,
   furniture: Phaser.GameObjects.Image[],
@@ -17,14 +61,8 @@ export function placeTreats(
       const b = go.getBounds?.();
       if (!b) continue;
 
-      const color = points >= 20 ? 0xff7043 : 0xffd54a;
-      const treat = scene.add
-        .circle(b.centerX, b.centerY, 11, color)
-        .setStrokeStyle(2, 0x7a5200)
-        .setDepth(5);
-      scene.physics.add.existing(treat, true);
-      treat.setData('points', points);
-      treats.push(treat);
+      const displayScale = Math.max(1.8, Math.max(b.width, b.height) / 16);
+      treats.push(spawnTreat(scene, b.centerX, b.centerY, points, displayScale));
       marker.destroy();
     }
     return treats;
@@ -35,11 +73,7 @@ export function placeTreats(
     const x = b.centerX;
     const y = b.top - 16;
     const points = Phaser.Math.Clamp(Math.round((groundTop - y) / 40) * 5 + 5, 5, 30);
-    const color = points >= 20 ? 0xff7043 : 0xffd54a;
-    const treat = scene.add.circle(x, y, 11, color).setStrokeStyle(2, 0x7a5200).setDepth(5);
-    scene.physics.add.existing(treat, true);
-    treat.setData('points', points);
-    treats.push(treat);
+    treats.push(spawnTreat(scene, x, y, points, 2.2));
   }
 
   return treats;

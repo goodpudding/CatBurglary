@@ -27,6 +27,7 @@ import {
 } from '../game/sneak/constants.js';
 import { StealthSystem } from '../game/sneak/stealth.js';
 import { SlipperSystem } from '../game/sneak/slipper.js';
+import { playGameOver, playGameStart, playThud, startLevelMusic } from '../game/gameAudio.js';
 import { playIntroReveal } from '../game/sneak/introCutscene.js';
 import { PhysicsDebugOverlay } from '../game/sneak/physicsDebug.js';
 import { runState, bankCarriedAndAdvance, resetRun } from '../game/sneak/runState.js';
@@ -255,6 +256,7 @@ export class SneakGame {
     syncAllPhysicsBodies(this.scene);
 
     if (this.room.index === 0) {
+      playGameStart(this.scene);
       // First room of the run: play the pop-in + zoom-out intro before handing
       // control to the player. Freeze the world so nothing moves mid-cutscene.
       this.introLock = true;
@@ -269,9 +271,17 @@ export class SneakGame {
         roomCenterY: this.world.roomCenterY,
         startZoom: 2.4,
         onComplete: () => {
+          cam.setScroll(0, 0);
+          cam.setZoom(1);
+          this.hud.applyScale(1);
+          this.platforms.refreshBodies();
+          this.platforms.pinCatFeet(
+            this.cat,
+            this.platforms.findStandTopNear(this.cat, this.world.groundTop),
+          );
+          syncAllPhysicsBodies(this.scene);
           this.introLock = false;
           this.scene.physics.world.resume();
-          syncAllPhysicsBodies(this.scene);
         },
       });
     } else {
@@ -354,6 +364,7 @@ export class SneakGame {
     if (this.scene.time.now < this.grannyEntryDelayUntil) return;
     runState.lives -= 1;
     this.invulnUntil = this.scene.time.now + INVULN_MS;
+    playThud(this.scene);
     this.input.dropThroughBody = null;
 
     if (runState.carried > 0) {
@@ -385,6 +396,7 @@ export class SneakGame {
 
   private endRunCaught(): void {
     this.runOver = true;
+    playGameOver(this.scene);
     const lost = runState.carried;
     const body = this.cat.body as Phaser.Physics.Arcade.Body;
     body.setVelocity(0, 0);
@@ -394,6 +406,8 @@ export class SneakGame {
 
   private playAgain(): void {
     resetRun();
+    const audioScene = this.scene.scene.get('Audio');
+    if (audioScene?.scene.isActive()) startLevelMusic(audioScene);
     this.scene.scene.start(FIRST_ROOM_KEY);
   }
 

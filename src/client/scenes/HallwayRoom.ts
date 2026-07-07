@@ -55,6 +55,149 @@ export default class HallwayRoom extends Phaser.Scene {
     exit.scaleX = 0.171875;
     exit.scaleY = 0.9375;
 
+    // shelf1
+    const shelf1 = this.add.rectangle(-140, -26, 128, 128) as Phaser.GameObjects.Rectangle & { body: Phaser.Physics.Arcade.Body };
+    shelf1.scaleX = 0.32096482355587536;
+    shelf1.scaleY = 0.01498286062396614;
+    this.physics.add.existing(shelf1, false);
+    shelf1.body.moves = false;
+    shelf1.body.allowGravity = false;
+    shelf1.body.allowDrag = false;
+    shelf1.body.allowRotation = false;
+    shelf1.body.pushable = false;
+    shelf1.body.immovable = true;
+    shelf1.body.setSize(128, 128, false);
+
+    // shelf2 
+    const shelf2_ = this.add.rectangle(-133, -44, 128, 128) as Phaser.GameObjects.Rectangle & { body: Phaser.Physics.Arcade.Body };
+    shelf2_.scaleX = 0.32096482355587536;
+    shelf2_.scaleY = 0.01498286062396614;
+    this.physics.add.existing(shelf2_, false);
+    shelf2_.body.moves = false;
+    shelf2_.body.allowGravity = false;
+    shelf2_.body.allowDrag = false;
+    shelf2_.body.allowRotation = false;
+    shelf2_.body.pushable = false;
+    shelf2_.body.immovable = true;
+    shelf2_.body.setSize(128, 128, false);
+
+    // bookshelf1
+    const bookshelf1 = this.add.rectangle(137, 0, 128, 128) as Phaser.GameObjects.Rectangle & { body: Phaser.Physics.Arcade.Body };
+    bookshelf1.scaleX = 0.32096482355587536;
+    bookshelf1.scaleY = 0.01498286062396614;
+    this.physics.add.existing(bookshelf1, false);
+    bookshelf1.body.moves = false;
+    bookshelf1.body.allowGravity = false;
+    bookshelf1.body.allowDrag = false;
+    bookshelf1.body.allowRotation = false;
+    bookshelf1.body.pushable = false;
+    bookshelf1.body.immovable = true;
+    bookshelf1.body.setSize(128, 128, false);
+
+    // bookshelf2
+    const bookshelf2 = this.add.rectangle(137, -10, 128, 128) as Phaser.GameObjects.Rectangle & { body: Phaser.Physics.Arcade.Body };
+    bookshelf2.scaleX = 0.32096482355587536;
+    bookshelf2.scaleY = 0.01498286062396614;
+    this.physics.add.existing(bookshelf2, false);
+    bookshelf2.body.moves = false;
+    bookshelf2.body.allowGravity = false;
+    bookshelf2.body.allowDrag = false;
+    bookshelf2.body.allowRotation = false;
+    bookshelf2.body.pushable = false;
+    bookshelf2.body.immovable = true;
+    bookshelf2.body.setSize(128, 128, false);
+
+    // bookshelf3
+    const bookshelf3 = this.add.rectangle(138, -23, 128, 128) as Phaser.GameObjects.Rectangle & { body: Phaser.Physics.Arcade.Body };
+    bookshelf3.scaleX = 0.32096482355587536;
+    bookshelf3.scaleY = 0.01498286062396614;
+    this.physics.add.existing(bookshelf3, false);
+    bookshelf3.body.moves = false;
+    bookshelf3.body.allowGravity = false;
+    bookshelf3.body.allowDrag = false;
+    bookshelf3.body.allowRotation = false;
+    bookshelf3.body.pushable = false;
+    bookshelf3.body.immovable = true;
+    bookshelf3.body.setSize(128, 128, false);
+
+    // bookshelf4
+    const bookshelf4 = this.add.rectangle(138, -37, 128, 128) as Phaser.GameObjects.Rectangle & { body: Phaser.Physics.Arcade.Body };
+    bookshelf4.scaleX = 0.32096482355587536;
+    bookshelf4.scaleY = 0.01498286062396614;
+    this.physics.add.existing(bookshelf4, false);
+    bookshelf4.body.moves = false;
+    bookshelf4.body.allowGravity = false;
+    bookshelf4.body.allowDrag = false;
+    bookshelf4.body.allowRotation = false;
+    bookshelf4.body.pushable = false;
+    bookshelf4.body.immovable = true;
+    bookshelf4.body.setSize(128, 128, false);
+
+    // bookshelf5
+    const bookshelf5 = this.add.rectangle(137, -49, 128, 128) as Phaser.GameObjects.Rectangle & { body: Phaser.Physics.Arcade.Body };
+    bookshelf5.scaleX = 0.32096482355587536;
+    bookshelf5.scaleY = 0.01498286062396614;
+    this.physics.add.existing(bookshelf5, false);
+    bookshelf5.body.moves = false;
+    bookshelf5.body.allowGravity = false;
+    bookshelf5.body.allowDrag = false;
+    bookshelf5.body.allowRotation = false;
+    bookshelf5.body.pushable = false;
+    bookshelf5.body.immovable = true;
+    bookshelf5.body.setSize(128, 128, false);
+
+    // endtable2
+    const endtable2 = this.add.rectangle(37, 10, 128, 128) as Phaser.GameObjects.Rectangle & { body: Phaser.Physics.Arcade.Body };
+    endtable2.scaleX = 0.13700692444062457;
+    endtable2.scaleY = 0.008985267071451697;
+    this.physics.add.existing(endtable2, false);
+    endtable2.body.moves = false;
+    endtable2.body.allowGravity = false;
+    endtable2.body.allowDrag = false;
+    endtable2.body.allowRotation = false;
+    endtable2.body.pushable = false;
+    endtable2.body.immovable = true;
+    endtable2.body.setSize(128, 128, false);
+
+    // endtable1
+    const endtable1 = this.add.rectangle(-135, 11, 128, 128) as Phaser.GameObjects.Rectangle & { body: Phaser.Physics.Arcade.Body };
+    endtable1.scaleX = 0.13700692444062457;
+    endtable1.scaleY = 0.008985267071451697;
+    this.physics.add.existing(endtable1, false);
+    endtable1.body.moves = false;
+    endtable1.body.allowGravity = false;
+    endtable1.body.allowDrag = false;
+    endtable1.body.allowRotation = false;
+    endtable1.body.pushable = false;
+    endtable1.body.immovable = true;
+    endtable1.body.setSize(128, 128, false);
+
+    // table
+    const table = this.add.rectangle(-25, 17, 128, 128) as Phaser.GameObjects.Rectangle & { body: Phaser.Physics.Arcade.Body };
+    table.scaleX = 0.3946839920514225;
+    table.scaleY = 0.023019618727775987;
+    this.physics.add.existing(table, false);
+    table.body.moves = false;
+    table.body.allowGravity = false;
+    table.body.allowDrag = false;
+    table.body.allowRotation = false;
+    table.body.pushable = false;
+    table.body.immovable = true;
+    table.body.setSize(128, 128, false);
+
+    // clock
+    const clock = this.add.rectangle(-93, -35, 128, 128) as Phaser.GameObjects.Rectangle & { body: Phaser.Physics.Arcade.Body };
+    clock.scaleX = 0.06303655227129283;
+    clock.scaleY = 0.008975416676374595;
+    this.physics.add.existing(clock, false);
+    clock.body.moves = false;
+    clock.body.allowGravity = false;
+    clock.body.allowDrag = false;
+    clock.body.allowRotation = false;
+    clock.body.pushable = false;
+    clock.body.immovable = true;
+    clock.body.setSize(128, 128, false);
+
     this.events.emit("scene-awake");
   }
 
