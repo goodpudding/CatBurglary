@@ -1,5 +1,5 @@
 {
-    "id": "31f6b5bb-125e-47bb-8c20-20187b1efd22",
+    "id": "1b9a1395-d5af-4487-8861-c5e47918d7a7",
     "sceneType": "PREFAB",
     "settings": {
         "compilerInsertSpaces": true,
@@ -16,22 +16,9 @@
     },
     "displayList": [
         {
-            "type": "ArcadeSprite",
-            "id": "5b1eeb58-0be2-402b-83f1-b4e8cba64b69",
-            "label": "granny",
-            "texture": {
-                "key": "Granny_Walking-Sheet",
-                "frame": 0
-            },
-            "scaleX": 1.5,
-            "scaleY": 1.5,
-            "flipX": true,
-            "animationPlayMethod": 1,
-            "animationKey": "newgrannywalk",
-            "body.pushable": false,
-            "body.width": 11,
-            "body.height": 28,
-            "body.offset.x": 7
+            "type": "ScriptNode",
+            "id": "a7886d2a-5113-4fd0-84fb-3819ce1874bf",
+            "label": "scriptnode_1"
         }
     ],
     "plainObjects": [],

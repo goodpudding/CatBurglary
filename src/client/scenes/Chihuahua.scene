@@ -31,7 +31,14 @@
             "body.width": 128,
             "body.height": 128,
             "body.offset.x": 6,
-            "body.offset.y": 2
+            "body.offset.y": 2,
+            "list": [
+                {
+                    "prefabId": "1b9a1395-d5af-4487-8861-c5e47918d7a7",
+                    "id": "05f44719-9c43-4122-a41a-2d7d60ff6ebe",
+                    "label": "chihuahuaScript"
+                }
+            ]
         }
     ],
     "plainObjects": [],
@@ -40,5 +47,59 @@
         "url": "https://phaser.io/editor",
         "contentType": "phasereditor2d.core.scene.SceneContentType",
         "version": 5
-    }
+    },
+    "prefabProperties": [
+        {
+            "name": "chargeSpeed",
+            "label": "Charge Speed",
+            "tooltip": "Horizontal speed (px/s) when charging the cat",
+            "defValue": 195,
+            "customDefinition": false,
+            "editorOnly": false,
+            "deprecated": false,
+            "type": {
+                "id": "number",
+                "isArray": false
+            }
+        },
+        {
+            "name": "chargeDelayMs",
+            "label": "Charge Delay Ms",
+            "tooltip": "Ms after room entry before the first charge",
+            "defValue": 900,
+            "customDefinition": false,
+            "editorOnly": false,
+            "deprecated": false,
+            "type": {
+                "id": "number",
+                "isArray": false
+            }
+        },
+        {
+            "name": "chargeOnRoomIndex",
+            "label": "Charge On Room Index",
+            "tooltip": "Only arm in this room index; -1 arms in any room",
+            "defValue": -1,
+            "customDefinition": false,
+            "editorOnly": false,
+            "deprecated": false,
+            "type": {
+                "id": "number",
+                "isArray": false
+            }
+        },
+        {
+            "name": "chargeOnEntry",
+            "label": "Charge On Entry",
+            "tooltip": "If off, the dog just idles and never charges",
+            "defValue": true,
+            "customDefinition": false,
+            "editorOnly": false,
+            "deprecated": false,
+            "type": {
+                "id": "boolean",
+                "isArray": false
+            }
+        }
+    ]
 }

@@ -308,6 +308,17 @@
             "body.height": 128,
             "width": 128,
             "height": 128
+        },
+        {
+            "prefabId": "62eb21cc-e38f-4114-ba09-2fe2913463e4",
+            "id": "842a7f68-e086-4675-b440-9036825507a9",
+            "unlock": [
+                "x",
+                "y"
+            ],
+            "label": "doggy2",
+            "x": 19,
+            "y": 15
         }
     ],
     "plainObjects": [],

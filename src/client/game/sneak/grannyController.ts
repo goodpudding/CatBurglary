@@ -58,7 +58,7 @@ export class GrannyController {
       this.pinToFloor(groundTop);
       this.syncHitbox();
       this.initPatrolDirection();
-      this.setFlip(this.dir < 0);
+      this.applyFacing(this.dir < 0);
       return;
     }
 
@@ -117,7 +117,7 @@ export class GrannyController {
     this.dir = 1;
     this.pinToFloor(groundTop);
     this.syncHitbox();
-    this.setFlip(false);
+    this.applyFacing(false);
     this.stopWalk();
     this.moved = false;
   }
@@ -248,9 +248,13 @@ export class GrannyController {
   }
 
   private pinToFloor(groundTop: number): void {
-    const delta = groundTop - this.granny.getBounds().bottom;
+    const body = this.granny.body as Phaser.Physics.Arcade.Body | null;
+    if (!body) return;
+    // Use the physics feet, not getBounds() — walk frames change visual height each tick.
+    const delta = groundTop - body.bottom;
     if (Math.abs(delta) < 0.5) return;
     this.granny.y += delta;
+    body.updateFromGameObject();
   }
 
   /** Feet-aligned collider tuned to match Granny_Walking-Sheet across all granny sheets. */
@@ -278,10 +282,19 @@ export class GrannyController {
     else body.updateFromGameObject();
   }
 
+  private applyFacing(facingLeft: boolean): void {
+    // Prime opposite so the first facing always applies (facingLeft defaults to false).
+    this.facingLeft = !facingLeft;
+    this.setFlip(facingLeft);
+  }
+
   private setFlip(facingLeft: boolean): void {
     if (facingLeft === this.facingLeft) return;
     this.facingLeft = facingLeft;
 
+    // The pink granny sheets (granny-2-sheet) face RIGHT at flipX=false, so
+    // mirror only when walking left. (The old wizard sheet faced left, which
+    // is why this used to be inverted — that made her moonwalk.)
     if (typeof (this.granny as Phaser.GameObjects.Sprite).setFlipX === 'function') {
       (this.granny as Phaser.GameObjects.Sprite).setFlipX(facingLeft);
       this.syncBody();

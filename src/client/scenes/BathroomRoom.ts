@@ -44,11 +44,12 @@ export default class BathroomRoom extends Phaser.Scene {
     player.play("orange-idle");
 
     // granny
-    const granny = this.physics.add.sprite(-201, -10, "granny-2-sheet", 0);
+    const granny = this.physics.add.sprite(-201, -10, "Granny_Walking-Sheet", 0);
     granny.scaleX = 1.5;
     granny.scaleY = 1.5;
-    granny.body.setOffset(13, 9);
-    granny.body.setSize(12, 33, false);
+    granny.body.setOffset(6, 1);
+    granny.body.setSize(9, 27, false);
+    granny.play("newgrannywalk");
 
     // exit
     const exit = this.add.rectangle(165, -14, 128, 128);

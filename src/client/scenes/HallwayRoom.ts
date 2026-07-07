@@ -3,6 +3,7 @@
 
 /* START OF COMPILED CODE */
 
+import Chihuahua from "./Chihuahua.js";
 /* START-USER-IMPORTS */
 import { SneakGame } from './SneakGame.js';
 import { assignEditorNames } from '../game/sneak/editorObjects.js';
@@ -197,6 +198,10 @@ export default class HallwayRoom extends Phaser.Scene {
     clock.body.pushable = false;
     clock.body.immovable = true;
     clock.body.setSize(128, 128, false);
+
+    // doggy2
+    const doggy2 = new Chihuahua(this, 19, 15);
+    this.add.existing(doggy2);
 
     this.events.emit("scene-awake");
   }

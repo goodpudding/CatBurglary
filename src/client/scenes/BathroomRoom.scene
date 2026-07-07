@@ -67,17 +67,19 @@
             "id": "bathroom-granny",
             "label": "granny",
             "texture": {
-                "key": "granny-2-sheet",
+                "key": "Granny_Walking-Sheet",
                 "frame": 0
             },
             "x": -201,
             "y": -10,
             "scaleX": 1.5,
             "scaleY": 1.5,
-            "body.width": 12,
-            "body.height": 33,
-            "body.offset.x": 13,
-            "body.offset.y": 9
+            "animationPlayMethod": 1,
+            "animationKey": "newgrannywalk",
+            "body.width": 9,
+            "body.height": 27,
+            "body.offset.x": 6,
+            "body.offset.y": 1
         },
         {
             "type": "Rectangle",

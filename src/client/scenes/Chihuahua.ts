@@ -3,12 +3,8 @@
 
 /* START OF COMPILED CODE */
 
+import ChihuahuaScript from "./ChihuahuaScript.js";
 /* START-USER-IMPORTS */
-import {
-  CHIHUAHUA_CHARGE_DELAY_MS,
-  CHIHUAHUA_CHARGE_ROOM_INDEX,
-  CHIHUAHUA_CHARGE_SPEED,
-} from '../game/sneak/constants.js';
 /* END-USER-IMPORTS */
 
 export default interface Chihuahua {
@@ -26,6 +22,9 @@ export default class Chihuahua extends Phaser.Physics.Arcade.Sprite {
     this.body.setCircle(7);
     this.play("chihuahua-walkingchihuahua-walking");
 
+    // chihuahuaScript
+    new ChihuahuaScript(this);
+
     /* START-USER-CTR-CODE */
     this.setName('chihuahua');
     this.body.setImmovable(true);
@@ -33,12 +32,15 @@ export default class Chihuahua extends Phaser.Physics.Arcade.Sprite {
     /* END-USER-CTR-CODE */
   }
 
+  public chargeSpeed: number = 195;
+  public chargeDelayMs: number = 900;
+  public chargeOnRoomIndex: number = -1;
+  public chargeOnEntry: boolean = true;
+
   /* START-USER-CODE */
 
-  chargeOnRoomIndex = CHIHUAHUA_CHARGE_ROOM_INDEX;
-  chargeDelayMs = CHIHUAHUA_CHARGE_DELAY_MS;
-  chargeSpeed = CHIHUAHUA_CHARGE_SPEED;
-  chargeOnEntry = true;
+  // Dog tuning lives in the prefab properties above (editable per-dog in the
+  // Phaser Editor Inspector). ChihuahuaBehavior reads them off the sprite.
 
   /* END-USER-CODE */
 }

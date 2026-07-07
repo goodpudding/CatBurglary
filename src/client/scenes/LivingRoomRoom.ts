@@ -112,8 +112,8 @@ export default class LivingRoomRoom extends Phaser.Scene {
 
     // shelf2
     const shelf2 = this.add.rectangle(60, 21, 128, 128) as Phaser.GameObjects.Rectangle & { body: Phaser.Physics.Arcade.Body };
-    shelf2.scaleX = 0.11560052847628377;
-    shelf2.scaleY = 0.008867510416294662;
+    shelf2.scaleX = 0.1901932268467354;
+    shelf2.scaleY = 0.010737301151627809;
     this.physics.add.existing(shelf2, false);
     shelf2.body.moves = false;
     shelf2.body.allowGravity = false;
@@ -125,8 +125,8 @@ export default class LivingRoomRoom extends Phaser.Scene {
 
     // shelf4
     const shelf4 = this.add.rectangle(104, 39, 128, 128) as Phaser.GameObjects.Rectangle & { body: Phaser.Physics.Arcade.Body };
-    shelf4.scaleX = 0.11560052847628377;
-    shelf4.scaleY = 0.008867510416294662;
+    shelf4.scaleX = 0.20810576870941247;
+    shelf4.scaleY = 0.013841271557914914;
     this.physics.add.existing(shelf4, false);
     shelf4.body.moves = false;
     shelf4.body.allowGravity = false;
@@ -164,8 +164,8 @@ export default class LivingRoomRoom extends Phaser.Scene {
 
     // endTable
     const endTable = this.add.rectangle(82, 66, 128, 128) as Phaser.GameObjects.Rectangle & { body: Phaser.Physics.Arcade.Body };
-    endTable.scaleX = 0.14357039152693443;
-    endTable.scaleY = 0.010285234854737129;
+    endTable.scaleX = 0.2508937824159418;
+    endTable.scaleY = 0.026473900248207928;
     this.physics.add.existing(endTable, false);
     endTable.body.moves = false;
     endTable.body.allowGravity = false;
@@ -203,8 +203,8 @@ export default class LivingRoomRoom extends Phaser.Scene {
 
     // couchArmrest
     const couchArmrest = this.add.rectangle(97, 64, 128, 128) as Phaser.GameObjects.Rectangle & { body: Phaser.Physics.Arcade.Body };
-    couchArmrest.scaleX = 0.05423738735133331;
-    couchArmrest.scaleY = 0.010004365842817744;
+    couchArmrest.scaleX = 0.1545207605176045;
+    couchArmrest.scaleY = 0.016687910054798808;
     this.physics.add.existing(couchArmrest, false);
     couchArmrest.body.moves = false;
     couchArmrest.body.allowGravity = false;
@@ -216,8 +216,8 @@ export default class LivingRoomRoom extends Phaser.Scene {
 
     // couchArmrest_1
     const couchArmrest_1 = this.add.rectangle(163, 64, 128, 128) as Phaser.GameObjects.Rectangle & { body: Phaser.Physics.Arcade.Body };
-    couchArmrest_1.scaleX = 0.05423738735133331;
-    couchArmrest_1.scaleY = 0.010004365842817744;
+    couchArmrest_1.scaleX = 0.12700532471448878;
+    couchArmrest_1.scaleY = 0.012132382336998229;
     this.physics.add.existing(couchArmrest_1, false);
     couchArmrest_1.body.moves = false;
     couchArmrest_1.body.allowGravity = false;
@@ -268,8 +268,8 @@ export default class LivingRoomRoom extends Phaser.Scene {
 
     // chairSeat_1
     const chairSeat_1 = this.add.rectangle(209, 72, 128, 128) as Phaser.GameObjects.Rectangle & { body: Phaser.Physics.Arcade.Body };
-    chairSeat_1.scaleX = 0.13639484769901022;
-    chairSeat_1.scaleY = 0.03635253630518463;
+    chairSeat_1.scaleX = 0.22293377671404707;
+    chairSeat_1.scaleY = 0.0247104767049283;
     this.physics.add.existing(chairSeat_1, false);
     chairSeat_1.body.moves = false;
     chairSeat_1.body.allowGravity = false;
@@ -344,9 +344,9 @@ export default class LivingRoomRoom extends Phaser.Scene {
     bookshelf5.body.immovable = true;
     bookshelf5.body.setSize(128, 128, false);
 
-    // arcadesprite_1
-    const arcadesprite_1 = new Chihuahua(this, 101, 74);
-    this.add.existing(arcadesprite_1);
+    // doggy1
+    const doggy1 = new Chihuahua(this, 101, 74);
+    this.add.existing(doggy1);
 
     // livingroomTreat1
     const livingroomTreat1 = new treatMarker(this, 25, 42);
