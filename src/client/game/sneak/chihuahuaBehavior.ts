@@ -107,7 +107,7 @@ export class ChihuahuaBehavior {
   private feetLine = 0;
   private dead = false;
 
-  private tuning?: ChihuahuaTuning;
+  private tuning: ChihuahuaTuning | undefined = undefined;
 
   private constructor(readonly sprite: DogSprite, tuning?: ChihuahuaTuning) {
     this.tuning = tuning;
