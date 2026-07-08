@@ -180,4 +180,8 @@ npm run dev          # playtest on r/cat_burglary_dev
 
 James runs `npm run deploy` to upload builds to the Devvit app. You do not need deploy access to contribute art, rooms, or code via pull request.
 
+### Reddit playtest troubleshooting
+
+**"failed to get webview assets … path: splash.html"** — Each Reddit post is locked to the app version that was live when the post was created. After `npm run deploy`, **create a fresh post** (mod menu → **Create Cat Burglary post**) or run `npm run dev` and use the new playtest link. Old threads keep serving the broken version.
+
 Questions? Open a GitHub issue or ping James with what you tried and a screenshot if something looks off.
