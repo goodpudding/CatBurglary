@@ -1,5 +1,49 @@
 [
   {
+    "id": "black-cat-sitting-w-13-h-17",
+    "file": "Black Cat Sitting W-13 H-17.aseprite",
+    "key": "cat-black-cat-sitting-w-13-h-17",
+    "path": "cats/black-cat-sitting-w-13-h-17.png",
+    "width": 98,
+    "height": 17,
+    "frameWidth": 14,
+    "frameHeight": 17,
+    "frameCount": 7
+  },
+  {
+    "id": "black-cat-walking-w-19-h-17",
+    "file": "Black Cat Walking w-19 h-17.aseprite",
+    "key": "cat-black-cat-walking-w-19-h-17",
+    "path": "cats/black-cat-walking-w-19-h-17.png",
+    "width": 152,
+    "height": 17,
+    "frameWidth": 19,
+    "frameHeight": 17,
+    "frameCount": 8
+  },
+  {
+    "id": "chonky-calico-cat-sitting-17x17",
+    "file": "Chonky Calico Cat Sitting 17x17.aseprite",
+    "key": "cat-chonky-calico-cat-sitting-17x17",
+    "path": "cats/chonky-calico-cat-sitting-17x17.png",
+    "width": 119,
+    "height": 17,
+    "frameWidth": 17,
+    "frameHeight": 17,
+    "frameCount": 7
+  },
+  {
+    "id": "chonky-calico-cat-walking-20x17",
+    "file": "Chonky Calico Cat Walking 20x17.aseprite",
+    "key": "cat-chonky-calico-cat-walking-20x17",
+    "path": "cats/chonky-calico-cat-walking-20x17.png",
+    "width": 160,
+    "height": 17,
+    "frameWidth": 20,
+    "frameHeight": 17,
+    "frameCount": 8
+  },
+  {
     "id": "gray-cat-sitting",
     "file": "Gray Cat Sitting.aseprite",
     "key": "cat-gray-cat-sitting",
@@ -8,6 +52,17 @@
     "height": 20,
     "frameWidth": 20,
     "frameHeight": 20,
+    "frameCount": 7
+  },
+  {
+    "id": "gray-cat-sitting-1",
+    "file": "Gray Cat Sitting (1).aseprite",
+    "key": "cat-gray-cat-sitting-1",
+    "path": "cats/gray-cat-sitting-1.png",
+    "width": 98,
+    "height": 17,
+    "frameWidth": 14,
+    "frameHeight": 17,
     "frameCount": 7
   },
   {
@@ -22,6 +77,17 @@
     "frameCount": 5
   },
   {
+    "id": "gray-cat-walking",
+    "file": "Gray Cat Walking.aseprite",
+    "key": "cat-gray-cat-walking",
+    "path": "cats/gray-cat-walking.png",
+    "width": 152,
+    "height": 17,
+    "frameWidth": 19,
+    "frameHeight": 17,
+    "frameCount": 8
+  },
+  {
     "id": "gray-cat-walking-sheet",
     "file": "Gray Cat Walking-Sheet.aseprite",
     "key": "cat-gray-cat-walking-sheet",
@@ -31,6 +97,17 @@
     "frameWidth": 20,
     "frameHeight": 20,
     "frameCount": 10
+  },
+  {
+    "id": "marshmello-sitting2",
+    "file": "Marshmello Sitting2.aseprite",
+    "key": "cat-marshmello-sitting2",
+    "path": "cats/marshmello-sitting2.png",
+    "width": 105,
+    "height": 17,
+    "frameWidth": 15,
+    "frameHeight": 17,
+    "frameCount": 7
   },
   {
     "id": "marshmellow-sitting",
@@ -53,6 +130,28 @@
     "frameWidth": 20,
     "frameHeight": 20,
     "frameCount": 15
+  },
+  {
+    "id": "marshmellow-walking",
+    "file": "Marshmellow Walking.aseprite",
+    "key": "cat-marshmellow-walking",
+    "path": "cats/marshmellow-walking.png",
+    "width": 152,
+    "height": 17,
+    "frameWidth": 19,
+    "frameHeight": 17,
+    "frameCount": 8
+  },
+  {
+    "id": "marshmellow-walking-1",
+    "file": "Marshmellow Walking (1).aseprite",
+    "key": "cat-marshmellow-walking-1",
+    "path": "cats/marshmellow-walking-1.png",
+    "width": 152,
+    "height": 17,
+    "frameWidth": 19,
+    "frameHeight": 17,
+    "frameCount": 8
   },
   {
     "id": "orange-cat-sitting-sheet",

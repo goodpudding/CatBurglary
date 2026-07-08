@@ -109,3 +109,75 @@ npm run export-assets
 This writes PNGs to `src/client/assets/furniture/` and `src/client/assets/cats/`.
 
 Phaser Editor generates preload paths like `client/assets/...`, but the game loads packs from the Vite public root (`cats/cat-asset-pack.json`, `asset-pack.json`) via [`preloadHouseAssets.ts`](src/client/assets/preloadHouseAssets.ts). Local dev also rewrites `/client/assets/*` for editor compatibility.
+
+## Help out (for friends)
+
+Want to pitch in? You do not need Reddit access to get started — most work happens locally in the browser or Phaser Editor.
+
+### 1. Get the project running
+
+```bash
+git clone https://github.com/goodpudding/CatBurglary.git
+cd CatBurglary
+npm install
+npm run dev:local
+```
+
+| URL | What it is |
+|-----|------------|
+| `http://localhost:5173/splash.html` | Cat picker, shop, **Play** button |
+| `http://localhost:5173/game.html` | Jump straight into the first room |
+
+After changing Aseprite sources in `assets/`, run `npm run export-assets` so PNGs land in `src/client/assets/cats/` and `src/client/assets/furniture/`.
+
+### 2. Pick something to work on
+
+| If you like… | Try this… |
+|--------------|-----------|
+| **Pixel art / animation** | Add or polish cat sheets in `assets/Cats/` or furniture in `assets/`, export with `npm run export-assets`, register frames in `src/client/assets/cats/manifest.json` and `cat-animations.json` |
+| **Level design** | Open a `*Room.scene` file in Phaser Editor — place floor/surface rectangles, furniture, granny spawn, exit, treat markers, and optional `Chihuahua` prefabs. Compile to update the matching `.ts` |
+| **Game feel** | Tune numbers in `src/client/game/sneak/constants.ts`, `roomConfig.ts`, or cat stats in `src/shared/CatDefinition.ts` |
+| **UI / splash** | Edit `splash.html`, `splash.css`, `splashCatPicker.ts`, or `splashShop.ts` |
+| **Bugs & balance** | Play a full run, note what felt wrong (room, granny, dog, controls), and fix or file an issue |
+
+**Editor object names matter** — the sneak systems look for these labels on scene objects:
+
+- `floor` — walkable ground (Rectangle + static body)
+- `surface` — shelves you can jump on
+- `exit` — forward doorway (Rectangle, no body)
+- `player` — cat spawn
+- `granny` — granny spawn
+- `treat_10` / `treat_15` — optional treat value markers
+- `chihuahua` — guard dog (uses the `Chihuahua` prefab + script)
+
+Gameplay logic lives in `src/client/game/sneak/` and `SneakGame.ts`; room scenes should mostly be layout.
+
+### 3. Test your changes
+
+```bash
+npm run type-check   # TypeScript must pass before deploy
+npm run build        # production build smoke test
+```
+
+Play on splash (`/splash.html`) to check cat picker animations and shop, then run a full house on `/game.html`.
+
+### 4. Share your work
+
+1. Create a branch: `git checkout -b your-name/short-description`
+2. Commit with a clear message (what changed and why)
+3. Push and open a pull request on GitHub, or send James the branch name
+
+Keep changes focused — one room, one cat, or one bug fix per PR is easiest to review.
+
+### 5. Try it on Reddit (optional)
+
+Only needed if you want to test inside Reddit’s webview:
+
+```bash
+npm run login        # once — Reddit developer account
+npm run dev          # playtest on r/cat_burglary_dev
+```
+
+James runs `npm run deploy` to upload builds to the Devvit app. You do not need deploy access to contribute art, rooms, or code via pull request.
+
+Questions? Open a GitHub issue or ping James with what you tried and a screenshot if something looks off.

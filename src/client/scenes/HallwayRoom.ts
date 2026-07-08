@@ -4,6 +4,7 @@
 /* START OF COMPILED CODE */
 
 import Chihuahua from "./Chihuahua.js";
+import treatMarker from "./treatMarker.js";
 /* START-USER-IMPORTS */
 import { SneakGame } from './SneakGame.js';
 import { assignEditorNames } from '../game/sneak/editorObjects.js';
@@ -71,8 +72,8 @@ export default class HallwayRoom extends Phaser.Scene {
 
     // shelf2 
     const shelf2_ = this.add.rectangle(-133, -44, 128, 128) as Phaser.GameObjects.Rectangle & { body: Phaser.Physics.Arcade.Body };
-    shelf2_.scaleX = 0.32096482355587536;
-    shelf2_.scaleY = 0.01498286062396614;
+    shelf2_.scaleX = 0.33414262237663944;
+    shelf2_.scaleY = 0.016268592549986378;
     this.physics.add.existing(shelf2_, false);
     shelf2_.body.moves = false;
     shelf2_.body.allowGravity = false;
@@ -149,8 +150,8 @@ export default class HallwayRoom extends Phaser.Scene {
 
     // endtable2
     const endtable2 = this.add.rectangle(37, 10, 128, 128) as Phaser.GameObjects.Rectangle & { body: Phaser.Physics.Arcade.Body };
-    endtable2.scaleX = 0.13700692444062457;
-    endtable2.scaleY = 0.008985267071451697;
+    endtable2.scaleX = 0.21446269142314373;
+    endtable2.scaleY = 0.012757428438920929;
     this.physics.add.existing(endtable2, false);
     endtable2.body.moves = false;
     endtable2.body.allowGravity = false;
@@ -162,8 +163,8 @@ export default class HallwayRoom extends Phaser.Scene {
 
     // endtable1
     const endtable1 = this.add.rectangle(-135, 11, 128, 128) as Phaser.GameObjects.Rectangle & { body: Phaser.Physics.Arcade.Body };
-    endtable1.scaleX = 0.13700692444062457;
-    endtable1.scaleY = 0.008985267071451697;
+    endtable1.scaleX = 0.2130196492108523;
+    endtable1.scaleY = 0.01353090973788237;
     this.physics.add.existing(endtable1, false);
     endtable1.body.moves = false;
     endtable1.body.allowGravity = false;
@@ -188,8 +189,8 @@ export default class HallwayRoom extends Phaser.Scene {
 
     // clock
     const clock = this.add.rectangle(-93, -35, 128, 128) as Phaser.GameObjects.Rectangle & { body: Phaser.Physics.Arcade.Body };
-    clock.scaleX = 0.06303655227129283;
-    clock.scaleY = 0.008975416676374595;
+    clock.scaleX = 0.14247334156438987;
+    clock.scaleY = 0.0236101804284672;
     this.physics.add.existing(clock, false);
     clock.body.moves = false;
     clock.body.allowGravity = false;
@@ -202,6 +203,87 @@ export default class HallwayRoom extends Phaser.Scene {
     // doggy2
     const doggy2 = new Chihuahua(this, 19, 15);
     this.add.existing(doggy2);
+
+    // bigpicture
+    const bigpicture = this.add.rectangle(-5, -17, 128, 128) as Phaser.GameObjects.Rectangle & { body: Phaser.Physics.Arcade.Body };
+    bigpicture.scaleX = 0.44795100558186285;
+    bigpicture.scaleY = 0.027724313492087635;
+    this.physics.add.existing(bigpicture, false);
+    bigpicture.body.moves = false;
+    bigpicture.body.allowGravity = false;
+    bigpicture.body.allowDrag = false;
+    bigpicture.body.allowRotation = false;
+    bigpicture.body.pushable = false;
+    bigpicture.body.immovable = true;
+    bigpicture.body.setSize(128, 128, false);
+
+    // picture1
+    const picture1 = this.add.rectangle(-67, -43, 128, 128) as Phaser.GameObjects.Rectangle & { body: Phaser.Physics.Arcade.Body };
+    picture1.scaleX = 0.1926050298894074;
+    picture1.scaleY = 0.026467832540131533;
+    this.physics.add.existing(picture1, false);
+    picture1.body.moves = false;
+    picture1.body.allowGravity = false;
+    picture1.body.allowDrag = false;
+    picture1.body.allowRotation = false;
+    picture1.body.pushable = false;
+    picture1.body.immovable = true;
+    picture1.body.setSize(128, 128, false);
+
+    // picture2
+    const picture2 = this.add.rectangle(66, -48, 128, 128) as Phaser.GameObjects.Rectangle & { body: Phaser.Physics.Arcade.Body };
+    picture2.scaleX = 0.1926050298894074;
+    picture2.scaleY = 0.026467832540131533;
+    this.physics.add.existing(picture2, false);
+    picture2.body.moves = false;
+    picture2.body.allowGravity = false;
+    picture2.body.allowDrag = false;
+    picture2.body.allowRotation = false;
+    picture2.body.pushable = false;
+    picture2.body.immovable = true;
+    picture2.body.setSize(128, 128, false);
+
+    // picture3
+    const picture3 = this.add.rectangle(102, -32, 128, 128) as Phaser.GameObjects.Rectangle & { body: Phaser.Physics.Arcade.Body };
+    picture3.scaleX = 0.1926050298894074;
+    picture3.scaleY = 0.026467832540131533;
+    this.physics.add.existing(picture3, false);
+    picture3.body.moves = false;
+    picture3.body.allowGravity = false;
+    picture3.body.allowDrag = false;
+    picture3.body.allowRotation = false;
+    picture3.body.pushable = false;
+    picture3.body.immovable = true;
+    picture3.body.setSize(128, 128, false);
+
+    // picture
+    const picture = this.add.rectangle(71, -11, 128, 128) as Phaser.GameObjects.Rectangle & { body: Phaser.Physics.Arcade.Body };
+    picture.scaleX = 0.15768350227973998;
+    picture.scaleY = 0.024002294029821174;
+    this.physics.add.existing(picture, false);
+    picture.body.moves = false;
+    picture.body.allowGravity = false;
+    picture.body.allowDrag = false;
+    picture.body.allowRotation = false;
+    picture.body.pushable = false;
+    picture.body.immovable = true;
+    picture.body.setSize(128, 128, false);
+
+    // treatMarker1
+    const treatMarker1 = new treatMarker(this, -135, 4);
+    this.add.existing(treatMarker1);
+
+    // treatMarker2
+    const treatMarker2 = new treatMarker(this, -126, -32);
+    this.add.existing(treatMarker2);
+
+    // treatMarker3
+    const treatMarker3 = new treatMarker(this, -8, -22);
+    this.add.existing(treatMarker3);
+
+    // treatMarker4
+    const treatMarker4 = new treatMarker(this, 62, 20);
+    this.add.existing(treatMarker4);
 
     this.events.emit("scene-awake");
   }

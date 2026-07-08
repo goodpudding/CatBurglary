@@ -1,7 +1,7 @@
 import manifest from './cats/manifest.json';
 import { CAT_TEXTURE_URLS } from './catTextures';
 
-export type CatVisualId = 'orange' | 'gray' | 'marshmellow';
+export type CatVisualId = 'orange' | 'gray' | 'marshmellow' | 'chonky' | 'black';
 
 export interface CatSheetSpec {
   key: string;
@@ -38,9 +38,9 @@ function sheet(assetId: string): CatSheetSpec {
 
 export const CAT_VISUAL_BY_ROSTER_ID: Record<string, CatVisualId> = {
   tabby: 'orange',
-  bandit: 'orange',
+  bandit: 'black',
   bolt: 'gray',
-  chonk: 'gray',
+  chonk: 'chonky',
   muffin: 'marshmellow',
 };
 
@@ -65,6 +65,16 @@ export const CAT_SHEET_SETS: Record<CatVisualId, CatSheetSet> = {
     walk: sheet('marshmellow-sitting-sheet'),
     idle: sheet('marshmellow-sitting-sheet'),
     jump: sheet('marshmellow-sitting-sheet'),
+  },
+  chonky: {
+    walk: sheet('chonky-calico-cat-walking-20x17'),
+    idle: sheet('chonky-calico-cat-sitting-17x17'),
+    jump: sheet('chonky-calico-cat-walking-20x17'),
+  },
+  black: {
+    walk: sheet('black-cat-walking-w-19-h-17'),
+    idle: sheet('black-cat-sitting-w-13-h-17'),
+    jump: sheet('black-cat-walking-w-19-h-17'),
   },
 };
 
@@ -97,6 +107,18 @@ export const CAT_GAME_TEXTURE_KEYS: Record<
     idle: 'marshmellow-sitting-sheet',
     walk: 'marshmellow-sitting-sheet',
     jump: 'marshmellow-sitting-sheet',
+    transition: null,
+  },
+  chonky: {
+    idle: 'chonky-calico-cat-sitting-17x17',
+    walk: 'chonky-calico-cat-walking-20x17',
+    jump: 'chonky-calico-cat-walking-20x17',
+    transition: null,
+  },
+  black: {
+    idle: 'black-cat-sitting-w-13-h-17',
+    walk: 'black-cat-walking-w-19-h-17',
+    jump: 'black-cat-walking-w-19-h-17',
     transition: null,
   },
 };

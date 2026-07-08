@@ -172,6 +172,21 @@
   opacity: 0.92;
 }
 
+.cat-preview-wrap {
+  width: 72px;
+  height: 72px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.cat-preview {
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  max-width: 100%;
+  max-height: 100%;
+}
+
 .cat-swatch {
   width: 44px;
   height: 44px;

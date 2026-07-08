@@ -2,9 +2,61 @@
     "section1": {
         "files": [
             {
+                "url": "cats/black-cat-sitting-w-13-h-17.png",
+                "type": "spritesheet",
+                "key": "black-cat-sitting-w-13-h-17",
+                "frameConfig": {
+                    "frameWidth": 14,
+                    "frameHeight": 17,
+                    "startFrame": 0,
+                    "endFrame": -1,
+                    "spacing": 0,
+                    "margin": 0
+                }
+            },
+            {
+                "url": "cats/black-cat-walking-w-19-h-17.png",
+                "type": "spritesheet",
+                "key": "black-cat-walking-w-19-h-17",
+                "frameConfig": {
+                    "frameWidth": 19,
+                    "frameHeight": 17,
+                    "startFrame": 0,
+                    "endFrame": -1,
+                    "spacing": 0,
+                    "margin": 0
+                }
+            },
+            {
                 "url": "cats/cat-animations.json",
                 "type": "animation",
                 "key": "cat-animations"
+            },
+            {
+                "url": "cats/chonky-calico-cat-sitting-17x17.png",
+                "type": "spritesheet",
+                "key": "chonky-calico-cat-sitting-17x17",
+                "frameConfig": {
+                    "frameWidth": 17,
+                    "frameHeight": 17,
+                    "startFrame": 0,
+                    "endFrame": -1,
+                    "spacing": 0,
+                    "margin": 0
+                }
+            },
+            {
+                "url": "cats/chonky-calico-cat-walking-20x17.png",
+                "type": "spritesheet",
+                "key": "chonky-calico-cat-walking-20x17",
+                "frameConfig": {
+                    "frameWidth": 20,
+                    "frameHeight": 17,
+                    "startFrame": 0,
+                    "endFrame": -1,
+                    "spacing": 0,
+                    "margin": 0
+                }
             },
             {
                 "url": "cats/gray-cat-sitting.png",
@@ -24,7 +76,7 @@
                 "type": "spritesheet",
                 "key": "gray-cat-stand-to-sit-sheet",
                 "frameConfig": {
-                    "frameWidth": 20,
+                    "frameWidth": 25,
                     "frameHeight": 20,
                     "startFrame": 0,
                     "endFrame": -1,
@@ -37,19 +89,6 @@
                 "type": "spritesheet",
                 "key": "gray-cat-walking-sheet",
                 "frameConfig": {
-                    "frameWidth": 20,
-                    "frameHeight": 20,
-                    "startFrame": 0,
-                    "endFrame": -1,
-                    "spacing": 0,
-                    "margin": 0
-                }
-            },
-            {
-                "url": "cats/marshmellow-sitting.png",
-                "type": "spritesheet",
-                "key": "marshmellow-sitting",
-                "frameConfig": {
                     "frameWidth": 25,
                     "frameHeight": 20,
                     "startFrame": 0,
@@ -60,16 +99,29 @@
             },
             {
                 "url": "cats/marshmellow-sitting-sheet.png",
-                "type": "spritesheet",
-                "key": "marshmellow-sitting-sheet",
                 "frameConfig": {
-                    "frameWidth": 20,
+                    "frameWidth": 25,
                     "frameHeight": 20,
                     "startFrame": 0,
                     "endFrame": -1,
                     "spacing": 0,
                     "margin": 0
-                }
+                },
+                "type": "spritesheet",
+                "key": "marshmellow-sitting-sheet"
+            },
+            {
+                "url": "cats/marshmellow-walking-1.png",
+                "frameConfig": {
+                    "frameWidth": 19,
+                    "frameHeight": 17,
+                    "startFrame": 0,
+                    "endFrame": -1,
+                    "spacing": 0,
+                    "margin": 0
+                },
+                "type": "spritesheet",
+                "key": "marshmellow-walking-1"
             },
             {
                 "url": "cats/orange-cat-sitting-sheet.png",
@@ -89,7 +141,7 @@
                 "type": "spritesheet",
                 "key": "orange-cat-stand-to-sit-sheet",
                 "frameConfig": {
-                    "frameWidth": 20,
+                    "frameWidth": 25,
                     "frameHeight": 20,
                     "startFrame": 0,
                     "endFrame": -1,

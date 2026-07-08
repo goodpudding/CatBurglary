@@ -151,8 +151,8 @@ export default class LivingRoomRoom extends Phaser.Scene {
 
     // shelf5
     const shelf5 = this.add.rectangle(122, 33, 128, 128) as Phaser.GameObjects.Rectangle & { body: Phaser.Physics.Arcade.Body };
-    shelf5.scaleX = 0.17125938070385924;
-    shelf5.scaleY = 0.015110156673315774;
+    shelf5.scaleX = 0.2475966925535486;
+    shelf5.scaleY = 0.014673561803109674;
     this.physics.add.existing(shelf5, false);
     shelf5.body.moves = false;
     shelf5.body.allowGravity = false;
@@ -242,8 +242,8 @@ export default class LivingRoomRoom extends Phaser.Scene {
 
     // shelf8
     const shelf8 = this.add.rectangle(205, 41, 128, 128) as Phaser.GameObjects.Rectangle & { body: Phaser.Physics.Arcade.Body };
-    shelf8.scaleX = 0.11560052847628377;
-    shelf8.scaleY = 0.008867510416294662;
+    shelf8.scaleX = 0.17308080234810996;
+    shelf8.scaleY = 0.015789977801745864;
     this.physics.add.existing(shelf8, false);
     shelf8.body.moves = false;
     shelf8.body.allowGravity = false;

@@ -4,7 +4,7 @@
             {
                 "url": "furniture/black-cat-sitting-w-13-h-17.png",
                 "frameConfig": {
-                    "frameWidth": 13,
+                    "frameWidth": 14,
                     "frameHeight": 17,
                     "startFrame": 0,
                     "endFrame": -1,
@@ -41,19 +41,6 @@
                 "url": "furniture/cat-chaser-hallway.png",
                 "type": "image",
                 "key": "cat-chaser-hallway"
-            },
-            {
-                "url": "furniture/cat-chaser-intro.png",
-                "frameConfig": {
-                    "frameWidth": 62,
-                    "frameHeight": 41,
-                    "startFrame": 0,
-                    "endFrame": -1,
-                    "spacing": 0,
-                    "margin": 0
-                },
-                "type": "spritesheet",
-                "key": "cat-chaser-intro"
             },
             {
                 "url": "furniture/cat-chaser-kitchen.png",
@@ -103,6 +90,32 @@
                 },
                 "type": "spritesheet",
                 "key": "chihuahua-walking-and-barking-w-21-h-14"
+            },
+            {
+                "url": "cats/chonky-calico-cat-sitting-17x17.png",
+                "frameConfig": {
+                    "frameWidth": 17,
+                    "frameHeight": 17,
+                    "startFrame": 0,
+                    "endFrame": -1,
+                    "spacing": 0,
+                    "margin": 0
+                },
+                "type": "spritesheet",
+                "key": "chonky-calico-cat-sitting-17x17"
+            },
+            {
+                "url": "cats/chonky-calico-cat-walking-20x17.png",
+                "frameConfig": {
+                    "frameWidth": 20,
+                    "frameHeight": 17,
+                    "startFrame": 0,
+                    "endFrame": -1,
+                    "spacing": 0,
+                    "margin": 0
+                },
+                "type": "spritesheet",
+                "key": "chonky-calico-cat-walking-20x17"
             },
             {
                 "url": "furniture/cooking-pot.png",
@@ -301,7 +314,7 @@
                 "url": "cats/gray-cat-sitting.png",
                 "frameConfig": {
                     "frameWidth": 20,
-                    "frameHeight": 32,
+                    "frameHeight": 20,
                     "startFrame": 0,
                     "endFrame": -1,
                     "spacing": 0,
@@ -313,8 +326,8 @@
             {
                 "url": "furniture/gray-cat-sitting.png",
                 "frameConfig": {
-                    "frameWidth": 32,
-                    "frameHeight": 32,
+                    "frameWidth": 14,
+                    "frameHeight": 17,
                     "startFrame": 0,
                     "endFrame": -1,
                     "spacing": 0,
@@ -339,8 +352,8 @@
             {
                 "url": "furniture/gray-cat-walking.png",
                 "frameConfig": {
-                    "frameWidth": 32,
-                    "frameHeight": 32,
+                    "frameWidth": 19,
+                    "frameHeight": 17,
                     "startFrame": 0,
                     "endFrame": -1,
                     "spacing": 0,
@@ -353,7 +366,7 @@
                 "url": "cats/gray-cat-walking-sheet.png",
                 "frameConfig": {
                     "frameWidth": 25,
-                    "frameHeight": 32,
+                    "frameHeight": 20,
                     "startFrame": 0,
                     "endFrame": -1,
                     "spacing": 0,
@@ -380,8 +393,8 @@
             {
                 "url": "furniture/marshmello-sitting2.png",
                 "frameConfig": {
-                    "frameWidth": 32,
-                    "frameHeight": 32,
+                    "frameWidth": 13,
+                    "frameHeight": 17,
                     "startFrame": 0,
                     "endFrame": -1,
                     "spacing": 0,
@@ -419,8 +432,8 @@
             {
                 "url": "furniture/marshmellow-walking.png",
                 "frameConfig": {
-                    "frameWidth": 32,
-                    "frameHeight": 32,
+                    "frameWidth": 19,
+                    "frameHeight": 17,
                     "startFrame": 0,
                     "endFrame": -1,
                     "spacing": 0,

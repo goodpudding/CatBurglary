@@ -45,10 +45,10 @@ export const CAT_ROSTER: CatDefinition[] = [
   },
   {
     id: 'muffin',
-    name: 'Muffin',
+    name: 'Marshmellow',
     tagline: 'Floaty jumps, leisurely pace',
-    color: 0xce93d8,
-    strokeColor: 0x8e24aa,
+    color: 0xf7f3ec,
+    strokeColor: 0xc9b8a8,
     stats: {
       moveSpeed: 245,
       jumpVelocity: -850,
@@ -60,8 +60,8 @@ export const CAT_ROSTER: CatDefinition[] = [
     id: 'chonk',
     name: 'Chonk',
     tagline: 'Hard to budge, steady climber',
-    color: 0x78909c,
-    strokeColor: 0x455a64,
+    color: 0xf0b27a,
+    strokeColor: 0xa8632a,
     stats: {
       moveSpeed: 255,
       jumpVelocity: -690,
@@ -73,8 +73,8 @@ export const CAT_ROSTER: CatDefinition[] = [
     id: 'bandit',
     name: 'Bandit',
     tagline: 'Snack thief — bonus points',
-    color: 0xffca28,
-    strokeColor: 0xf57f17,
+    color: 0x3a3a44,
+    strokeColor: 0x15151c,
     stats: {
       moveSpeed: 265,
       jumpVelocity: -700,

@@ -1,6 +1,7 @@
 import {
   CAT_ROSTER,
   formatStatLabel,
+  getCatDefinition,
   statRating,
   type CatDefinition,
   type CatStats,
@@ -8,12 +9,9 @@ import {
 import { getCatUnlockPrice } from '../shared/catUnlocks.js';
 import type { PlayerProfile } from '../shared/playerProfile.js';
 import { selectCat, unlockCat } from './api/playerApi.js';
+import { mountCatPickerPreviews, stopCatPickerPreviews } from './catPickerPreview.js';
 
 const STAT_KEYS: (keyof CatStats)[] = ['moveSpeed', 'jumpVelocity', 'knockbackMultiplier', 'scoreMultiplier'];
-
-function hexColor(color: number): string {
-  return `#${color.toString(16).padStart(6, '0')}`;
-}
 
 function renderStatBars(cat: CatDefinition): string {
   return STAT_KEYS.map((stat) => {
@@ -42,7 +40,9 @@ function renderCatCard(cat: CatDefinition, profile: PlayerProfile): string {
 
   return `
     <article class="cat-card${selected ? ' is-selected' : ''}${locked ? ' is-locked' : ''}" data-cat-id="${cat.id}">
-      <div class="cat-swatch" style="background:${hexColor(cat.color)}; border-color:${hexColor(cat.strokeColor)}"></div>
+      <div class="cat-preview-wrap">
+        <canvas class="cat-preview" data-cat-id="${cat.id}" aria-hidden="true"></canvas>
+      </div>
       <h3 class="cat-name">${cat.name}</h3>
       <p class="cat-tagline">${cat.tagline}</p>
       <div class="cat-stats">${renderStatBars(cat)}</div>
@@ -53,6 +53,8 @@ function renderCatCard(cat: CatDefinition, profile: PlayerProfile): string {
 }
 
 export function renderCatPicker(container: HTMLElement, profile: PlayerProfile): void {
+  stopCatPickerPreviews();
+
   container.innerHTML = `
     <h2 class="cat-picker-title">Choose your cat</h2>
     <div class="cat-picker-row">
@@ -68,6 +70,8 @@ export function renderCatPicker(container: HTMLElement, profile: PlayerProfile):
       void handleCatAction(button.dataset.catId!, profile, container, hint);
     });
   });
+
+  void mountCatPickerPreviews(container);
 }
 
 async function handleCatAction(
@@ -87,7 +91,7 @@ async function handleCatAction(
   } catch (error) {
     hint.textContent =
       error instanceof Error && error.message === 'Not enough coins'
-        ? `Need ${price} coins to unlock ${catId}.`
+        ? `Need ${price} coins to unlock ${getCatDefinition(catId).name}.`
         : 'Could not update your cat. Try again.';
   }
 }
