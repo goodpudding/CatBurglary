@@ -17,7 +17,10 @@ export const FURNITURE_LAND_TOLERANCE = 14;
 export const DOUBLE_TAP_MS = 320;
 
 /** How long granny waits off-screen before walking into a new room (rooms 2+). */
-export const GRANNY_ENTRY_DELAY_MS = 4000;
+export const GRANNY_ENTRY_DELAY_MS = 1500;
+/** Walk speed (px/s) granny uses for her off-screen -> spawn entry stride.
+ *  Faster than her lazy patrol amble so she arrives in the room promptly. */
+export const GRANNY_ENTRY_SPEED = 170;
 /** How far left of the room edge granny stands before her entrance walk. */
 export const GRANNY_ENTRY_OFFSCREEN_PAD = 110;
 
@@ -28,6 +31,8 @@ export const CHIHUAHUA_CHARGE_DELAY_MS = 900;
 export const CHIHUAHUA_CHARGE_SPEED = 195;
 export const CHIHUAHUA_CHARGE_OVERSHOOT = 56;
 export const CHIHUAHUA_CHARGE_RECOVER_SPEED = 70;
+/** Speed (px/s) a dog uses to keep chasing the cat after its first contact. */
+export const CHIHUAHUA_FOLLOW_SPEED = 130;
 /** Horizontal gap (px) between dog and cat that counts as "reached" the player. */
 export const CHIHUAHUA_REACH_DISTANCE = 34;
 /** Ms the dog barks in place before charging again. */
@@ -48,6 +53,12 @@ export const DETECT_DECAY_RATE = 0.5;
 export const ALERT_THRESHOLD = 1;
 /** Meter value (0..1) above which granny grows suspicious and investigates. */
 export const SUSPICION_THRESHOLD = 0.35;
+/** Max up/down tilt (degrees) of the vision cone while sweeping on patrol. */
+export const VISION_SWEEP_DEG = 22;
+/** Sweep speed (degrees per second) of the up/down scan. */
+export const VISION_SWEEP_SPEED_DEG = 28;
+/** Ms granny stays locked on (still chasing) after losing sight of the cat. */
+export const LOCK_LOST_SIGHT_MS = 1600;
 /** How long (ms) granny keeps searching after losing sight before giving up. */
 export const SEARCH_COOLDOWN_MS = 2600;
 
@@ -66,7 +77,17 @@ export const PATROL_PAUSE_MAX_MS = 2400;
 /** Minimum distance (px) between successive random wander targets. */
 export const PATROL_MIN_STEP = 90;
 
+// --- Night lighting ----------------------------------------------------------
+/** How dark the room gets (0 = day, 1 = pitch black). */
+export const NIGHT_ALPHA = 0.72;
+/** Radius (px) of the soft light around the cat. */
+export const CAT_GLOW_RADIUS = 160;
+
 // --- Cat movement feel -----------------------------------------------------
+/** Ms a jump press stays buffered so pressing just before landing still jumps. */
+export const JUMP_BUFFER_MS = 120;
+/** Ms after walking off a ledge during which a jump still works (coyote time). */
+export const COYOTE_MS = 90;
 /** Global multiplier on the cat's top speed (lower = calmer). */
 export const CAT_SPEED_SCALE = 0.72;
 /** Horizontal acceleration (px/s^2) — soft taps ramp slowly, holds reach top speed. */

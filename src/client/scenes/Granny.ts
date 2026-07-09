@@ -30,9 +30,27 @@ export default class Granny extends Phaser.Physics.Arcade.Sprite {
     /* END-USER-CTR-CODE */
   }
 
+  public patrolSpeed: number = 42;
+  public chaseSpeed: number = 120;
+  public retrieveSpeed: number = 130;
+  public visionRange: number = 200;
+  public visionAngleDeg: number = 20;
+  public detectFillRate: number = 3;
+  public throwRange: number = 300;
+  public throwCooldownMs: number = 900;
+  public throwSpeed: number = 360;
+  public touchDamage: boolean = true;
+  public sweepDeg: number = 22;
+  public sweepSpeedDeg: number = 28;
+  public lostSightMs: number = 1600;
+  public entryDelayMs: number = 5000;
+  public entrySpeed: number = 120;
+
   /* START-USER-CODE */
 
-  // Write your code here.
+  // Granny tuning lives in the prefab properties above (editable per-instance in
+  // the Phaser Editor Inspector). GrannyController / StealthSystem / SlipperSystem
+  // read them via resolveGrannyTuning(), falling back to the sneak constants.
 
   /* END-USER-CODE */
 }

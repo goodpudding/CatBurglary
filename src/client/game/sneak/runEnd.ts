@@ -62,8 +62,8 @@ export class RunEndScreen {
       .setOrigin(0.5)
       .setScrollFactor(0)
       .setDepth(201);
-    const scoreLine = this.scene.add
-      .text(w / 2, hh / 2 - 8, `Lost ${lost} carried · Final score: ${score}`, {
+    this.scene.add
+      .text(w / 2, hh / 2 - 8, `Lost ${lost} carried · Score: ${score}`, {
         fontFamily: 'monospace',
         fontSize: '18px',
         color: '#ffffff',
@@ -71,9 +71,19 @@ export class RunEndScreen {
       .setOrigin(0.5)
       .setScrollFactor(0)
       .setDepth(201);
+    // Getting caught means the loot is confiscated — no coins are banked.
+    // Only escaping (showWin) submits the run for coins.
+    this.scene.add
+      .text(w / 2, hh / 2 + 20, 'The loot was confiscated — escape to keep your coins!', {
+        fontFamily: 'sans-serif',
+        fontSize: '14px',
+        color: '#cccccc',
+      })
+      .setOrigin(0.5)
+      .setScrollFactor(0)
+      .setDepth(201);
 
-    void this.submitRun(score, scoreLine);
-    this.addButtons(w / 2, hh / 2 + 60, onPlayAgain);
+    this.addButtons(w / 2, hh / 2 + 64, onPlayAgain);
   }
 
   private async submitRun(score: number, scoreLine: Phaser.GameObjects.Text): Promise<void> {

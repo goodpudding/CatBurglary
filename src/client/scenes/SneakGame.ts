@@ -14,16 +14,14 @@ import { placeTreats } from '../game/sneak/treats.js';
 import {
   CAT_ACCEL,
   CAT_DRAG,
-  CHASE_SPEED,
+  COYOTE_MS,
   CROUCH_SPEED_SCALE,
   DEBUG_PHYSICS,
   FURNITURE_LAND_TOLERANCE,
   GRANNY_SPEED,
-  GRANNY_ENTRY_DELAY_MS,
   GRANNY_ENTRY_OFFSCREEN_PAD,
   INVULN_MS,
-  PATROL_SPEED,
-  RETRIEVE_SPEED,
+  JUMP_BUFFER_MS,
 } from '../game/sneak/constants.js';
 import { StealthSystem } from '../game/sneak/stealth.js';
 import { SlipperSystem } from '../game/sneak/slipper.js';
@@ -43,6 +41,9 @@ import {
 import type { TreatTarget } from '../game/sneak/types.js';
 import type Chihuahua from './Chihuahua.js';
 import { WorldLayout, syncAllPhysicsBodies } from '../game/sneak/worldLayout.js';
+import { resolveGrannyTuning, type GrannyTuning } from '../game/sneak/grannyTuning.js';
+import { setupEscapeWindow, isCatInWindow, type EscapeWindow } from '../game/sneak/escapeWindow.js';
+import { NightMode } from '../game/sneak/nightMode.js';
 
 /**
  * SneakGame — the shared per-room gameplay driver. Each room scene builds its
@@ -73,13 +74,19 @@ export class SneakGame {
   private input!: SneakInput;
   private runEnd!: RunEndScreen;
   private exit?: RoomExit;
+  private escape?: EscapeWindow;
+  private grannyTuning!: GrannyTuning;
   private stealth!: StealthSystem;
   private slipper!: SlipperSystem;
   private physicsDebug?: PhysicsDebugOverlay;
+  private night?: NightMode;
 
   private treats: TreatTarget[] = [];
   private moveSpeed = 280;
   private jumpVelocity = -720;
+  /** Jump feel: buffered press + coyote time (see JUMP_BUFFER_MS / COYOTE_MS). */
+  private jumpQueuedAt = Number.NEGATIVE_INFINITY;
+  private lastGroundedAt = Number.NEGATIVE_INFINITY;
   private knockbackMultiplier = 1;
   private scoreMultiplier = 1;
   private catBaseScaleX = 1;
@@ -168,19 +175,35 @@ export class SneakGame {
       this.world.groundTop,
     );
 
-    this.exit = setupRoomExit(
-      this.scene,
-      collected.exit,
-      this.world.roomRight,
-      this.world.roomTop,
-      this.world.roomHeight,
-      this.world.groundTop,
-    );
-
-    // The old escape window (if still present as art) is inert now.
-    collected.window?.setVisible(false);
+    if (this.room.isFinal) {
+      // Final room: the cat wins by diving out the window, not by walking off
+      // the side — so there is no forward exit here, just the escape window.
+      collected.exit?.setVisible(false);
+      collected.window?.setVisible(false);
+      this.escape = setupEscapeWindow(
+        this.scene,
+        collected.window,
+        { roomRight: this.world.roomRight, groundTop: this.world.groundTop },
+        () => this.escapeThroughWindow(),
+      );
+    } else {
+      this.exit = setupRoomExit(
+        this.scene,
+        collected.exit,
+        this.world.roomRight,
+        this.world.roomTop,
+        this.world.roomHeight,
+        this.world.groundTop,
+      );
+      // The old escape window (if still present as art) is inert in non-final rooms.
+      collected.window?.setVisible(false);
+    }
 
     this.grannyCtrl.setup(collected.granny, this.world.groundTop, this.world.roomLeft, this.world.roomRight);
+    // Per-instance granny tuning from the prefab properties (falls back to the
+    // sneak constants for any grannies not built from the prefab).
+    this.grannyTuning = resolveGrannyTuning(collected.granny);
+    this.grannyCtrl.patrolSpeedBase = this.grannyTuning.patrolSpeed;
     this.chihuahuaCtrl.setup(
       collected.chihuahuas,
       this.world.groundTop,
@@ -201,7 +224,10 @@ export class SneakGame {
         grannySpawnX,
         GRANNY_ENTRY_OFFSCREEN_PAD,
       );
-      this.grannyEntryDelayUntil = this.scene.time.now + GRANNY_ENTRY_DELAY_MS;
+      // Use the game loop clock: the scene clock's `now` is stale during
+      // create() (it only ticks while the scene runs), which silently expired
+      // this deadline the moment the room started.
+      this.grannyEntryDelayUntil = this.scene.game.loop.time + this.grannyTuning.entryDelayMs;
       this.invulnUntil = Math.max(this.invulnUntil, this.grannyEntryDelayUntil);
     }
 
@@ -212,13 +238,19 @@ export class SneakGame {
       this.world.worldScale,
       this.room.difficulty.visionMul,
       this.room.difficulty.fillMul,
+      this.grannyTuning,
     );
     this.slipper = new SlipperSystem(
       this.scene,
       () => this.hitCat(),
       this.world.worldScale,
       this.room.difficulty.throwRangeMul,
+      this.grannyTuning,
+      () => ({ min: this.grannyCtrl.patrolMinX, max: this.grannyCtrl.patrolMaxX }),
     );
+    // It's a break-in: rooms are dark, granny's cone is her flashlight, and a
+    // small glow follows the cat. Tuning: NIGHT_ALPHA / CAT_GLOW_RADIUS.
+    this.night = new NightMode(this.scene);
 
     this.hud.create();
     this.input = new SneakInput(this.scene, (...els) => this.hud.track(...els));
@@ -337,15 +369,19 @@ export class SneakGame {
     this.hud.update(runState.score, runState.carried, runState.lives);
   };
 
-  /** Overlap with granny only hurts once she is fully alert and chasing. */
+  /**
+   * Touching granny hurts. With the prefab's touchDamage property on (the
+   * default) any contact does damage; turned off, only an alert chase does —
+   * the old behavior.
+   */
   private onHitByGranny: Phaser.Types.Physics.Arcade.ArcadePhysicsCallback = () => {
     if (this.scene.time.now < this.grannyEntryDelayUntil) return;
-    if (this.stealth?.state !== 'alert') return;
+    if (!this.grannyTuning.touchDamage && this.stealth?.state !== 'alert') return;
     this.hitCat();
   };
 
   private onHitByChihuahua: Phaser.Types.Physics.Arcade.ArcadePhysicsCallback = (_cat, dogObj) => {
-    if (!this.chihuahuaCtrl.isCharging(dogObj as Chihuahua)) return;
+    if (!this.chihuahuaCtrl.isThreat(dogObj as Chihuahua)) return;
     if (!this.isCatOnFloor()) return;
     this.hitCat();
   };
@@ -386,6 +422,31 @@ export class SneakGame {
     if (runState.lives <= 0) this.endRunCaught();
   }
 
+  /** Final room: dive out the bathroom window to bank everything and win. */
+  private escapeThroughWindow(): void {
+    if (this.runOver || this.reachedExit) return;
+    this.reachedExit = true;
+    this.runOver = true;
+
+    runState.score += runState.carried;
+    runState.carried = 0;
+    this.hud.update(runState.score, runState.carried, runState.lives);
+    if (this.escape) this.escape.hint.setAlpha(0);
+
+    const body = this.cat.body as Phaser.Physics.Arcade.Body;
+    body.setVelocity(0, 0);
+
+    const cam = this.scene.cameras.main;
+    cam.fadeOut(300, 0, 0, 0);
+    cam.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, () => {
+      // Fade back in from black BEFORE showing the win screen. A bare fadeOut
+      // used to leave the camera fully black, hiding the end screen entirely —
+      // that was the "it just goes to a black screen" ending.
+      cam.fadeIn(300, 0, 0, 0);
+      this.winRun();
+    });
+  }
+
   private winRun(): void {
     this.runOver = true;
     const body = this.cat.body as Phaser.Physics.Arcade.Body;
@@ -415,10 +476,18 @@ export class SneakGame {
     if (this.runOver || this.introLock || !this.cat) return;
 
     const body = this.cat.body as Phaser.Physics.Arcade.Body;
-    const left = this.input.cursors.left.isDown || this.input.touchLeft;
-    const right = this.input.cursors.right.isDown || this.input.touchRight;
-    const jump = this.input.consumeJumpPressed();
+    const left = this.input.leftHeld;
+    const right = this.input.rightHeld;
+
+    // Tight jump feel: presses are buffered for a moment (a press just before
+    // landing still jumps on touchdown), and coyote time lets the cat jump for
+    // a beat after walking off a ledge.
+    if (this.input.consumeJumpPressed()) this.jumpQueuedAt = time;
     const onGround = body.blocked.down || body.touching.down;
+    if (onGround) this.lastGroundedAt = time;
+    const jump =
+      time - this.jumpQueuedAt <= JUMP_BUFFER_MS &&
+      (onGround || time - this.lastGroundedAt <= COYOTE_MS);
     const crouching = this.input.crouching && onGround && !jump;
 
     this.input.applyDropThrough(this.cat, onGround, () => this.platforms.getPlatformUnderCat(this.cat));
@@ -438,8 +507,11 @@ export class SneakGame {
     }
     body.setVelocityX(vx);
 
-    if (jump && onGround) {
+    if (jump) {
       this.cat.setVelocityY(this.jumpVelocity);
+      // Consume the buffer and the coyote window so one press = one jump.
+      this.jumpQueuedAt = Number.NEGATIVE_INFINITY;
+      this.lastGroundedAt = Number.NEGATIVE_INFINITY;
     }
 
     const dropping = this.input.dropThroughBody !== null;
@@ -462,11 +534,33 @@ export class SneakGame {
     }
 
     this.updateGranny(delta);
-    this.chihuahuaCtrl.update(delta, this.cat, this.world.groundTop, () => this.isCatOnFloor());
+    // Dogs join granny's hunt while she is alert.
+    this.chihuahuaCtrl.update(
+      delta,
+      this.cat,
+      this.world.groundTop,
+      () => this.isCatOnFloor(),
+      this.stealth?.state === 'alert',
+    );
+    this.night?.update(this.cat.x, this.cat.y, this.stealth ? [this.stealth.lightShape] : []);
 
     if (isCatAtExit(this.exit, this.cat)) this.tryExit();
     const nearExit = this.cat.x > this.world.roomRight - 170;
     this.exit?.hint.setAlpha(nearExit ? 1 : 0);
+
+    // Final room: escape by reaching the window (dive in) or pressing E near it.
+    if (this.escape) {
+      const wb = this.escape.zone.getBounds();
+      const nearWindow =
+        Math.abs(this.cat.x - wb.centerX) < wb.width * 0.5 + 48 && this.cat.y < wb.bottom + 40;
+      this.escape.hint.setAlpha(nearWindow ? 1 : 0);
+      if (
+        isCatInWindow(this.escape.zone, this.cat) ||
+        (nearWindow && Phaser.Input.Keyboard.JustDown(this.input.bankKey))
+      ) {
+        this.escapeThroughWindow();
+      }
+    }
 
     this.cat.setAlpha(time < this.invulnUntil ? 0.5 : 1);
     this.cosmeticAttachments?.update();
@@ -485,7 +579,7 @@ export class SneakGame {
     const chaseMul = this.room.difficulty.chaseMul;
 
     if (this.grannyCtrl.isEnteringRoom()) {
-      this.grannyCtrl.enterRoom(delta, groundTop, PATROL_SPEED * this.grannyCtrl.patrolSpeedMul);
+      this.grannyCtrl.enterRoom(delta, groundTop, this.grannyTuning.entrySpeed * this.grannyCtrl.patrolSpeedMul);
       if (this.grannyCtrl.moved) this.grannyCtrl.animateWalk();
       else this.grannyCtrl.stopWalk();
       this.hud.updateDetection(0, 'patrol');
@@ -506,10 +600,10 @@ export class SneakGame {
 
     if (this.slipper.needsRetrieve) {
       const target = this.slipper.retrieveTargetX ?? this.grannyCtrl.x;
-      this.grannyCtrl.pursue(delta, groundTop, target, RETRIEVE_SPEED * chaseMul);
+      this.grannyCtrl.pursue(delta, groundTop, target, this.grannyTuning.retrieveSpeed * chaseMul);
       this.slipper.pickUpIfNear(this.grannyCtrl.x);
     } else if (this.stealth.state === 'alert') {
-      this.grannyCtrl.pursue(delta, groundTop, this.cat.x, CHASE_SPEED * chaseMul);
+      this.grannyCtrl.pursue(delta, groundTop, this.cat.x, this.grannyTuning.chaseSpeed * chaseMul);
     } else if (this.stealth.state === 'suspicious' || this.stealth.state === 'searching') {
       const target = this.stealth.lastSeen?.x ?? this.cat.x;
       this.grannyCtrl.pursue(delta, groundTop, target, GRANNY_SPEED * chaseMul);
@@ -547,6 +641,7 @@ export class SneakGame {
     this.cosmeticAttachments?.destroy();
     this.stealth?.destroy();
     this.slipper?.destroy();
+    this.night?.destroy();
     this.scene.events.off(Phaser.Scenes.Events.UPDATE, this.onUpdate, this);
   }
 }

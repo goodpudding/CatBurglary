@@ -127,9 +127,9 @@
     "path": "cats/marshmellow-sitting-sheet.png",
     "width": 300,
     "height": 20,
-    "frameWidth": 20,
+    "frameWidth": 25,
     "frameHeight": 20,
-    "frameCount": 15
+    "frameCount": 12
   },
   {
     "id": "marshmellow-walking",

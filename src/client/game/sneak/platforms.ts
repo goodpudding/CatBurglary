@@ -75,13 +75,44 @@ export class PlatformSystem {
 
   addGameplayFloor(groundTop: number, roomLeft: number, roomRight: number): number {
     this.gameplayFloor?.destroy();
-    const w = Math.max(800, roomRight - roomLeft);
-    const h = 32;
-    const cx = (roomLeft + roomRight) / 2;
-    this.gameplayFloor = this.scene.add.rectangle(cx, groundTop + h * 0.5, w, h, 0x000000, 0);
+
+    // WYSIWYG: match the invisible walk collider to the editor floor rect(s) so
+    // the debug hitbox lines up with what you authored. Previously this was a
+    // fixed 32px-tall, >=800px-wide bar, which never matched a scaled floor rect
+    // in the editor — that mismatch is what shows up in the physics debugger.
+    // Fall back to the room span with a default thickness only when there is no
+    // editor floor rect to trace.
+    const span = this.readFloorSpan();
+    const left = span ? span.left : roomLeft;
+    const right = span ? span.right : roomRight;
+    const bottom = span ? span.bottom : groundTop + 32;
+
+    const w = Math.max(4, right - left);
+    const h = Math.max(8, bottom - groundTop);
+    const cx = (left + right) / 2;
+    const cy = groundTop + h * 0.5;
+
+    this.gameplayFloor = this.scene.add.rectangle(cx, cy, w, h, 0x000000, 0);
     this.gameplayFloor.setDepth(1);
     this.makeStatic(this.gameplayFloor, this.walkableFloors);
     return this.readGroundTop(groundTop);
+  }
+
+  /** Union bounds (left/right/bottom) of the editor floor rect bodies, if any. */
+  private readFloorSpan(): { left: number; right: number; bottom: number } | null {
+    let left = Number.POSITIVE_INFINITY;
+    let right = Number.NEGATIVE_INFINITY;
+    let bottom = Number.NEGATIVE_INFINITY;
+    let found = false;
+    for (const platform of this.floorPlatforms) {
+      const b = (platform as Bodied).body as Phaser.Physics.Arcade.StaticBody | null;
+      if (!b) continue;
+      left = Math.min(left, b.left);
+      right = Math.max(right, b.right);
+      bottom = Math.max(bottom, b.bottom);
+      found = true;
+    }
+    return found ? { left, right, bottom } : null;
   }
 
   createLandFilter(

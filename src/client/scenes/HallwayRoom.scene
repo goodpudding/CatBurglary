@@ -62,22 +62,15 @@
             "body.offset.y": 4
         },
         {
-            "type": "ArcadeSprite",
+            "prefabId": "31f6b5bb-125e-47bb-8c20-20187b1efd22",
             "id": "hallway-granny",
+            "unlock": [
+                "x",
+                "y"
+            ],
             "label": "granny",
-            "texture": {
-                "key": "Granny_Walking-Sheet",
-                "frame": 0
-            },
             "x": -175,
-            "y": 4,
-            "scaleX": 1.5,
-            "scaleY": 1.5,
-            "animationPlayMethod": 1,
-            "animationKey": "newgrannywalk",
-            "body.width": 11,
-            "body.height": 28,
-            "body.offset.x": 5
+            "y": 4
         },
         {
             "type": "Rectangle",

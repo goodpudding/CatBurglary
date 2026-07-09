@@ -7,6 +7,9 @@ export class SneakInput {
   readonly bankKey: Phaser.Input.Keyboard.Key;
   readonly downKey: Phaser.Input.Keyboard.Key;
   readonly crouchKey: Phaser.Input.Keyboard.Key;
+  readonly leftKey: Phaser.Input.Keyboard.Key;
+  readonly rightKey: Phaser.Input.Keyboard.Key;
+  readonly upKey: Phaser.Input.Keyboard.Key;
 
   touchLeft = false;
   touchRight = false;
@@ -28,6 +31,10 @@ export class SneakInput {
     this.bankKey = scene.input.keyboard!.addKey(Phaser.Input.Keyboard.KeyCodes.E);
     this.downKey = scene.input.keyboard!.addKey(Phaser.Input.Keyboard.KeyCodes.S);
     this.crouchKey = scene.input.keyboard!.addKey(Phaser.Input.Keyboard.KeyCodes.SHIFT);
+    // WASD mirrors the arrow keys (S doubles as drop-through, handled below).
+    this.leftKey = scene.input.keyboard!.addKey(Phaser.Input.Keyboard.KeyCodes.A);
+    this.rightKey = scene.input.keyboard!.addKey(Phaser.Input.Keyboard.KeyCodes.D);
+    this.upKey = scene.input.keyboard!.addKey(Phaser.Input.Keyboard.KeyCodes.W);
 
     if (!scene.sys.game.device.input.touch) return;
 
@@ -73,6 +80,16 @@ export class SneakInput {
     return this.crouchKey.isDown || this.touchCrouch;
   }
 
+  /** Left held via arrow key, A, or the touch pad. */
+  get leftHeld(): boolean {
+    return this.cursors.left.isDown || this.leftKey.isDown || this.touchLeft;
+  }
+
+  /** Right held via arrow key, D, or the touch pad. */
+  get rightHeld(): boolean {
+    return this.cursors.right.isDown || this.rightKey.isDown || this.touchRight;
+  }
+
   /**
    * True only on the frame jump was first pressed (keyboard or touch).
    * Edge-detected so holding the button doesn't auto-bounce the cat on every
@@ -81,7 +98,8 @@ export class SneakInput {
   consumeJumpPressed(): boolean {
     const keyboard =
       Phaser.Input.Keyboard.JustDown(this.spaceKey) ||
-      Phaser.Input.Keyboard.JustDown(this.cursors.up);
+      Phaser.Input.Keyboard.JustDown(this.cursors.up) ||
+      Phaser.Input.Keyboard.JustDown(this.upKey);
     const touch = this.touchJumpQueued;
     this.touchJumpQueued = false;
     return keyboard || touch;

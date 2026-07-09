@@ -4,6 +4,7 @@ import {
   SLIPPER_THROW_RANGE,
   SLIPPER_THROW_SPEED,
 } from './constants.js';
+import type { GrannyTuning } from './grannyTuning.js';
 
 type ArcadeImage = Phaser.Physics.Arcade.Image;
 
@@ -23,6 +24,13 @@ export class SlipperSystem {
     private onHitCat: () => void,
     private worldScale = 1,
     private throwRangeMul = 1,
+    private tuning?: GrannyTuning,
+    /**
+     * Granny's walkable x range. The slipper's rest position is clamped into
+     * it so she can always reach what she threw (a slipper at the wall used
+     * to strand her in retrieve mode forever).
+     */
+    private getReach?: () => { min: number; max: number },
   ) {}
 
   /** x the retrieving granny should walk to, or null if nothing to fetch. */
@@ -46,7 +54,8 @@ export class SlipperSystem {
   ): void {
     if (!this.hasSlipper || this.inFlight) return;
     if (this.scene.time.now < this.throwReadyAt) return;
-    if (Math.abs(cat.x - granny.x) > SLIPPER_THROW_RANGE * this.worldScale * this.throwRangeMul) return;
+    const throwRange = this.tuning?.throwRange ?? SLIPPER_THROW_RANGE;
+    if (Math.abs(cat.x - granny.x) > throwRange * this.worldScale * this.throwRangeMul) return;
 
     const startX = granny.x;
     const startY = granny.y - granny.displayHeight * 0.2;
@@ -57,7 +66,8 @@ export class SlipperSystem {
     body.setAllowGravity(true);
 
     const gravity = this.scene.physics.world.gravity.y || 1400;
-    const vx = dirSign * SLIPPER_THROW_SPEED * this.worldScale;
+    const throwSpeed = this.tuning?.throwSpeed ?? SLIPPER_THROW_SPEED;
+    const vx = dirSign * throwSpeed * this.worldScale;
     const dx = cat.x - startX;
     const dy = cat.y - startY;
     const t = Phaser.Math.Clamp(Math.abs(dx / (vx || 1)), 0.25, 1.4);
@@ -94,15 +104,20 @@ export class SlipperSystem {
     this.dropped.destroy();
     this.dropped = undefined;
     this.hasSlipper = true;
-    this.throwReadyAt = this.scene.time.now + SLIPPER_THROW_COOLDOWN_MS;
+    this.throwReadyAt =
+      this.scene.time.now + (this.tuning?.throwCooldownMs ?? SLIPPER_THROW_COOLDOWN_MS);
   }
 
   private land(proj: ArcadeImage, groundTop: number): void {
-    const x = Phaser.Math.Clamp(
+    let x = Phaser.Math.Clamp(
       proj.x,
       this.scene.physics.world.bounds.x + 10,
       this.scene.physics.world.bounds.right - 10,
     );
+
+    // Keep the slipper inside granny's walkable band so she can pick it up.
+    const reach = this.getReach?.();
+    if (reach) x = Phaser.Math.Clamp(x, reach.min + 4, reach.max - 4);
     proj.destroy();
     this.projectile = undefined;
 

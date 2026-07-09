@@ -5,6 +5,7 @@
 
 import Chihuahua from "./Chihuahua.js";
 import treatMarker from "./treatMarker.js";
+import Granny from "./Granny.js";
 /* START-USER-IMPORTS */
 import { SneakGame } from './SneakGame.js';
 import { assignEditorNames } from '../game/sneak/editorObjects.js';
@@ -45,13 +46,8 @@ export default class LivingRoomRoom extends Phaser.Scene {
     player.play("orange-idle");
 
     // granny
-    const granny = this.physics.add.sprite(-46, 59, "Granny_Walking-Sheet", 0);
-    granny.setInteractive(new Phaser.Geom.Rectangle(5, 0, 10.74227135655199, 28.50165601507459), Phaser.Geom.Rectangle.Contains);
-    granny.scaleX = 1.5;
-    granny.scaleY = 1.5;
-    granny.body.setOffset(5, 0);
-    granny.body.setSize(11, 28, false);
-    granny.play("newgrannywalk");
+    const granny = new Granny(this, -46, 59);
+    this.add.existing(granny);
 
     // exit
     const exit = this.add.rectangle(305, 33, 128, 128);

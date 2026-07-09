@@ -1,28 +1,8 @@
-import {
-  CAT_ROSTER,
-  formatStatLabel,
-  getCatDefinition,
-  statRating,
-  type CatDefinition,
-  type CatStats,
-} from '../shared/CatDefinition.js';
+import { CAT_ROSTER, getCatDefinition, type CatDefinition } from '../shared/CatDefinition.js';
 import { getCatUnlockPrice } from '../shared/catUnlocks.js';
 import type { PlayerProfile } from '../shared/playerProfile.js';
 import { selectCat, unlockCat } from './api/playerApi.js';
 import { mountCatPickerPreviews, stopCatPickerPreviews } from './catPickerPreview.js';
-
-const STAT_KEYS: (keyof CatStats)[] = ['moveSpeed', 'jumpVelocity', 'knockbackMultiplier', 'scoreMultiplier'];
-
-function renderStatBars(cat: CatDefinition): string {
-  return STAT_KEYS.map((stat) => {
-    const width = Math.round(statRating(stat, cat.stats[stat]) * 100);
-    return `
-      <div class="stat-row">
-        <span class="stat-label">${formatStatLabel(stat)}</span>
-        <span class="stat-bar"><span class="stat-fill" style="width:${width}%"></span></span>
-      </div>`;
-  }).join('');
-}
 
 function renderCatCard(cat: CatDefinition, profile: PlayerProfile): string {
   const owned = profile.ownedCats.includes(cat.id);
@@ -45,7 +25,6 @@ function renderCatCard(cat: CatDefinition, profile: PlayerProfile): string {
       </div>
       <h3 class="cat-name">${cat.name}</h3>
       <p class="cat-tagline">${cat.tagline}</p>
-      <div class="cat-stats">${renderStatBars(cat)}</div>
       <button type="button" class="${actionClass}" data-cat-id="${cat.id}" ${selected && !locked ? 'disabled' : ''}>
         ${actionLabel}
       </button>

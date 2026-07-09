@@ -23,6 +23,11 @@ export class ChihuahuaController {
     return ChihuahuaBehavior.of(sprite)?.isCharging ?? false;
   }
 
+  /** Charging OR still chasing after first contact — used for damage checks. */
+  isThreat(sprite: Phaser.GameObjects.GameObject): boolean {
+    return ChihuahuaBehavior.of(sprite)?.isThreat ?? false;
+  }
+
   setup(
     dogs: Phaser.Physics.Arcade.Sprite[],
     groundTop: number,
@@ -42,7 +47,9 @@ export class ChihuahuaController {
       found.add(dog);
     }
 
-    const now = this.scene.time.now;
+    // Game loop time, not scene time: the scene clock is stale during
+    // create(), which made charge delays expire instantly on room entry.
+    const now = this.scene.game.loop.time;
     this.behaviors = [...found].map((dog) => ChihuahuaBehavior.attach(dog));
     for (const behavior of this.behaviors) behavior.init(groundTop, roomIndex, now);
   }
@@ -52,6 +59,7 @@ export class ChihuahuaController {
     cat: Phaser.Physics.Arcade.Sprite,
     groundTop: number,
     isCatOnFloor: () => boolean,
+    packChase = false,
   ): void {
     if (this.behaviors.length === 0) return;
 
@@ -61,6 +69,7 @@ export class ChihuahuaController {
       catX: (cat.body as Phaser.Physics.Arcade.Body).center.x,
       catOnFloor: isCatOnFloor(),
       groundTop,
+      packChase,
     };
 
     for (const behavior of this.behaviors) behavior.update(ctx);

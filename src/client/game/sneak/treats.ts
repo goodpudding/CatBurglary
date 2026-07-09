@@ -56,7 +56,10 @@ export function placeTreats(
 
   if (markers.length > 0) {
     for (const marker of markers) {
-      const points = parseTreatPoints(marker.name);
+      // Prefer the marker prefab's points property (set per-instance in the
+      // editor Inspector); fall back to parsing a treat_N name.
+      const own = (marker as { points?: number }).points;
+      const points = typeof own === 'number' ? own : parseTreatPoints(marker.name);
       const go = marker as Phaser.GameObjects.GameObject & { getBounds?: () => Phaser.Geom.Rectangle };
       const b = go.getBounds?.();
       if (!b) continue;

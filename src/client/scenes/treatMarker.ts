@@ -11,23 +11,25 @@ export default interface treatMarker {
    body: Phaser.Physics.Arcade.Body;
 }
 
-/** Editor-only placement marker; SneakGame spawns animated treats from its position. */
-export default class treatMarker extends Phaser.GameObjects.Ellipse {
+export default class treatMarker extends Phaser.Physics.Arcade.Sprite {
 
-  constructor(scene: Phaser.Scene, x?: number, y?: number) {
-    super(scene, x ?? 0, y ?? 0, 14, 14, 0xffd54a, 0.45);
-    this.setStrokeStyle(1, 0x7a5200, 0.8);
+  constructor(scene: Phaser.Scene, x?: number, y?: number, texture?: string, frame?: number | string) {
+    super(scene, x ?? 569, y ?? 251, texture || "fish-treat", frame ?? 0);
+
+    scene.physics.add.existing(this, false);
+    this.body.setSize(16, 16, false);
 
     /* START-USER-CTR-CODE */
     this.setName(`treat_${this.points}`);
     /* END-USER-CTR-CODE */
   }
 
-  public points: number = 10;
+  public points: number = 2;
 
   /* START-USER-CODE */
 
-  // Label in editor controls point value: treat_15 = 15 points, treat_25 = 25, etc.
+  // Editor placement marker only — treats.ts replaces it with the animated
+  // runtime treat sprite. The points prefab property sets the treat's value.
 
   /* END-USER-CODE */
 }

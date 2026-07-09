@@ -78,7 +78,11 @@ export function collectEditorObjects(scene: Phaser.Scene): CollectedObjects {
 
   const visit = (obj: Phaser.GameObjects.GameObject): void => {
     const bodied = obj as Bodied;
-    if (obj instanceof Chihuahua) {
+    if (obj instanceof treatMarker) {
+      // Must come before the generic sprite branch: the marker prefab is an
+      // ArcadeSprite with a body and would otherwise be misrouted.
+      treatMarkers.push(obj);
+    } else if (obj instanceof Chihuahua) {
       chihuahuas.push(obj);
     } else if (obj instanceof Player) {
       player = obj;
@@ -97,8 +101,6 @@ export function collectEditorObjects(scene: Phaser.Scene): CollectedObjects {
       else if (isFloorRect(rect)) floors.push(rect);
       else if (isSurfaceRect(rect) && (rect.body as Phaser.Physics.Arcade.Body | null)?.enable !== false)
         surfaces.push(rect);
-    } else if (obj instanceof treatMarker) {
-      treatMarkers.push(obj);
     } else if (obj instanceof Phaser.GameObjects.Image) {
       if (isGrannyObject(obj)) granny = obj as GrannyObject;
       else if (isTreatMarker(obj)) treatMarkers.push(obj);

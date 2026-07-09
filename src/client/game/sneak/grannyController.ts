@@ -24,6 +24,9 @@ export class GrannyController {
   /** Per-room difficulty multiplier applied to the lazy patrol amble speed. */
   patrolSpeedMul = 1;
 
+  /** Base patrol amble speed (px/s). Set from the granny prefab's tuning. */
+  patrolSpeedBase = PATROL_SPEED;
+
   private patrolTargetX: number | null = null;
   private pauseUntil = 0;
   private entryTargetX: number | null = null;
@@ -40,6 +43,16 @@ export class GrannyController {
 
   get x(): number {
     return this.granny?.x ?? 0;
+  }
+
+  /** Leftmost x granny can walk to (pursue/patrol clamp). */
+  get patrolMinX(): number {
+    return this.minX;
+  }
+
+  /** Rightmost x granny can walk to (pursue/patrol clamp). */
+  get patrolMaxX(): number {
+    return this.maxX;
   }
 
   setup(editorGranny: GrannyObject | undefined, groundTop: number, roomLeft: number, roomRight: number): void {
@@ -168,7 +181,7 @@ export class GrannyController {
       return;
     }
 
-    this.pursue(delta, groundTop, this.patrolTargetX, PATROL_SPEED * this.patrolSpeedMul);
+    this.pursue(delta, groundTop, this.patrolTargetX, this.patrolSpeedBase * this.patrolSpeedMul);
   }
 
   private pickWanderTarget(): number {

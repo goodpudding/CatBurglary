@@ -5,6 +5,7 @@ import {
   CHIHUAHUA_CHARGE_DELAY_MS,
   CHIHUAHUA_CHARGE_RECOVER_SPEED,
   CHIHUAHUA_CHARGE_SPEED,
+  CHIHUAHUA_FOLLOW_SPEED,
   CHIHUAHUA_REACH_DISTANCE,
   CHIHUAHUA_RECHARGE_DELAY_MS,
 } from './constants.js';
@@ -17,14 +18,6 @@ const DEFAULT_BARK_KEY = 'chihuahua-barkingchihuahua-barking';
 const DEFAULT_DEPTH = 11;
 const DATA_KEY = 'chihuahua-behavior';
 /**
- * Extra gap (px) beyond CHIHUAHUA_REACH_DISTANCE before a barking dog charges
- * again. Without this the dog sits exactly at the reach boundary and flaps
- * between charging/barking (and their different-size sheets) as the cat
- * shifts by a pixel.
- */
-const CHARGE_HYSTERESIS = 22;
-
-/**
  * Optional per-sprite tuning. The Chihuahua prefab declares these as class
  * fields, but any Arcade sprite may set any subset of them — everything falls
  * back to the CHIHUAHUA_* constants / defaults above.
@@ -35,6 +28,8 @@ export interface ChihuahuaTuning {
   chargeOnRoomIndex?: number;
   chargeDelayMs?: number;
   chargeSpeed?: number;
+  /** Speed used to keep chasing the cat after the dog's first contact. */
+  followSpeed?: number;
   walkAnimKey?: string;
   barkAnimKey?: string;
 }
@@ -51,9 +46,11 @@ export interface DogUpdateContext {
   catOnFloor: boolean;
   /** Floor line the dog stays pinned to. */
   groundTop: number;
+  /** True while granny is alert — the dogs join her hunt. */
+  packChase?: boolean;
 }
 
-type DogState = 'idle' | 'charging' | 'barking' | 'returning';
+type DogState = 'idle' | 'charging' | 'barking' | 'returning' | 'following';
 
 /**
  * Attachable guard-dog behavior. Attach to any Arcade sprite via
@@ -105,6 +102,8 @@ export class ChihuahuaBehavior {
   private barkUntil = 0;
   /** Floor line the dog stays pinned to (never jumps onto furniture). */
   private feetLine = 0;
+  /** True once the dog has reached the cat at least once — then it keeps chasing. */
+  private hasContacted = false;
   private dead = false;
 
   private tuning: ChihuahuaTuning | undefined = undefined;
@@ -127,6 +126,11 @@ export class ChihuahuaBehavior {
 
   get isCharging(): boolean {
     return this.alive && this.state === 'charging';
+  }
+
+  /** Charging OR chasing-after-contact — either counts as a dangerous touch. */
+  get isThreat(): boolean {
+    return this.alive && (this.state === 'charging' || this.state === 'following');
   }
 
   destroy(): void {
@@ -152,6 +156,7 @@ export class ChihuahuaBehavior {
 
     this.homeX = dog.x;
     this.state = 'idle';
+    this.hasContacted = false;
 
     const wantRoom =
       this.tuning?.chargeOnRoomIndex ?? dog.chargeOnRoomIndex ?? CHIHUAHUA_ANY_ROOM;
@@ -175,13 +180,22 @@ export class ChihuahuaBehavior {
     switch (this.state) {
       case 'idle':
         this.syncPose();
+        // Granny is on the hunt — the pack joins in immediately.
+        if (ctx.packChase) {
+          this.beginFollow();
+          break;
+        }
         if (!ctx.catOnFloor) break;
         if (ctx.now >= this.chargeAt) this.beginCharge(ctx);
         break;
 
       case 'charging': {
         if (!ctx.catOnFloor) {
-          this.beginReturn();
+          // After the first contact (or while granny is hunting) the dog never
+          // gives up — it paces after the cat even when the cat is up on
+          // furniture. Before that, a cat that slips away resets the ambush.
+          if (this.hasContacted || ctx.packChase) this.beginFollow();
+          else this.beginReturn();
           break;
         }
 
@@ -213,25 +227,52 @@ export class ChihuahuaBehavior {
       case 'barking': {
         this.syncPose();
 
-        if (!ctx.catOnFloor) {
+        // A short bark-in-place beat on reaching the cat, then commit to the
+        // relentless follow (which re-barks whenever it's close again).
+        if (ctx.now < this.barkUntil) break;
+        this.beginFollow();
+        break;
+      }
+
+      case 'following': {
+        // A dog that only joined for granny's pack chase (never touched the
+        // cat itself) goes home once she calms down.
+        if (!this.hasContacted && !ctx.packChase) {
           this.beginReturn();
           break;
         }
 
-        if (ctx.now < this.barkUntil) break;
+        const signedGap = ctx.catX - dog.x;
+        const absGap = Math.abs(signedGap);
 
-        // Hysteresis: keep barking until the cat is clearly out of reach.
-        if (Math.abs(ctx.catX - dog.x) <= CHIHUAHUA_REACH_DISTANCE + CHARGE_HYSTERESIS) {
-          this.barkUntil = ctx.now + CHIHUAHUA_BARK_PAUSE_MS;
-          this.faceX(ctx.catX);
+        if (absGap <= CHIHUAHUA_REACH_DISTANCE) {
+          // Within reach: hold position and bark on a cadence.
+          if (ctx.now >= this.barkUntil) {
+            this.barkUntil = ctx.now + CHIHUAHUA_BARK_PAUSE_MS;
+            this.faceX(ctx.catX);
+            this.playBark();
+          }
+          this.syncPose();
           break;
         }
 
-        this.beginCharge(ctx);
+        // Chase the cat's x without overshooting the reach boundary.
+        const dir = Math.sign(signedGap) || 1;
+        const step = this.followSpeed * ctx.dt;
+        const travel = absGap - CHIHUAHUA_REACH_DISTANCE;
+        dog.x += dir * Math.min(step, travel);
+        this.setFacingRight(dir > 0);
+        this.playWalk();
+        this.syncPose();
         break;
       }
 
       case 'returning': {
+        if (ctx.packChase) {
+          this.beginFollow();
+          break;
+        }
+
         const gap = this.homeX - dog.x;
         if (Math.abs(gap) <= 6) {
           dog.x = this.homeX;
@@ -256,6 +297,10 @@ export class ChihuahuaBehavior {
 
   private get chargeSpeed(): number {
     return this.tuning?.chargeSpeed ?? this.sprite.chargeSpeed ?? CHIHUAHUA_CHARGE_SPEED;
+  }
+
+  private get followSpeed(): number {
+    return this.tuning?.followSpeed ?? this.sprite.followSpeed ?? CHIHUAHUA_FOLLOW_SPEED;
   }
 
   private get walkKey(): string {
@@ -285,9 +330,15 @@ export class ChihuahuaBehavior {
 
   private beginBarking(ctx: DogUpdateContext): void {
     this.state = 'barking';
+    this.hasContacted = true;
     this.barkUntil = ctx.now + CHIHUAHUA_BARK_PAUSE_MS;
     this.faceX(ctx.catX);
     this.playBark();
+  }
+
+  private beginFollow(): void {
+    this.state = 'following';
+    this.playWalk();
   }
 
   private beginReturn(): void {

@@ -9,6 +9,7 @@ import {
   VISION_HALF_ANGLE,
   VISION_RANGE,
 } from './constants.js';
+import type { GrannyTuning } from './grannyTuning.js';
 
 export type StealthState = 'patrol' | 'suspicious' | 'searching' | 'alert';
 
@@ -30,7 +31,12 @@ export class StealthSystem {
   visible = false;
   lastSeen: { x: number; y: number } | null = null;
 
-  private alertUntil = 0;
+  /** While locked on, granny keeps chasing even if the cat briefly breaks sight. */
+  private lockedUntil = 0;
+  private searchUntil = 0;
+  /** Vertical tilt (radians) of the cone: sweeps up/down, or aims when locked. */
+  private pitch = 0;
+  private sweepDir = 1;
   private coneGfx: Phaser.GameObjects.Graphics;
   private alertIcon: Phaser.GameObjects.Text;
 
@@ -40,6 +46,7 @@ export class StealthSystem {
     private worldScale = 1,
     private visionMul = 1,
     private fillMul = 1,
+    private tuning?: GrannyTuning,
   ) {
     this.coneGfx = scene.add.graphics().setDepth(8);
     this.alertIcon = scene.add
@@ -57,6 +64,7 @@ export class StealthSystem {
     catState: CatSightState,
   ): void {
     const dt = delta / 1000;
+    this.updatePitch(dt, granny, facing);
     this.visible = this.canSee(granny, facing, cat, catState.crouching);
 
     if (this.visible) {
@@ -70,17 +78,25 @@ export class StealthSystem {
       else if (catState.moving) stateFactor = catState.crouching ? 0.5 : 1.0;
       else stateFactor = 0.6;
 
-      this.meter += DETECT_FILL_RATE * this.fillMul * (0.35 + 0.65 * closeness) * stateFactor * dt;
+      const fillRate = this.tuning?.detectFillRate ?? DETECT_FILL_RATE;
+      this.meter += fillRate * this.fillMul * (0.35 + 0.65 * closeness) * stateFactor * dt;
     } else {
       this.meter -= DETECT_DECAY_RATE * dt;
     }
     this.meter = Phaser.Math.Clamp(this.meter, 0, 1);
 
     const now = this.scene.time.now;
+    const lostSightMs = this.tuning?.lostSightMs ?? SEARCH_COOLDOWN_MS;
     if (this.meter >= ALERT_THRESHOLD) {
+      // Locked on. The lock (and the search window after it) refresh for as
+      // long as the meter stays pegged; escaping sight starts the countdown.
       this.state = 'alert';
-      this.alertUntil = now + SEARCH_COOLDOWN_MS;
-    } else if (this.alertUntil > now) {
+      this.lockedUntil = now + lostSightMs;
+      this.searchUntil = this.lockedUntil + SEARCH_COOLDOWN_MS;
+    } else if (this.lockedUntil > now) {
+      // Cat slipped out of the cone but not for long enough — keep chasing.
+      this.state = 'alert';
+    } else if (this.searchUntil > now) {
       this.state = 'searching';
     } else if (this.meter >= SUSPICION_THRESHOLD) {
       this.state = 'suspicious';
@@ -92,6 +108,41 @@ export class StealthSystem {
     // crouching visibly shrinks how far granny can spot the cat.
     const drawRange = this.baseRange() * (catState.crouching ? CROUCH_VISION_SCALE : 1);
     this.draw(granny, facing, drawRange);
+  }
+
+  /**
+   * Sweep the cone up/down while patrolling; aim it at the cat (or the last
+   * place she saw it) while locked on or searching.
+   */
+  private updatePitch(
+    dt: number,
+    granny: { x: number; y: number; displayHeight: number },
+    facing: number,
+  ): void {
+    const sweepHalf = this.tuning?.sweepHalfAngle ?? Phaser.Math.DegToRad(22);
+    const sweepSpeed = this.tuning?.sweepSpeed ?? Phaser.Math.DegToRad(28);
+
+    const hunting = (this.state === 'alert' || this.state === 'searching') && this.lastSeen;
+    if (hunting) {
+      // Aim at the target: pitch is the vertical angle toward lastSeen,
+      // relative to granny's forward direction (positive = downward).
+      const dx = this.lastSeen!.x - granny.x;
+      const dy = this.lastSeen!.y - this.eyeY(granny);
+      const target = Math.atan2(dy, Math.max(Math.abs(dx), 1));
+      // Track quickly but smoothly toward the target angle.
+      this.pitch = Phaser.Math.Linear(this.pitch, target, Math.min(1, dt * 8));
+      return;
+    }
+
+    // Idle scan: bounce the cone between -sweepHalf (up) and +sweepHalf (down).
+    this.pitch += this.sweepDir * sweepSpeed * dt;
+    if (this.pitch > sweepHalf) {
+      this.pitch = sweepHalf;
+      this.sweepDir = -1;
+    } else if (this.pitch < -sweepHalf) {
+      this.pitch = -sweepHalf;
+      this.sweepDir = 1;
+    }
   }
 
   private canSee(
@@ -111,7 +162,8 @@ export class StealthSystem {
     const range = this.baseRange() * (crouching ? CROUCH_VISION_SCALE : 1);
     if (Math.hypot(dx, dy) > range) return false;
 
-    if (Math.atan2(Math.abs(dy), forward) > VISION_HALF_ANGLE) return false;
+    // Angle to the cat relative to the cone's current up/down tilt.
+    if (Math.abs(Math.atan2(dy, forward) - this.pitch) > this.halfAngle) return false;
 
     return this.hasLineOfSight(eyeX, eyeY, cat.x, cat.y);
   }
@@ -130,7 +182,11 @@ export class StealthSystem {
   }
 
   private baseRange(): number {
-    return VISION_RANGE * this.worldScale * this.visionMul;
+    return (this.tuning?.visionRange ?? VISION_RANGE) * this.worldScale * this.visionMul;
+  }
+
+  private get halfAngle(): number {
+    return this.tuning?.visionHalfAngle ?? VISION_HALF_ANGLE;
   }
 
   private draw(
@@ -141,15 +197,19 @@ export class StealthSystem {
     const g = this.coneGfx;
     g.clear();
 
-    const color = this.state === 'alert' ? 0xff5252 : this.state === 'patrol' ? 0xffffff : 0xffe066;
-    const alpha = this.state === 'patrol' ? 0.1 : this.state === 'alert' ? 0.28 : 0.2;
+    // Warm flashlight beam; goes amber when suspicious and red when alert.
+    const color = this.state === 'alert' ? 0xff5252 : this.state === 'patrol' ? 0xffedbe : 0xffe066;
+    const alpha = this.state === 'patrol' ? 0.2 : this.state === 'alert' ? 0.3 : 0.25;
 
     const x = granny.x;
     const y = this.eyeY(granny);
     const r = range;
-    const base = Math.sign(facing || 1) > 0 ? 0 : Math.PI;
-    const p1 = { x: x + Math.cos(base - VISION_HALF_ANGLE) * r, y: y + Math.sin(base - VISION_HALF_ANGLE) * r };
-    const p2 = { x: x + Math.cos(base + VISION_HALF_ANGLE) * r, y: y + Math.sin(base + VISION_HALF_ANGLE) * r };
+    // Center the cone on the current up/down tilt (mirrored when facing left
+    // so "down" stays down on screen).
+    const base = Math.sign(facing || 1) > 0 ? this.pitch : Math.PI - this.pitch;
+    const half = this.halfAngle;
+    const p1 = { x: x + Math.cos(base - half) * r, y: y + Math.sin(base - half) * r };
+    const p2 = { x: x + Math.cos(base + half) * r, y: y + Math.sin(base + half) * r };
 
     g.fillStyle(color, alpha);
     g.beginPath();
@@ -169,6 +229,11 @@ export class StealthSystem {
     } else {
       this.alertIcon.setAlpha(0);
     }
+  }
+
+  /** The cone graphics — doubles as the flashlight beam shape for NightMode. */
+  get lightShape(): Phaser.GameObjects.Graphics {
+    return this.coneGfx;
   }
 
   destroy(): void {

@@ -100,6 +100,19 @@
                 "id": "boolean",
                 "isArray": false
             }
+        },
+        {
+            "name": "followSpeed",
+            "label": "Follow Speed",
+            "tooltip": "Speed used to keep chasing the cat after first contact",
+            "defValue": 130,
+            "customDefinition": false,
+            "editorOnly": false,
+            "deprecated": false,
+            "type": {
+                "id": "number",
+                "isArray": false
+            }
         }
     ]
 }

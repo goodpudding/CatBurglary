@@ -63,26 +63,15 @@
             "body.offset.y": 4
         },
         {
-            "type": "ArcadeSprite",
+            "prefabId": "31f6b5bb-125e-47bb-8c20-20187b1efd22",
             "id": "livingroom-granny",
+            "unlock": [
+                "x",
+                "y"
+            ],
             "label": "granny",
-            "hitArea.shape": "RECTANGLE",
-            "hitArea.x": 5,
-            "hitArea.width": 10.74227135655199,
-            "hitArea.height": 28.50165601507459,
-            "texture": {
-                "key": "Granny_Walking-Sheet",
-                "frame": 0
-            },
             "x": -46,
-            "y": 59,
-            "scaleX": 1.5,
-            "scaleY": 1.5,
-            "animationPlayMethod": 1,
-            "animationKey": "newgrannywalk",
-            "body.width": 11,
-            "body.height": 28,
-            "body.offset.x": 5
+            "y": 59
         },
         {
             "type": "Rectangle",

@@ -1,9 +1,15 @@
 /** Cats available from the start without spending coins. */
-export const STARTER_CAT_IDS = ['tabby', 'bolt', 'muffin', 'chonk'] as const;
+export const STARTER_CAT_IDS = ['tabby'] as const;
 
-/** Coin price to unlock premium cats. Omitted ids are free once listed in STARTER_CAT_IDS. */
+/**
+ * Coin price to unlock the rest of the roster. Existing profiles keep any
+ * cats they already own — prices only gate cats not yet in ownedCats.
+ */
 export const CAT_UNLOCK_PRICES: Readonly<Record<string, number>> = {
-  bandit: 150,
+  bolt: 100,
+  muffin: 150,
+  bandit: 250,
+  chonk: 400,
 };
 
 export function getCatUnlockPrice(catId: string): number | null {

@@ -40,5 +40,202 @@
         "url": "https://phaser.io/editor",
         "contentType": "phasereditor2d.core.scene.SceneContentType",
         "version": 5
-    }
+    },
+    "prefabProperties": [
+        {
+            "name": "patrolSpeed",
+            "label": "Patrol Speed",
+            "tooltip": "Lazy patrol amble speed (px/s)",
+            "defValue": 42,
+            "customDefinition": false,
+            "editorOnly": false,
+            "deprecated": false,
+            "type": {
+                "id": "number",
+                "isArray": false
+            }
+        },
+        {
+            "name": "chaseSpeed",
+            "label": "Chase Speed",
+            "tooltip": "Speed while actively chasing the cat (px/s)",
+            "defValue": 120,
+            "customDefinition": false,
+            "editorOnly": false,
+            "deprecated": false,
+            "type": {
+                "id": "number",
+                "isArray": false
+            }
+        },
+        {
+            "name": "retrieveSpeed",
+            "label": "Retrieve Speed",
+            "tooltip": "Speed while fetching a thrown slipper (px/s)",
+            "defValue": 130,
+            "customDefinition": false,
+            "editorOnly": false,
+            "deprecated": false,
+            "type": {
+                "id": "number",
+                "isArray": false
+            }
+        },
+        {
+            "name": "visionRange",
+            "label": "Vision Range",
+            "tooltip": "How far granny can see straight ahead (world px)",
+            "defValue": 200,
+            "customDefinition": false,
+            "editorOnly": false,
+            "deprecated": false,
+            "type": {
+                "id": "number",
+                "isArray": false
+            }
+        },
+        {
+            "name": "visionAngleDeg",
+            "label": "Vision Angle (deg)",
+            "tooltip": "Half-angle of the vision cone, in degrees",
+            "defValue": 20,
+            "customDefinition": false,
+            "editorOnly": false,
+            "deprecated": false,
+            "type": {
+                "id": "number",
+                "isArray": false
+            }
+        },
+        {
+            "name": "detectFillRate",
+            "label": "Detect Fill Rate",
+            "tooltip": "Detection-meter fill per second at point-blank range",
+            "defValue": 3,
+            "customDefinition": false,
+            "editorOnly": false,
+            "deprecated": false,
+            "type": {
+                "id": "number",
+                "isArray": false
+            }
+        },
+        {
+            "name": "throwRange",
+            "label": "Throw Range",
+            "tooltip": "Cat must be within this range for granny to throw her slipper",
+            "defValue": 300,
+            "customDefinition": false,
+            "editorOnly": false,
+            "deprecated": false,
+            "type": {
+                "id": "number",
+                "isArray": false
+            }
+        },
+        {
+            "name": "throwCooldownMs",
+            "label": "Throw Cooldown Ms",
+            "tooltip": "Minimum gap (ms) between slipper throws",
+            "defValue": 900,
+            "customDefinition": false,
+            "editorOnly": false,
+            "deprecated": false,
+            "type": {
+                "id": "number",
+                "isArray": false
+            }
+        },
+        {
+            "name": "throwSpeed",
+            "label": "Throw Speed",
+            "tooltip": "Initial horizontal speed of a thrown slipper (px/s)",
+            "defValue": 360,
+            "customDefinition": false,
+            "editorOnly": false,
+            "deprecated": false,
+            "type": {
+                "id": "number",
+                "isArray": false
+            }
+        },
+        {
+            "name": "touchDamage",
+            "label": "Touch Damage",
+            "tooltip": "Touching granny always hurts; off = only while she is alert",
+            "defValue": true,
+            "customDefinition": false,
+            "editorOnly": false,
+            "deprecated": false,
+            "type": {
+                "id": "boolean",
+                "isArray": false
+            }
+        },
+        {
+            "name": "sweepDeg",
+            "label": "Sweep Deg",
+            "tooltip": "Max up/down tilt (degrees) of the vision cone while scanning",
+            "defValue": 22,
+            "customDefinition": false,
+            "editorOnly": false,
+            "deprecated": false,
+            "type": {
+                "id": "number",
+                "isArray": false
+            }
+        },
+        {
+            "name": "sweepSpeedDeg",
+            "label": "Sweep Speed Deg",
+            "tooltip": "Up/down scan speed in degrees per second",
+            "defValue": 28,
+            "customDefinition": false,
+            "editorOnly": false,
+            "deprecated": false,
+            "type": {
+                "id": "number",
+                "isArray": false
+            }
+        },
+        {
+            "name": "lostSightMs",
+            "label": "Lost Sight Ms",
+            "tooltip": "How long granny keeps chasing after the cat escapes her vision",
+            "defValue": 1600,
+            "customDefinition": false,
+            "editorOnly": false,
+            "deprecated": false,
+            "type": {
+                "id": "number",
+                "isArray": false
+            }
+        },
+        {
+            "name": "entryDelayMs",
+            "label": "Entry Delay Ms",
+            "tooltip": "How long granny waits off-screen before walking into a new room",
+            "defValue": 5000,
+            "customDefinition": false,
+            "editorOnly": false,
+            "deprecated": false,
+            "type": {
+                "id": "number",
+                "isArray": false
+            }
+        },
+        {
+            "name": "entrySpeed",
+            "label": "Entry Speed",
+            "tooltip": "Walk speed (px/s) during her entrance into a new room",
+            "defValue": 120,
+            "customDefinition": false,
+            "editorOnly": false,
+            "deprecated": false,
+            "type": {
+                "id": "number",
+                "isArray": false
+            }
+        }
+    ]
 }

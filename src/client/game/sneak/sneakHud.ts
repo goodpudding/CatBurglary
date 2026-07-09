@@ -41,7 +41,7 @@ export class SneakHud {
       .text(
         this.scene.scale.width / 2,
         14,
-        'Grab treats, then head right → to bank & go deeper. Shift to sneak. Double-tap Down/S to drop from a shelf.',
+        'WASD/Arrows to move & jump. Grab treats, then head right → to bank & go deeper. Shift to sneak. Double-tap Down/S to drop from a shelf.',
         {
           fontFamily: 'sans-serif',
           fontSize: '13px',

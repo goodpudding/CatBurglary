@@ -108,10 +108,7 @@
         { "key": "marshmellow-sitting-sheet", "frame": 8 },
         { "key": "marshmellow-sitting-sheet", "frame": 9 },
         { "key": "marshmellow-sitting-sheet", "frame": 10 },
-        { "key": "marshmellow-sitting-sheet", "frame": 11 },
-        { "key": "marshmellow-sitting-sheet", "frame": 12 },
-        { "key": "marshmellow-sitting-sheet", "frame": 13 },
-        { "key": "marshmellow-sitting-sheet", "frame": 14 }
+        { "key": "marshmellow-sitting-sheet", "frame": 11 }
       ],
       "frameRate": 5,
       "repeat": -1
@@ -131,10 +128,7 @@
         { "key": "marshmellow-sitting-sheet", "frame": 8 },
         { "key": "marshmellow-sitting-sheet", "frame": 9 },
         { "key": "marshmellow-sitting-sheet", "frame": 10 },
-        { "key": "marshmellow-sitting-sheet", "frame": 11 },
-        { "key": "marshmellow-sitting-sheet", "frame": 12 },
-        { "key": "marshmellow-sitting-sheet", "frame": 13 },
-        { "key": "marshmellow-sitting-sheet", "frame": 14 }
+        { "key": "marshmellow-sitting-sheet", "frame": 11 }
       ],
       "frameRate": 8,
       "repeat": -1
