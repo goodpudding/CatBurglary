@@ -9,11 +9,7 @@
         "exportClass": true,
         "autoImport": true,
         "importFileExtension": true,
-        "preloadPackFiles": [
-            "src/client/assets/cats/cat-asset-pack.json",
-            "src/client/assets/asset-pack.json",
-            "src/client/assets/granny/granny-asset-pack.json"
-        ],
+        "preloadPackFiles": [],
         "createMethodName": "editorCreate",
         "sceneKey": "LivingRoomRoom",
         "compilerOutputLanguage": "TYPE_SCRIPT",
@@ -90,8 +86,8 @@
             "label": "chairSeat",
             "x": -14,
             "y": 72,
-            "scaleX": 0.13639484769901022,
-            "scaleY": 0.03635253630518463,
+            "scaleX": 0.18288908294867656,
+            "scaleY": 0.03037548447446417,
             "ArcadeComponent.active": true,
             "body.moves": false,
             "body.allowGravity": false,
@@ -567,6 +563,39 @@
             "label": "livingroomTreat3",
             "x": 200,
             "y": 20
+        },
+        {
+            "prefabId": "a1b2c3d4-treat-marker-prefab",
+            "id": "7c691dab-a4f8-4cf0-acda-e7e4f0ace90a",
+            "unlock": [
+                "x",
+                "y"
+            ],
+            "label": "treatMarker_0",
+            "x": -10,
+            "y": 18
+        },
+        {
+            "prefabId": "a1b2c3d4-treat-marker-prefab",
+            "id": "16974eed-d75b-46c8-8d31-912b13a7c102",
+            "unlock": [
+                "x",
+                "y"
+            ],
+            "label": "treatMarker_1",
+            "x": 130,
+            "y": 76
+        },
+        {
+            "prefabId": "a1b2c3d4-treat-marker-prefab",
+            "id": "80cc08d6-2d86-4ac7-b5ff-701ac34adeb1",
+            "unlock": [
+                "x",
+                "y"
+            ],
+            "label": "treatMarker_2",
+            "x": 180,
+            "y": 68
         }
     ],
     "plainObjects": [],

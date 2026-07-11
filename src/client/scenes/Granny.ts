@@ -43,7 +43,7 @@ export default class Granny extends Phaser.Physics.Arcade.Sprite {
   public sweepDeg: number = 22;
   public sweepSpeedDeg: number = 28;
   public lostSightMs: number = 1600;
-  public entryDelayMs: number = 5000;
+  public entryDelayMs: number = 1000;
   public entrySpeed: number = 120;
 
   /* START-USER-CODE */

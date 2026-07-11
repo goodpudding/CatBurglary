@@ -9,11 +9,7 @@
         "exportClass": true,
         "autoImport": true,
         "importFileExtension": true,
-        "preloadPackFiles": [
-            "src/client/assets/cats/cat-asset-pack.json",
-            "src/client/assets/asset-pack.json",
-            "src/client/assets/granny/granny-asset-pack.json"
-        ],
+        "preloadPackFiles": [],
         "createMethodName": "editorCreate",
         "sceneKey": "HallwayRoom",
         "compilerOutputLanguage": "TYPE_SCRIPT",
@@ -456,6 +452,39 @@
             "label": "treatMarker4",
             "x": 62,
             "y": 20
+        },
+        {
+            "prefabId": "a1b2c3d4-treat-marker-prefab",
+            "id": "9fa6724d-d1c6-4673-94d9-0b7151a77c2c",
+            "unlock": [
+                "x",
+                "y"
+            ],
+            "label": "treatMarker_0",
+            "x": -172,
+            "y": -55
+        },
+        {
+            "prefabId": "a1b2c3d4-treat-marker-prefab",
+            "id": "8f73f567-5edc-4aee-90e7-5fe8a57c5d73",
+            "unlock": [
+                "x",
+                "y"
+            ],
+            "label": "treatMarker_1",
+            "x": -69,
+            "y": 21
+        },
+        {
+            "prefabId": "a1b2c3d4-treat-marker-prefab",
+            "id": "98b6d400-9a54-4dbf-bd80-38b480d66c2c",
+            "unlock": [
+                "x",
+                "y"
+            ],
+            "label": "treatMarker_2",
+            "x": 86,
+            "y": -55
         }
     ],
     "plainObjects": [],

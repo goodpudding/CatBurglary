@@ -215,7 +215,7 @@
             "name": "entryDelayMs",
             "label": "Entry Delay Ms",
             "tooltip": "How long granny waits off-screen before walking into a new room",
-            "defValue": 5000,
+            "defValue": 1000,
             "customDefinition": false,
             "editorOnly": false,
             "deprecated": false,

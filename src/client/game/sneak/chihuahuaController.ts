@@ -58,7 +58,6 @@ export class ChihuahuaController {
     delta: number,
     cat: Phaser.Physics.Arcade.Sprite,
     groundTop: number,
-    isCatOnFloor: () => boolean,
     packChase = false,
   ): void {
     if (this.behaviors.length === 0) return;
@@ -67,7 +66,6 @@ export class ChihuahuaController {
       now: this.scene.time.now,
       dt: delta / 1000,
       catX: (cat.body as Phaser.Physics.Arcade.Body).center.x,
-      catOnFloor: isCatOnFloor(),
       groundTop,
       packChase,
     };

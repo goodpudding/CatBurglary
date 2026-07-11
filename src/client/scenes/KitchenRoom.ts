@@ -23,10 +23,6 @@ export default class KitchenRoom extends Phaser.Scene {
   }
 
   preload(): void {
-
-    this.load.pack("cat-asset-pack", "client/assets/cats/cat-asset-pack.json");
-    this.load.pack("asset-pack", "client/assets/asset-pack.json");
-    this.load.pack("granny-asset-pack", "client/assets/granny/granny-asset-pack.json");
   }
 
   editorCreate(): void {
@@ -158,6 +154,23 @@ export default class KitchenRoom extends Phaser.Scene {
     // kitchenTreat2
     const kitchenTreat2 = new treatMarker(this, 177, 6);
     this.add.existing(kitchenTreat2);
+
+    // f-u 
+    const f_u_ = this.add.text(152, 17, "", {});
+    f_u_.text = "f-u";
+    f_u_.setStyle({  });
+
+    // treatMarker_0
+    const treatMarker_0 = new treatMarker(this, -42, 75);
+    this.add.existing(treatMarker_0);
+
+    // treatMarker_1
+    const treatMarker_1 = new treatMarker(this, -30, -2);
+    this.add.existing(treatMarker_1);
+
+    // treatMarker_2
+    const treatMarker_2 = new treatMarker(this, 56, -12);
+    this.add.existing(treatMarker_2);
 
     this.events.emit("scene-awake");
   }

@@ -8,6 +8,7 @@ import {
   CHIHUAHUA_FOLLOW_SPEED,
   CHIHUAHUA_REACH_DISTANCE,
   CHIHUAHUA_RECHARGE_DELAY_MS,
+  CHIHUAHUA_SEARCH_RANGE,
 } from './constants.js';
 
 /** Sentinel for chargeOnRoomIndex meaning "arm in whatever room I'm placed in". */
@@ -30,6 +31,8 @@ export interface ChihuahuaTuning {
   chargeSpeed?: number;
   /** Speed used to keep chasing the cat after the dog's first contact. */
   followSpeed?: number;
+  /** Horizontal range (px) at which the dog notices the cat and gives chase. */
+  searchRange?: number;
   walkAnimKey?: string;
   barkAnimKey?: string;
 }
@@ -42,8 +45,6 @@ export interface DogUpdateContext {
   dt: number;
   /** Cat body's center X in world space. */
   catX: number;
-  /** True when the cat is on the room floor (dogs only engage there). */
-  catOnFloor: boolean;
   /** Floor line the dog stays pinned to. */
   groundTop: number;
   /** True while granny is alert — the dogs join her hunt. */
@@ -185,23 +186,24 @@ export class ChihuahuaBehavior {
           this.beginFollow();
           break;
         }
-        if (!ctx.catOnFloor) break;
-        if (ctx.now >= this.chargeAt) this.beginCharge(ctx);
+        // Horizontal-only "search": no vision cone, no line of sight, no
+        // floor requirement — just proximity, so the player never sees the
+        // dog notice them, and it isn't inert while the cat stays on furniture.
+        if (ctx.now >= this.chargeAt && Math.abs(ctx.catX - dog.x) <= this.searchRange) {
+          this.beginCharge(ctx);
+        }
         break;
 
       case 'charging': {
-        if (!ctx.catOnFloor) {
-          // After the first contact (or while granny is hunting) the dog never
-          // gives up — it paces after the cat even when the cat is up on
-          // furniture. Before that, a cat that slips away resets the ambush.
-          if (this.hasContacted || ctx.packChase) this.beginFollow();
-          else this.beginReturn();
-          break;
-        }
-
         const dir = this.chargeDir;
         const signedGap = ctx.catX - dog.x;
         const absGap = Math.abs(signedGap);
+
+        if (absGap > this.searchRange && !this.hasContacted && !ctx.packChase) {
+          // Cat moved out of search range before first contact — give up the ambush.
+          this.beginReturn();
+          break;
+        }
 
         if (absGap <= CHIHUAHUA_REACH_DISTANCE) {
           this.beginBarking(ctx);
@@ -301,6 +303,10 @@ export class ChihuahuaBehavior {
 
   private get followSpeed(): number {
     return this.tuning?.followSpeed ?? this.sprite.followSpeed ?? CHIHUAHUA_FOLLOW_SPEED;
+  }
+
+  private get searchRange(): number {
+    return this.tuning?.searchRange ?? this.sprite.searchRange ?? CHIHUAHUA_SEARCH_RANGE;
   }
 
   private get walkKey(): string {

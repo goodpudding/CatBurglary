@@ -9,11 +9,7 @@
         "exportClass": true,
         "autoImport": true,
         "importFileExtension": true,
-        "preloadPackFiles": [
-            "src/client/assets/cats/cat-asset-pack.json",
-            "src/client/assets/asset-pack.json",
-            "src/client/assets/granny/granny-asset-pack.json"
-        ],
+        "preloadPackFiles": [],
         "createMethodName": "editorCreate",
         "sceneKey": "KitchenRoom",
         "compilerOutputLanguage": "TYPE_SCRIPT",
@@ -254,6 +250,47 @@
             "label": "kitchenTreat2",
             "x": 177,
             "y": 6
+        },
+        {
+            "type": "Text",
+            "id": "92858a88-88e3-4b32-b743-0bcd665c602a",
+            "label": "f-u ",
+            "x": 152,
+            "y": 17,
+            "text": "f-u"
+        },
+        {
+            "prefabId": "a1b2c3d4-treat-marker-prefab",
+            "id": "67d1c0c4-1b7a-452c-8b96-087574d6006c",
+            "unlock": [
+                "x",
+                "y"
+            ],
+            "label": "treatMarker_0",
+            "x": -42,
+            "y": 75
+        },
+        {
+            "prefabId": "a1b2c3d4-treat-marker-prefab",
+            "id": "bd4b296f-805e-4fe5-9dcb-37188203085c",
+            "unlock": [
+                "x",
+                "y"
+            ],
+            "label": "treatMarker_1",
+            "x": -30,
+            "y": -2
+        },
+        {
+            "prefabId": "a1b2c3d4-treat-marker-prefab",
+            "id": "114f2066-45d9-4b5f-8cb0-2988305b508f",
+            "unlock": [
+                "x",
+                "y"
+            ],
+            "label": "treatMarker_2",
+            "x": 56,
+            "y": -12
         }
     ],
     "plainObjects": [],
