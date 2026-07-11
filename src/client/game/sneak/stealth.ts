@@ -5,6 +5,7 @@ import {
   DETECT_DECAY_RATE,
   DETECT_FILL_RATE,
   SEARCH_COOLDOWN_MS,
+  SEARCH_SWEEP_EXTRA_DEG,
   SUSPICION_THRESHOLD,
   VISION_HALF_ANGLE,
   VISION_RANGE,
@@ -122,15 +123,35 @@ export class StealthSystem {
     const sweepHalf = this.tuning?.sweepHalfAngle ?? Phaser.Math.DegToRad(22);
     const sweepSpeed = this.tuning?.sweepSpeed ?? Phaser.Math.DegToRad(28);
 
-    const hunting = (this.state === 'alert' || this.state === 'searching') && this.lastSeen;
-    if (hunting) {
-      // Aim at the target: pitch is the vertical angle toward lastSeen,
-      // relative to granny's forward direction (positive = downward).
-      const dx = this.lastSeen!.x - granny.x;
-      const dy = this.lastSeen!.y - this.eyeY(granny);
+    if (this.state === 'alert' && this.lastSeen) {
+      // Locked on: aim straight at the target. pitch is the vertical angle
+      // toward lastSeen, relative to granny's forward direction (positive =
+      // downward). Track quickly but smoothly toward the target angle.
+      const dx = this.lastSeen.x - granny.x;
+      const dy = this.lastSeen.y - this.eyeY(granny);
       const target = Math.atan2(dy, Math.max(Math.abs(dx), 1));
-      // Track quickly but smoothly toward the target angle.
       this.pitch = Phaser.Math.Linear(this.pitch, target, Math.min(1, dt * 8));
+      return;
+    }
+
+    if (this.state === 'searching' && this.lastSeen) {
+      // Actively search the area instead of staring at the stale point where
+      // she lost the cat: sweep a widened arc centered on that last-seen
+      // angle, so a cat that has since moved isn't a permanent blind spot.
+      const dx = this.lastSeen.x - granny.x;
+      const dy = this.lastSeen.y - this.eyeY(granny);
+      const center = Math.atan2(dy, Math.max(Math.abs(dx), 1));
+      const searchHalf = sweepHalf + Phaser.Math.DegToRad(SEARCH_SWEEP_EXTRA_DEG);
+
+      this.pitch += this.sweepDir * sweepSpeed * dt;
+      const rel = this.pitch - center;
+      if (rel > searchHalf) {
+        this.pitch = center + searchHalf;
+        this.sweepDir = -1;
+      } else if (rel < -searchHalf) {
+        this.pitch = center - searchHalf;
+        this.sweepDir = 1;
+      }
       return;
     }
 

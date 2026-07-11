@@ -37,6 +37,7 @@ export default class Chihuahua extends Phaser.Physics.Arcade.Sprite {
   public chargeOnRoomIndex: number = -1;
   public chargeOnEntry: boolean = true;
   public followSpeed: number = 130;
+  public searchRange: number = 260;
 
   /* START-USER-CODE */
 

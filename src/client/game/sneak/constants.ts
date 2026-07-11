@@ -39,6 +39,10 @@ export const CHIHUAHUA_REACH_DISTANCE = 34;
 export const CHIHUAHUA_BARK_PAUSE_MS = 1000;
 /** Ms after trotting home before the dog may charge again. */
 export const CHIHUAHUA_RECHARGE_DELAY_MS = 700;
+/** Horizontal "search" radius (px) — a dog notices the cat once it's this
+ *  close, regardless of the cat's vertical position. No cone, no line of
+ *  sight check: purely proximity, so the player never sees the dog "look". */
+export const CHIHUAHUA_SEARCH_RANGE = 260;
 
 // --- Stealth / detection ---------------------------------------------------
 /** How far (world px) granny can see straight ahead. */
@@ -54,13 +58,17 @@ export const ALERT_THRESHOLD = 1;
 /** Meter value (0..1) above which granny grows suspicious and investigates. */
 export const SUSPICION_THRESHOLD = 0.35;
 /** Max up/down tilt (degrees) of the vision cone while sweeping on patrol. */
-export const VISION_SWEEP_DEG = 22;
+export const VISION_SWEEP_DEG = 30;
 /** Sweep speed (degrees per second) of the up/down scan. */
 export const VISION_SWEEP_SPEED_DEG = 28;
 /** Ms granny stays locked on (still chasing) after losing sight of the cat. */
 export const LOCK_LOST_SIGHT_MS = 1600;
 /** How long (ms) granny keeps searching after losing sight before giving up. */
 export const SEARCH_COOLDOWN_MS = 2600;
+/** Extra sweep half-angle (degrees) added on top of the patrol sweep while
+ *  actively searching around where she lost the cat — otherwise she just
+ *  stares at the stale last-seen point and a moved cat is never re-spotted. */
+export const SEARCH_SWEEP_EXTRA_DEG = 18;
 
 // --- Cat sneaking ----------------------------------------------------------
 /** Move-speed multiplier while crouch-sneaking. */

@@ -9,11 +9,7 @@
         "exportClass": true,
         "autoImport": true,
         "importFileExtension": true,
-        "preloadPackFiles": [
-            "src/client/assets/cats/cat-asset-pack.json",
-            "src/client/assets/asset-pack.json",
-            "src/client/assets/granny/granny-asset-pack.json"
-        ],
+        "preloadPackFiles": [],
         "createMethodName": "editorCreate",
         "sceneKey": "BathroomRoom",
         "compilerOutputLanguage": "TYPE_SCRIPT",
@@ -204,6 +200,72 @@
             "body.height": 128,
             "width": 128,
             "height": 128
+        },
+        {
+            "prefabId": "a1b2c3d4-treat-marker-prefab",
+            "id": "118bf88f-c35f-4a8d-b861-f4b7b1eedf97",
+            "unlock": [
+                "x",
+                "y"
+            ],
+            "label": "treatMarker_0",
+            "x": -151,
+            "y": 10
+        },
+        {
+            "prefabId": "a1b2c3d4-treat-marker-prefab",
+            "id": "69f7c133-c4fc-412c-8061-6bc721950242",
+            "unlock": [
+                "x",
+                "y"
+            ],
+            "label": "treatMarker_1",
+            "x": -67,
+            "y": 10
+        },
+        {
+            "prefabId": "a1b2c3d4-treat-marker-prefab",
+            "id": "be42c4dc-ddc5-498e-a069-a71f1c581490",
+            "unlock": [
+                "x",
+                "y"
+            ],
+            "label": "treatMarker_2",
+            "x": -105,
+            "y": -44
+        },
+        {
+            "prefabId": "a1b2c3d4-treat-marker-prefab",
+            "id": "460638b4-e394-4ac4-bd79-faaa4613749b",
+            "unlock": [
+                "x",
+                "y"
+            ],
+            "label": "treatMarker_3",
+            "x": 8,
+            "y": 13
+        },
+        {
+            "prefabId": "a1b2c3d4-treat-marker-prefab",
+            "id": "31cfe3c3-48c5-4e5b-8ab0-771758cd7ba8",
+            "unlock": [
+                "x",
+                "y"
+            ],
+            "label": "treatMarker_4",
+            "x": 62,
+            "y": -45
+        },
+        {
+            "prefabId": "a1b2c3d4-treat-marker-prefab",
+            "id": "2e41287e-89dc-4858-b9c4-cc8e42a74f06",
+            "unlock": [
+                "x",
+                "y"
+            ],
+            "label": "treatMarker_5",
+            "x": 110,
+            "y": 2
         }
     ],
     "plainObjects": [],

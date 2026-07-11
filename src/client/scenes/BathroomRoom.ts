@@ -4,6 +4,7 @@
 /* START OF COMPILED CODE */
 
 import Granny from "./Granny.js";
+import treatMarker from "./treatMarker.js";
 /* START-USER-IMPORTS */
 import { SneakGame } from './SneakGame.js';
 import { assignEditorNames } from '../game/sneak/editorObjects.js';
@@ -21,10 +22,6 @@ export default class BathroomRoom extends Phaser.Scene {
   }
 
   preload(): void {
-
-    this.load.pack("cat-asset-pack", "client/assets/cats/cat-asset-pack.json");
-    this.load.pack("asset-pack", "client/assets/asset-pack.json");
-    this.load.pack("granny-asset-pack", "client/assets/granny/granny-asset-pack.json");
   }
 
   editorCreate(): void {
@@ -131,6 +128,30 @@ export default class BathroomRoom extends Phaser.Scene {
     window.body.pushable = false;
     window.body.immovable = true;
     window.body.setSize(128, 128, false);
+
+    // treatMarker_0
+    const treatMarker_0 = new treatMarker(this, -151, 10);
+    this.add.existing(treatMarker_0);
+
+    // treatMarker_1
+    const treatMarker_1 = new treatMarker(this, -67, 10);
+    this.add.existing(treatMarker_1);
+
+    // treatMarker_2
+    const treatMarker_2 = new treatMarker(this, -105, -44);
+    this.add.existing(treatMarker_2);
+
+    // treatMarker_3
+    const treatMarker_3 = new treatMarker(this, 8, 13);
+    this.add.existing(treatMarker_3);
+
+    // treatMarker_4
+    const treatMarker_4 = new treatMarker(this, 62, -45);
+    this.add.existing(treatMarker_4);
+
+    // treatMarker_5
+    const treatMarker_5 = new treatMarker(this, 110, 2);
+    this.add.existing(treatMarker_5);
 
     this.events.emit("scene-awake");
   }

@@ -250,7 +250,7 @@ export class SneakGame {
     );
     // It's a break-in: rooms are dark, granny's cone is her flashlight, and a
     // small glow follows the cat. Tuning: NIGHT_ALPHA / CAT_GLOW_RADIUS.
-    this.night = new NightMode(this.scene);
+    // this.night = new NightMode(this.scene);
 
     this.hud.create();
     this.input = new SneakInput(this.scene, (...els) => this.hud.track(...els));
@@ -539,7 +539,6 @@ export class SneakGame {
       delta,
       this.cat,
       this.world.groundTop,
-      () => this.isCatOnFloor(),
       this.stealth?.state === 'alert',
     );
     this.night?.update(this.cat.x, this.cat.y, this.stealth ? [this.stealth.lightShape] : []);

@@ -3,9 +3,9 @@
 
 /* START OF COMPILED CODE */
 
+import Granny from "./Granny.js";
 import Chihuahua from "./Chihuahua.js";
 import treatMarker from "./treatMarker.js";
-import Granny from "./Granny.js";
 /* START-USER-IMPORTS */
 import { SneakGame } from './SneakGame.js';
 import { assignEditorNames } from '../game/sneak/editorObjects.js';
@@ -23,10 +23,6 @@ export default class HallwayRoom extends Phaser.Scene {
   }
 
   preload(): void {
-
-    this.load.pack("cat-asset-pack", "client/assets/cats/cat-asset-pack.json");
-    this.load.pack("asset-pack", "client/assets/asset-pack.json");
-    this.load.pack("granny-asset-pack", "client/assets/granny/granny-asset-pack.json");
   }
 
   editorCreate(): void {
@@ -281,6 +277,18 @@ export default class HallwayRoom extends Phaser.Scene {
     // treatMarker4
     const treatMarker4 = new treatMarker(this, 62, 20);
     this.add.existing(treatMarker4);
+
+    // treatMarker_0
+    const treatMarker_0 = new treatMarker(this, -172, -55);
+    this.add.existing(treatMarker_0);
+
+    // treatMarker_1
+    const treatMarker_1 = new treatMarker(this, -69, 21);
+    this.add.existing(treatMarker_1);
+
+    // treatMarker_2
+    const treatMarker_2 = new treatMarker(this, 86, -55);
+    this.add.existing(treatMarker_2);
 
     this.events.emit("scene-awake");
   }

@@ -113,6 +113,19 @@
                 "id": "number",
                 "isArray": false
             }
+        },
+        {
+            "name": "searchRange",
+            "label": "Search Range",
+            "tooltip": "Horizontal range (px) at which the dog notices the cat and gives chase",
+            "defValue": 260,
+            "customDefinition": false,
+            "editorOnly": false,
+            "deprecated": false,
+            "type": {
+                "id": "number",
+                "isArray": false
+            }
         }
     ]
 }
