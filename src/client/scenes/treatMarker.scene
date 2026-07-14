@@ -24,7 +24,6 @@
             },
             "x": 569,
             "y": 251,
-            "animationPlayMethod": 0,
             "animationKey": "treat",
             "animationPreview": true,
             "body.width": 16,
@@ -44,6 +43,32 @@
             "label": "points",
             "tooltip": "",
             "defValue": 2,
+            "customDefinition": false,
+            "editorOnly": false,
+            "deprecated": false,
+            "type": {
+                "id": "number",
+                "isArray": false
+            }
+        },
+        {
+            "name": "pointSound",
+            "label": "pointSound",
+            "tooltip": "",
+            "defValue": "get-coin",
+            "customDefinition": false,
+            "editorOnly": false,
+            "deprecated": false,
+            "type": {
+                "id": "audio-key",
+                "isArray": false
+            }
+        },
+        {
+            "name": "pointSoundVolume",
+            "label": "pointSoundVolume",
+            "tooltip": "",
+            "defValue": 0.3,
             "customDefinition": false,
             "editorOnly": false,
             "deprecated": false,

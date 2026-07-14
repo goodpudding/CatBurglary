@@ -25,6 +25,8 @@ export default class treatMarker extends Phaser.Physics.Arcade.Sprite {
   }
 
   public points: number = 2;
+  public pointSound: string = "get-coin";
+  public pointSoundVolume: number = 0.3;
 
   /* START-USER-CODE */
 

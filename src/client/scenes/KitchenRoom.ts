@@ -22,9 +22,6 @@ export default class KitchenRoom extends Phaser.Scene {
     /* END-USER-CTR-CODE */
   }
 
-  preload(): void {
-  }
-
   editorCreate(): void {
 
     // floor
@@ -155,11 +152,6 @@ export default class KitchenRoom extends Phaser.Scene {
     const kitchenTreat2 = new treatMarker(this, 177, 6);
     this.add.existing(kitchenTreat2);
 
-    // f-u 
-    const f_u_ = this.add.text(152, 17, "", {});
-    f_u_.text = "f-u";
-    f_u_.setStyle({  });
-
     // treatMarker_0
     const treatMarker_0 = new treatMarker(this, -42, 75);
     this.add.existing(treatMarker_0);
@@ -187,3 +179,5 @@ export default class KitchenRoom extends Phaser.Scene {
 }
 
 /* END OF COMPILED CODE */
+
+// You can write more code here

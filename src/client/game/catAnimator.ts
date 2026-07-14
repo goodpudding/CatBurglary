@@ -41,7 +41,14 @@ export class CatAnimator {
   }
 
   private play(kind: 'idle' | 'walk'): void {
-    const key = `${this.visualId}-${kind}`;
+    // The Player prefab's cats are CatVisual instances carrying editor-assigned
+    // animation keys (idleAnim/walkAnim in Phaser Editor) — those win, so each
+    // cat plays exactly what was picked in the Inspector. Fall back to the
+    // conventional `<visual>-<kind>` keys for sprites without assignments.
+    const assigned = (this.sprite as Partial<Record<'idleAnim' | 'walkAnim', string>>)[
+      kind === 'idle' ? 'idleAnim' : 'walkAnim'
+    ];
+    const key = assigned && this.scene.anims.exists(assigned) ? assigned : `${this.visualId}-${kind}`;
     if (!this.scene.anims.exists(key)) return;
     this.sprite.play(key, true);
   }

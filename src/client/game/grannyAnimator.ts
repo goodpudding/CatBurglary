@@ -1,6 +1,21 @@
 import Phaser from 'phaser';
 
-const GRANNY_TEXTURE_KEYS = ['granny-1-sheet', 'granny-2-sheet', 'Wizard_Walking-Sheet'] as const;
+const GRANNY_TEXTURE_KEYS = [
+  'Granny_Walking-Sheet',
+  'granny-1-sheet',
+  'granny-2-sheet',
+  'Wizard_Walking-Sheet',
+] as const;
+
+/**
+ * The pink 24x29 walking sheet — the SAME texture the Granny prefab spawns
+ * with, so starting the walk anim never changes her look or size.
+ * (Sheet colors, verified against the art: granny-1 = pink 48x48,
+ * granny-2 = PURPLE 48x48. The purple-skin experiment is retired; building
+ * 'newgrannywalk' on granny-2 was the old "granny turns purple and bugs out
+ * when she starts walking" bug.)
+ */
+const DEFAULT_GRANNY_SHEET = 'Granny_Walking-Sheet';
 
 export function isGrannyTextureKey(key: string | undefined): boolean {
   const k = key?.toLowerCase() ?? '';
@@ -15,41 +30,39 @@ export function applyGrannyTextureFilters(scene: Phaser.Scene): void {
   }
 }
 
-/** 4-frame walk on the pink granny sheet only (granny-1 is purple — kept for later). */
+function resolveGrannySheet(scene: Phaser.Scene): string | undefined {
+  if (scene.textures.exists(DEFAULT_GRANNY_SHEET)) return DEFAULT_GRANNY_SHEET;
+  if (scene.textures.exists('granny-1-sheet')) return 'granny-1-sheet';
+  if (scene.textures.exists('Wizard_Walking-Sheet')) return 'Wizard_Walking-Sheet';
+  return undefined;
+}
+
+/** 4-frame walk on the pink sheet granny already wears. */
 export function ensureGrannyWalkAnim(scene: Phaser.Scene): void {
   if (scene.anims.exists('newgrannywalk')) return;
 
-  if (scene.textures.exists('granny-2-sheet')) {
-    scene.anims.create({
-      key: 'newgrannywalk',
-      frames: scene.anims.generateFrameNumbers('granny-2-sheet', { start: 0, end: 3 }),
-      frameRate: 10,
-      repeat: -1,
-    });
-    return;
-  }
+  const sheet = resolveGrannySheet(scene);
+  if (!sheet) return;
 
-  if (scene.textures.exists('granny-1-sheet')) {
-    scene.anims.create({
-      key: 'newgrannywalk',
-      frames: scene.anims.generateFrameNumbers('granny-1-sheet', { start: 0, end: 3 }),
-      frameRate: 10,
-      repeat: -1,
-    });
-    return;
-  }
-
-  if (scene.textures.exists('Wizard_Walking-Sheet')) {
-    const total = scene.textures.get('Wizard_Walking-Sheet').frameTotal;
+  if (sheet === 'Wizard_Walking-Sheet') {
+    const total = scene.textures.get(sheet).frameTotal;
     if (total > 1) {
       scene.anims.create({
         key: 'newgrannywalk',
-        frames: scene.anims.generateFrameNumbers('Wizard_Walking-Sheet', { start: 0, end: total - 1 }),
+        frames: scene.anims.generateFrameNumbers(sheet, { start: 0, end: total - 1 }),
         frameRate: 8,
         repeat: -1,
       });
     }
+    return;
   }
+
+  scene.anims.create({
+    key: 'newgrannywalk',
+    frames: scene.anims.generateFrameNumbers(sheet, { start: 0, end: 3 }),
+    frameRate: 10,
+    repeat: -1,
+  });
 }
 
 export function playGrannyWalk(

@@ -118,7 +118,7 @@ export class StealthSystem {
   private updatePitch(
     dt: number,
     granny: { x: number; y: number; displayHeight: number },
-    facing: number,
+    _facing: number,
   ): void {
     const sweepHalf = this.tuning?.sweepHalfAngle ?? Phaser.Math.DegToRad(22);
     const sweepSpeed = this.tuning?.sweepSpeed ?? Phaser.Math.DegToRad(28);

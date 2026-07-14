@@ -1,0 +1,37 @@
+{
+  "outfits": {
+    "files": [
+      {
+        "url": "outfits/bow-w11h9.png",
+        "type": "image",
+        "key": "outfit-bow"
+      },
+      {
+        "url": "outfits/glasses-w24h10.png",
+        "type": "image",
+        "key": "outfit-glasses"
+      },
+      {
+        "url": "outfits/glasses-small-w15h6.png",
+        "type": "image",
+        "key": "outfit-glasses-small"
+      },
+      {
+        "url": "outfits/mustache-w-30-h-9.png",
+        "type": "image",
+        "key": "outfit-mustache"
+      },
+      {
+        "url": "outfits/top-hat-w13h9.png",
+        "type": "image",
+        "key": "outfit-top-hat"
+      }
+    ]
+  },
+  "meta": {
+    "app": "Phaser Editor 2D - Asset Pack Editor",
+    "contentType": "phasereditor2d.pack.core.AssetContentType",
+    "url": "https://phasereditor2d.com",
+    "version": 2
+  }
+}

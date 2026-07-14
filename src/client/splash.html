@@ -3,14 +3,18 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Cat Burglary</title>
+    <title>Treat Dash</title>
     <link rel="stylesheet" href="./splash.css" />
   </head>
   <body>
     <div class="app">
+      <div class="volume-control" title="Volume">
+        <span class="volume-icon" aria-hidden="true">🔊</span>
+        <input type="range" id="volume-slider" min="0" max="100" step="1" value="50" aria-label="Volume" />
+      </div>
       <div class="logo-circle"></div>
       <div class="content">
-        <h1 class="title" id="title">Cat Burglary</h1>
+        <h1 class="title" id="title">Treat Dash</h1>
         <p class="coins" id="coins" hidden></p>
         <p class="description">
           Sneak in through the kitchen window. Grab treats, dodge the slipper, bank your score at the window.
@@ -22,6 +26,7 @@
       </nav>
       <section class="splash-panel" data-panel="cats" id="cat-picker" aria-label="Choose your cat"></section>
       <section class="splash-panel" data-panel="shop" id="shop" aria-label="Cosmetic shop" hidden></section>
+      <section class="mode-picker" id="mode-picker" aria-label="Choose a game mode"></section>
       <button class="start-button" id="start-button">Play</button>
       <div class="footer">
         <span class="docs-link" id="docs-link">Docs</span>

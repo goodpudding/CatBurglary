@@ -1,50 +1,447 @@
 {
     "id": "c859151a-8106-480f-8eed-6a5f5cbe9efd",
+    "sceneType": "PREFAB",
     "settings": {
-        "createMethodName": "",
-        "preloadMethodName": "",
-        "compilerOutputLanguage": "TYPE_SCRIPT",
+        "compilerInsertSpaces": true,
+        "compilerTabSize": 2,
         "exportClass": true,
         "autoImport": true,
         "importFileExtension": true,
-        "generateAwakeHandler": false,
-        "compilerInsertSpaces": true,
-        "compilerTabSize": 2,
+        "preloadMethodName": "",
+        "preloadPackFiles": [],
+        "createMethodName": "",
+        "compilerOutputLanguage": "TYPE_SCRIPT",
         "borderWidth": 250,
-        "borderHeight": 100,
-        "borderX": 0,
-        "borderY": 0
+        "borderHeight": 100
     },
-    "sceneType": "PREFAB",
     "displayList": [
         {
-            "unlock": [
-                "x",
-                "y"
-            ],
-            "type": "ArcadeSprite",
-            "id": "fdde870f-57d9-447b-aea0-65296cdf1f17",
-            "label": "player",
-            "texture": {
-                "key": "orange-cat-sitting-sheet",
-                "frame": 0
-            },
-            "x": 0,
-            "y": 0,
-            "animationPlayMethod": 1,
-            "animationKey": "orange-idle",
-            "animationPreview": true,
-            "body.geometry": 0,
-            "body.radius": 8,
-            "body.width": 20,
-            "body.height": 20,
-            "body.offset.x": 1,
-            "body.offset.y": 4
+            "type": "Container",
+            "id": "7da19613-42aa-4b5a-ab17-673659fa90d8",
+            "label": "player_root",
+            "list": [
+                {
+                    "type": "Container",
+                    "id": "ed64f138-b274-4b7f-9a78-07b704687483",
+                    "label": "cat_orange",
+                    "list": [
+                        {
+                            "prefabId": "b7f3a2c1-4e8d-4f6a-9c2b-1d5e8f7a3b90",
+                            "id": "371f6435-f2ca-4a59-a544-968a7bcd9081",
+                            "unlock": [
+                                "x",
+                                "y",
+                                "texture",
+                                "animationKey"
+                            ],
+                            "label": "orange_cat",
+                            "texture": {
+                                "key": "orange-cat-sitting-sheet",
+                                "frame": 0
+                            },
+                            "x": 0,
+                            "y": 0,
+                            "animationKey": "orange-idle"
+                        },
+                        {
+                            "type": "Image",
+                            "id": "1618efe9-a33a-4827-8ae8-0a50825bfb05",
+                            "label": "orange_bow",
+                            "texture": {
+                                "key": "outfit-bow"
+                            },
+                            "x": -1,
+                            "y": 2,
+                            "scaleX": 0.6643498989536183,
+                            "scaleY": 0.5267272438895287
+                        },
+                        {
+                            "type": "Image",
+                            "id": "5dad0851-85a2-4f9b-992c-02e746747318",
+                            "label": "orange_glasses",
+                            "texture": {
+                                "key": "outfit-glasses"
+                            },
+                            "x": -2,
+                            "y": -3,
+                            "scaleX": 0.4095898087034895,
+                            "scaleY": 0.5689405558737793
+                        },
+                        {
+                            "type": "Image",
+                            "id": "8e853c6a-2bd7-4134-9f20-3ca4d115ee78",
+                            "label": "orange_mustache",
+                            "texture": {
+                                "key": "outfit-mustache"
+                            },
+                            "x": -1.6,
+                            "scaleX": 0.3799025279030767,
+                            "scaleY": 0.47788207129734755
+                        },
+                        {
+                            "type": "Image",
+                            "id": "2d34e936-24b9-4e1d-b993-1552bdfd41b3",
+                            "label": "orange_top_hat",
+                            "texture": {
+                                "key": "outfit-top-hat"
+                            },
+                            "x": -1.6,
+                            "y": -9,
+                            "scaleX": 0.8835616985829016,
+                            "scaleY": 0.9109621278531284
+                        }
+                    ]
+                },
+                {
+                    "type": "Container",
+                    "id": "17a37ae7-869f-4545-b446-2401eb5aabe0",
+                    "label": "cat_gray",
+                    "x": 44,
+                    "list": [
+                        {
+                            "prefabId": "b7f3a2c1-4e8d-4f6a-9c2b-1d5e8f7a3b90",
+                            "id": "43b05fcb-115d-4c12-8deb-f3ec9d7a5ab5",
+                            "unlock": [
+                                "x",
+                                "y",
+                                "texture",
+                                "animationKey",
+                                "idleAnim",
+                                "walkAnim"
+                            ],
+                            "label": "gray_cat",
+                            "idleAnim": "gray-idle",
+                            "walkAnim": "gray-walk",
+                            "texture": {
+                                "key": "gray-cat-sitting",
+                                "frame": 0
+                            },
+                            "x": 0,
+                            "y": 0,
+                            "animationKey": "gray-idle"
+                        },
+                        {
+                            "type": "Image",
+                            "id": "eec294f3-b617-4ed3-972c-2950bf5443d6",
+                            "label": "gray_bow",
+                            "texture": {
+                                "key": "outfit-bow"
+                            },
+                            "x": -1,
+                            "y": 2,
+                            "scaleX": 0.6643498989536183,
+                            "scaleY": 0.5267272438895287
+                        },
+                        {
+                            "type": "Image",
+                            "id": "1c7a46b1-086f-4be8-addb-8b82aa81c45b",
+                            "label": "gray_glasses",
+                            "texture": {
+                                "key": "outfit-glasses"
+                            },
+                            "x": -2,
+                            "y": -3,
+                            "scaleX": 0.4095898087034895,
+                            "scaleY": 0.5689405558737793
+                        },
+                        {
+                            "type": "Image",
+                            "id": "542aa43b-4d6b-44bb-ae84-4f95bcb1b500",
+                            "label": "gray_mustache",
+                            "texture": {
+                                "key": "outfit-mustache"
+                            },
+                            "x": -1.6,
+                            "scaleX": 0.3799025279030767,
+                            "scaleY": 0.47788207129734755
+                        },
+                        {
+                            "type": "Image",
+                            "id": "f2bdc353-e3b3-4270-a8c1-94c67f63ea50",
+                            "label": "gray_top_hat",
+                            "texture": {
+                                "key": "outfit-top-hat"
+                            },
+                            "x": -1.6,
+                            "y": -9,
+                            "scaleX": 0.8835616985829016,
+                            "scaleY": 0.9109621278531284
+                        }
+                    ]
+                },
+                {
+                    "type": "Container",
+                    "id": "1e70cb59-5d5c-42b9-a774-48ad7171b972",
+                    "label": "cat_black",
+                    "x": 88,
+                    "list": [
+                        {
+                            "prefabId": "b7f3a2c1-4e8d-4f6a-9c2b-1d5e8f7a3b90",
+                            "id": "e6403b09-9aec-4e30-9a3b-28424582c1c5",
+                            "unlock": [
+                                "x",
+                                "y",
+                                "texture",
+                                "animationKey",
+                                "idleAnim",
+                                "walkAnim"
+                            ],
+                            "label": "black_cat",
+                            "idleAnim": "black-idle",
+                            "walkAnim": "black-walk",
+                            "texture": {
+                                "key": "black-cat-sitting-w-13-h-17",
+                                "frame": 0
+                            },
+                            "x": 0,
+                            "y": 0,
+                            "animationKey": "black-idle"
+                        },
+                        {
+                            "type": "Image",
+                            "id": "89439baa-dd03-4a3c-86a3-b586ba81b6ad",
+                            "label": "black_bow",
+                            "texture": {
+                                "key": "outfit-bow"
+                            },
+                            "x": -2.5,
+                            "y": 2,
+                            "scaleX": 0.6643498989536183,
+                            "scaleY": 0.5267272438895287
+                        },
+                        {
+                            "type": "Image",
+                            "id": "ae989433-ce31-43dd-be6b-f9a751405288",
+                            "label": "black_glasses",
+                            "texture": {
+                                "key": "outfit-glasses"
+                            },
+                            "x": -2.5,
+                            "y": -3,
+                            "scaleX": 0.4095898087034895,
+                            "scaleY": 0.5689405558737793
+                        },
+                        {
+                            "type": "Image",
+                            "id": "d5d7a265-89c3-4abd-813a-3cd93442bfcb",
+                            "label": "black_mustache",
+                            "texture": {
+                                "key": "outfit-mustache"
+                            },
+                            "x": -2.5,
+                            "scaleX": 0.3799025279030767,
+                            "scaleY": 0.47788207129734755
+                        },
+                        {
+                            "type": "Image",
+                            "id": "159e4558-fa81-41c5-8498-968e4d2e75b4",
+                            "label": "black_top_hat",
+                            "texture": {
+                                "key": "outfit-top-hat"
+                            },
+                            "x": -2,
+                            "y": -9,
+                            "scaleX": 0.8835616985829016,
+                            "scaleY": 0.9109621278531284
+                        }
+                    ]
+                },
+                {
+                    "type": "Container",
+                    "id": "dd0cff69-f6a8-400d-92f7-c9764c321505",
+                    "label": "cat_chonky",
+                    "x": 132,
+                    "list": [
+                        {
+                            "prefabId": "b7f3a2c1-4e8d-4f6a-9c2b-1d5e8f7a3b90",
+                            "id": "bbc9716b-2497-439d-a128-c5410e4daa2d",
+                            "unlock": [
+                                "x",
+                                "y",
+                                "texture",
+                                "animationKey",
+                                "idleAnim",
+                                "walkAnim"
+                            ],
+                            "label": "chonky_cat",
+                            "idleAnim": "chonky-idle",
+                            "walkAnim": "chonky-walk",
+                            "texture": {
+                                "key": "chonky-calico-cat-sitting-17x17",
+                                "frame": 0
+                            },
+                            "x": 0,
+                            "y": 0,
+                            "animationKey": "chonky-idle"
+                        },
+                        {
+                            "type": "Image",
+                            "id": "d72bc75b-8b20-411b-a26d-fe75d210aacf",
+                            "label": "chonky_bow",
+                            "texture": {
+                                "key": "outfit-bow"
+                            },
+                            "x": -4,
+                            "y": 2,
+                            "scaleX": 0.6643498989536183,
+                            "scaleY": 0.5267272438895287
+                        },
+                        {
+                            "type": "Image",
+                            "id": "b29ea395-8fc2-4806-b08f-628bf9223f9a",
+                            "label": "chonky_glasses",
+                            "texture": {
+                                "key": "outfit-glasses"
+                            },
+                            "x": -4,
+                            "y": -3,
+                            "scaleX": 0.4095898087034895,
+                            "scaleY": 0.5689405558737793
+                        },
+                        {
+                            "type": "Image",
+                            "id": "570ea498-9306-40be-8299-4bb705df868b",
+                            "label": "chonky_mustache",
+                            "texture": {
+                                "key": "outfit-mustache"
+                            },
+                            "x": -4,
+                            "scaleX": 0.3799025279030767,
+                            "scaleY": 0.47788207129734755
+                        },
+                        {
+                            "type": "Image",
+                            "id": "09c31ffd-b28d-4afc-9ef6-ca315c9b0357",
+                            "label": "chonky_top_hat",
+                            "texture": {
+                                "key": "outfit-top-hat"
+                            },
+                            "x": -4,
+                            "y": -10,
+                            "scaleX": 0.8835616985829016,
+                            "scaleY": 0.9109621278531284
+                        }
+                    ]
+                },
+                {
+                    "type": "Container",
+                    "id": "40e21bdb-7073-438d-a58a-350b64e80f71",
+                    "label": "cat_marshmellow",
+                    "x": 176,
+                    "list": [
+                        {
+                            "prefabId": "b7f3a2c1-4e8d-4f6a-9c2b-1d5e8f7a3b90",
+                            "id": "bd930644-5488-4798-a192-c13b7f13a7fc",
+                            "unlock": [
+                                "x",
+                                "y",
+                                "texture",
+                                "animationKey",
+                                "idleAnim",
+                                "walkAnim",
+                                "jumpAnim"
+                            ],
+                            "label": "marshmellow_cat",
+                            "idleAnim": "marshmellow-idle",
+                            "walkAnim": "marshmellow-walk",
+                            "jumpAnim": "orange-jump",
+                            "texture": {
+                                "key": "marshmello-sitting2",
+                                "frame": 0
+                            },
+                            "x": 0,
+                            "y": 0,
+                            "animationKey": "marshmellow-idle"
+                        },
+                        {
+                            "type": "Image",
+                            "id": "5a0fa90c-9c85-43cf-80c4-8fcf7f59fc35",
+                            "label": "marshmellow_bow",
+                            "texture": {
+                                "key": "outfit-bow"
+                            },
+                            "x": -3,
+                            "y": 2,
+                            "scaleX": 0.6643498989536183,
+                            "scaleY": 0.5267272438895287
+                        },
+                        {
+                            "type": "Image",
+                            "id": "7d4bc30e-0e1f-419a-8160-9128a9b44323",
+                            "label": "marshmellow_glasses",
+                            "texture": {
+                                "key": "outfit-glasses"
+                            },
+                            "x": -3,
+                            "y": -3,
+                            "scaleX": 0.4095898087034895,
+                            "scaleY": 0.5689405558737793
+                        },
+                        {
+                            "type": "Image",
+                            "id": "b612370c-873f-41d5-a369-8b26af6330a0",
+                            "label": "marshmellow_mustache",
+                            "texture": {
+                                "key": "outfit-mustache"
+                            },
+                            "x": -3,
+                            "scaleX": 0.3799025279030767,
+                            "scaleY": 0.47788207129734755
+                        },
+                        {
+                            "type": "Image",
+                            "id": "c91d740d-4f44-4f42-b416-526494e4cff9",
+                            "label": "marshmellow_top_hat",
+                            "texture": {
+                                "key": "outfit-top-hat"
+                            },
+                            "x": -3,
+                            "y": -10,
+                            "scaleX": 0.8835616985829016,
+                            "scaleY": 0.9109621278531284
+                        }
+                    ]
+                }
+            ]
         }
     ],
+    "plainObjects": [],
     "meta": {
-        "app": "Phaser Editor 2D - Scene Editor",
-        "url": "https://phasereditor2d.com",
-        "contentType": "phasereditor2d.core.scene.SceneContentType"
-    }
+        "app": "Phaser Editor - Scene Editor",
+        "url": "https://phaser.io/editor",
+        "contentType": "phasereditor2d.core.scene.SceneContentType",
+        "version": 5
+    },
+    "prefabProperties": [
+        {
+            "name": "hitSounds",
+            "label": "hitSounds",
+            "tooltip": "Sounds cycled each time the cat gets hit. Add or remove entries here.",
+            "defValue": [
+                "cat-meow-1",
+                "cat-meow-2",
+                "cat-meow-3"
+            ],
+            "customDefinition": false,
+            "editorOnly": false,
+            "deprecated": false,
+            "type": {
+                "id": "asset-key",
+                "isArray": true
+            }
+        },
+        {
+            "name": "hitSoundVolume",
+            "label": "hitSoundVolume",
+            "tooltip": "Volume for the hit sounds (0 = silent, 1 = full).",
+            "defValue": 0.4,
+            "customDefinition": false,
+            "editorOnly": false,
+            "deprecated": false,
+            "type": {
+                "id": "number",
+                "isArray": false
+            }
+        }
+    ]
 }

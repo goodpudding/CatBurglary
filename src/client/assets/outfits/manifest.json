@@ -1,0 +1,46 @@
+[
+  {
+    "id": "bow-w11h9",
+    "file": "Bow w11h9.aseprite",
+    "key": "outfit-bow-w11h9",
+    "path": "outfits/bow-w11h9.png",
+    "width": 11,
+    "height": 9,
+    "frameWidth": 11,
+    "frameHeight": 9,
+    "frameCount": 1
+  },
+  {
+    "id": "glasses-w24h10",
+    "file": "Glasses w24h10.aseprite",
+    "key": "outfit-glasses-w24h10",
+    "path": "outfits/glasses-w24h10.png",
+    "width": 24,
+    "height": 10,
+    "frameWidth": 24,
+    "frameHeight": 10,
+    "frameCount": 1
+  },
+  {
+    "id": "mustache-w-30-h-9",
+    "file": "Mustache W-30 H-9.aseprite",
+    "key": "outfit-mustache-w-30-h-9",
+    "path": "outfits/mustache-w-30-h-9.png",
+    "width": 30,
+    "height": 9,
+    "frameWidth": 30,
+    "frameHeight": 9,
+    "frameCount": 1
+  },
+  {
+    "id": "top-hat-w13h9",
+    "file": "Top hat w13h9.aseprite",
+    "key": "outfit-top-hat-w13h9",
+    "path": "outfits/top-hat-w13h9.png",
+    "width": 13,
+    "height": 9,
+    "frameWidth": 13,
+    "frameHeight": 9,
+    "frameCount": 1
+  }
+]

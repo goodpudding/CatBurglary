@@ -72,6 +72,10 @@ export class GrannyController {
       this.syncHitbox();
       this.initPatrolDirection();
       this.applyFacing(this.dir < 0);
+      // Settle the walk sheet (and any equipped granny skin) NOW, before she
+      // moves — rebuilding the walk anim mid-run pops her texture/size.
+      playGrannyWalk(this.scene, this.granny);
+      this.syncHitbox();
       return;
     }
 

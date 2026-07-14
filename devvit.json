@@ -20,8 +20,8 @@
   "menu": {
     "items": [
       {
-        "label": "Create Cat Burglary post",
-        "description": "Start a new Cat Burglary thread in this subreddit",
+        "label": "Create Treat Dash post",
+        "description": "Start a new Treat Dash thread in this subreddit",
         "location": "subreddit",
         "forUserType": "moderator",
         "endpoint": "/internal/menu/post-create"

@@ -53,6 +53,27 @@
                 "key": "cat-chaser-livingroom"
             },
             {
+                "type": "audio",
+                "key": "cat-meow-1",
+                "url": [
+                    "sound/cat-meow-1.mp3"
+                ]
+            },
+            {
+                "type": "audio",
+                "key": "cat-meow-2",
+                "url": [
+                    "sound/cat-meow-2.mp3"
+                ]
+            },
+            {
+                "type": "audio",
+                "key": "cat-meow-3",
+                "url": [
+                    "sound/cat-meow-3.mp3"
+                ]
+            },
+            {
                 "url": "furniture/chihuahua-barking.png",
                 "frameConfig": {
                     "frameWidth": 32,
@@ -227,6 +248,13 @@
                 "key": "game-start"
             },
             {
+                "url": [
+                    "sound/get-coin.mp3"
+                ],
+                "type": "audio",
+                "key": "get-coin"
+            },
+            {
                 "url": "furniture/grandma-talking.png",
                 "frameConfig": {
                     "frameWidth": 27,
@@ -389,19 +417,6 @@
                 "url": "furniture/living-room-fllor.png",
                 "type": "image",
                 "key": "living-room-fllor"
-            },
-            {
-                "url": "furniture/marshmello-sitting2.png",
-                "frameConfig": {
-                    "frameWidth": 13,
-                    "frameHeight": 17,
-                    "startFrame": 0,
-                    "endFrame": -1,
-                    "spacing": 0,
-                    "margin": 0
-                },
-                "type": "spritesheet",
-                "key": "marshmello-sitting2"
             },
             {
                 "url": "cats/marshmellow-sitting.png",

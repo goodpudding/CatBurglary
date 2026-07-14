@@ -2,7 +2,7 @@ import Phaser from 'phaser';
 
 export const MAX_LIVES = 3;
 /** Draw accurate hitbox overlays (custom renderer; Arcade's built-in debug drifts after layout). */
-export const DEBUG_PHYSICS = true;
+export const DEBUG_PHYSICS = false;
 /** Space reserved above the room so HUD text sits over empty padding, not the art. */
 export const HUD_TOP_PADDING = 96;
 export const HUD_BOTTOM_PADDING = 8;

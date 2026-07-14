@@ -39,24 +39,15 @@
             "height": 128
         },
         {
-            "type": "ArcadeSprite",
+            "prefabId": "c859151a-8106-480f-8eed-6a5f5cbe9efd",
             "id": "livingroom-player",
+            "unlock": [
+                "x",
+                "y"
+            ],
             "label": "player",
-            "texture": {
-                "key": "orange-cat-sitting-sheet",
-                "frame": 0
-            },
             "x": -37,
-            "y": 71,
-            "animationPlayMethod": 1,
-            "animationKey": "orange-idle",
-            "animationPreview": true,
-            "body.geometry": 0,
-            "body.radius": 8,
-            "body.width": 20,
-            "body.height": 20,
-            "body.offset.x": 1,
-            "body.offset.y": 4
+            "y": 71
         },
         {
             "prefabId": "31f6b5bb-125e-47bb-8c20-20187b1efd22",

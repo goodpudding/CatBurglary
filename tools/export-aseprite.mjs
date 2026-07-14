@@ -9,9 +9,48 @@ const root = path.resolve(__dirname, '..');
 const sourceRoot = path.join(root, 'assets');
 
 const OUTPUTS = [
-  { input: sourceRoot, output: path.join(root, 'src', 'client', 'assets', 'furniture'), prefix: 'furniture' },
-  { input: path.join(sourceRoot, 'Cats'), output: path.join(root, 'src', 'client', 'assets', 'cats'), prefix: 'cat' },
+  { input: sourceRoot, output: path.join(root, 'src', 'client', 'assets', 'furniture'), prefix: 'furniture', folder: 'furniture' },
+  { input: path.join(sourceRoot, 'Cats'), output: path.join(root, 'src', 'client', 'assets', 'cats'), prefix: 'cat', folder: 'cats' },
+  { input: path.join(sourceRoot, 'outfits'), output: path.join(root, 'src', 'client', 'assets', 'outfits'), prefix: 'outfit', folder: 'outfits' },
 ];
+
+/**
+ * Hand-tuned manifest entries the auto-inference gets wrong. These win over
+ * inferred values so re-running the export never clobbers approved fixes.
+ * (marshmellow-sitting-sheet really is 25x20x12 even though inference says 20x20x15.)
+ */
+const MANIFEST_OVERRIDES = {
+  'marshmellow-sitting-sheet': { frameWidth: 25, frameHeight: 20, frameCount: 12 },
+};
+
+/**
+ * Downscaled variants baked from exported art. Thin 1px details (glasses lens
+ * rings) vanish under nearest-neighbor scaling in-engine, so these are shrunk
+ * with a smooth kernel then alpha-thresholded back to crisp pixels.
+ */
+const BAKED_VARIANTS = [
+  {
+    source: path.join(root, 'src', 'client', 'assets', 'outfits', 'glasses-w24h10.png'),
+    output: path.join(root, 'src', 'client', 'assets', 'outfits', 'glasses-small-w15h6.png'),
+    width: 15,
+    height: 6,
+  },
+];
+
+async function bakeVariants() {
+  for (const v of BAKED_VARIANTS) {
+    if (!fs.existsSync(v.source)) continue;
+    const { data, info } = await sharp(v.source)
+      .resize(v.width, v.height, { kernel: 'lanczos3' })
+      .raw()
+      .toBuffer({ resolveWithObject: true });
+    for (let i = 0; i < data.length; i += 4) {
+      data[i + 3] = data[i + 3] < 60 ? 0 : 255;
+    }
+    await sharp(data, { raw: info }).png().toFile(v.output);
+    console.log(`Baked ${path.basename(v.source)} -> ${path.basename(v.output)} (${v.width}x${v.height})`);
+  }
+}
 
 function slugify(name) {
   return name
@@ -75,7 +114,7 @@ function inferSheetFrames(width, height) {
   };
 }
 
-async function exportAsset(filePath, outputDir, prefix) {
+async function exportAsset(filePath, outputDir, prefix, folder) {
   const fileName = path.basename(filePath);
   const id = slugify(fileName);
   const raw = fs.readFileSync(filePath);
@@ -129,16 +168,17 @@ async function exportAsset(filePath, outputDir, prefix) {
     id,
     file: fileName,
     key: `${prefix}-${id}`,
-    path: `${prefix === 'furniture' ? 'furniture' : 'cats'}/${id}.png`,
+    path: `${folder}/${id}.png`,
     width,
     height,
     frameWidth,
     frameHeight,
     frameCount,
+    ...(MANIFEST_OVERRIDES[id] ?? {}),
   };
 }
 
-async function exportFolder({ input, output, prefix }) {
+async function exportFolder({ input, output, prefix, folder }) {
   if (!fs.existsSync(input)) {
     return [];
   }
@@ -153,7 +193,7 @@ async function exportFolder({ input, output, prefix }) {
 
   const manifest = [];
   for (const filePath of files) {
-    const entry = await exportAsset(filePath, output, prefix);
+    const entry = await exportAsset(filePath, output, prefix, folder);
     manifest.push(entry);
     console.log(
       `Exported ${entry.file} -> ${entry.path} (${entry.width}x${entry.height}, ${entry.frameCount} frames)`,
@@ -169,6 +209,7 @@ async function main() {
   for (const folder of OUTPUTS) {
     await exportFolder(folder);
   }
+  await bakeVariants();
 }
 
 main().catch((error) => {

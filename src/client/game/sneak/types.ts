@@ -1,5 +1,6 @@
 import type Phaser from 'phaser';
 import type Chihuahua from '../../scenes/Chihuahua.js';
+import type { OutfitLayer } from '../cosmeticAttachments.js';
 
 export type Bodied = Phaser.GameObjects.GameObject & {
   body: Phaser.Physics.Arcade.Body | Phaser.Physics.Arcade.StaticBody | null;
@@ -23,6 +24,11 @@ export interface CollectedObjects {
   granny: GrannyObject | undefined;
   treatMarkers: Phaser.GameObjects.GameObject[];
   chihuahuas: Chihuahua[];
+  /** Outfit images authored inside the Player prefab (Phaser Editor). */
+  outfitLayers: OutfitLayer[];
+  /** Hit-sound cycle + volume from the Player prefab's Inspector properties. */
+  hitSounds: string[];
+  hitSoundVolume: number;
 }
 
 export interface WorldBounds {

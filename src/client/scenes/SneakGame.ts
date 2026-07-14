@@ -1,7 +1,8 @@
 import Phaser from 'phaser';
 import { CatAnimator } from '../game/catAnimator.js';
 import { CosmeticAttachmentManager } from '../game/cosmeticAttachments.js';
-import { getEquippedCosmetics, getSelectedCatId } from '../game/runConfig.js';
+import { getEquippedCosmetics, getGameMode, getSelectedCatId } from '../game/runConfig.js';
+import { getGameModeDefinition } from '../../shared/gameModes.js';
 import { collectEditorObjects } from '../game/sneak/editorObjects.js';
 import { setupCat } from '../game/sneak/catSetup.js';
 import { GrannyController } from '../game/sneak/grannyController.js';
@@ -79,6 +80,11 @@ export class SneakGame {
   private stealth!: StealthSystem;
   private slipper!: SlipperSystem;
   private physicsDebug?: PhysicsDebugOverlay;
+  /** Selected on the splash screen; persisted in localStorage. */
+  private readonly mode = getGameModeDefinition(getGameMode());
+  private hitSounds: string[] = [];
+  private hitSoundVolume = 0.6;
+  private hitSoundIndex = 0;
   private night?: NightMode;
 
   private treats: TreatTarget[] = [];
@@ -166,7 +172,13 @@ export class SneakGame {
       this.scene,
       this.cat,
       getEquippedCosmetics(),
+      collected.outfitLayers,
     );
+
+    // Hit-sound cycle + volume come from the Player prefab's Inspector
+    // properties (hitSounds / hitSoundVolume in Phaser Editor).
+    this.hitSounds = collected.hitSounds.filter((key) => this.scene.cache.audio.exists(key));
+    this.hitSoundVolume = collected.hitSoundVolume;
 
     this.treats = placeTreats(
       this.scene,
@@ -203,6 +215,13 @@ export class SneakGame {
     // Per-instance granny tuning from the prefab properties (falls back to the
     // sneak constants for any grannies not built from the prefab).
     this.grannyTuning = resolveGrannyTuning(collected.granny);
+    // Game-mode adjustments (Easy nerfs granny; Regular/Dark leave her alone).
+    this.grannyTuning.patrolSpeed *= this.mode.grannySpeedMul;
+    this.grannyTuning.chaseSpeed *= this.mode.grannySpeedMul;
+    this.grannyTuning.retrieveSpeed *= this.mode.grannySpeedMul;
+    this.grannyTuning.detectFillRate *= this.mode.detectMul;
+    this.grannyTuning.throwCooldownMs *= this.mode.throwCooldownMul;
+    this.grannyTuning.throwSpeed *= this.mode.throwSpeedMul;
     this.grannyCtrl.patrolSpeedBase = this.grannyTuning.patrolSpeed;
     this.chihuahuaCtrl.setup(
       collected.chihuahuas,
@@ -248,9 +267,11 @@ export class SneakGame {
       this.grannyTuning,
       () => ({ min: this.grannyCtrl.patrolMinX, max: this.grannyCtrl.patrolMaxX }),
     );
-    // It's a break-in: rooms are dark, granny's cone is her flashlight, and a
+    // Dark mode: lights out, granny's cone becomes her flashlight, and a
     // small glow follows the cat. Tuning: NIGHT_ALPHA / CAT_GLOW_RADIUS.
-    // this.night = new NightMode(this.scene);
+    if (this.mode.night) {
+      this.night = new NightMode(this.scene);
+    }
 
     this.hud.create();
     this.input = new SneakInput(this.scene, (...els) => this.hud.track(...els));
@@ -364,6 +385,14 @@ export class SneakGame {
     const base = (treat.getData('points') as number) ?? 5;
     const points = Math.round(base * this.scoreMultiplier * this.room.difficulty.treatValueMul);
     runState.carried += points;
+
+    // Pickup sound from the treatMarker prefab's Inspector properties.
+    const soundKey = treat.getData('pointSound') as string | undefined;
+    if (soundKey && this.scene.cache.audio.exists(soundKey)) {
+      const volume = (treat.getData('pointSoundVolume') as number | undefined) ?? 0.5;
+      this.scene.sound.play(soundKey, { volume });
+    }
+
     treat.destroy();
     this.treats = this.treats.filter((t) => t !== treat);
     this.hud.update(runState.score, runState.carried, runState.lives);
@@ -394,6 +423,14 @@ export class SneakGame {
     return body.bottom <= this.world.groundTop + FURNITURE_LAND_TOLERANCE + 8;
   }
 
+  /** Cycle through the prefab-assigned cat sounds (one per hit, in order). */
+  private playHitSound(): void {
+    if (this.hitSounds.length === 0) return;
+    const key = this.hitSounds[this.hitSoundIndex % this.hitSounds.length]!;
+    this.hitSoundIndex += 1;
+    this.scene.sound.play(key, { volume: this.hitSoundVolume });
+  }
+
   /** Shared damage from a chase touch or a slipper hit: lose a life + drop carried treats. */
   private hitCat(): void {
     if (this.runOver || this.scene.time.now < this.invulnUntil) return;
@@ -401,6 +438,7 @@ export class SneakGame {
     runState.lives -= 1;
     this.invulnUntil = this.scene.time.now + INVULN_MS;
     playThud(this.scene);
+    this.playHitSound();
     this.input.dropThroughBody = null;
 
     if (runState.carried > 0) {
@@ -409,7 +447,7 @@ export class SneakGame {
     }
 
     const knockDir = this.cat.x < this.grannyCtrl.x ? -1 : 1;
-    const kbScale = Math.sqrt(this.world.worldScale) * this.knockbackMultiplier;
+    const kbScale = Math.sqrt(this.world.worldScale) * this.knockbackMultiplier * this.mode.knockbackMul;
     this.cat.setVelocity(knockDir * 220 * kbScale, -180 * kbScale);
     this.scene.cameras.main.shake(180, 0.01);
     this.hud.update(runState.score, runState.carried, runState.lives);
@@ -562,7 +600,8 @@ export class SneakGame {
     }
 
     this.cat.setAlpha(time < this.invulnUntil ? 0.5 : 1);
-    this.cosmeticAttachments?.update();
+    // (cosmetic attachments reposition themselves on POST_UPDATE, after
+    // physics has synced the cat sprite — updating them here trails the cat)
   }
 
   /** Drives granny's awareness, throwing, and movement mode each frame. */

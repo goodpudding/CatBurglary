@@ -252,14 +252,6 @@
             "y": 6
         },
         {
-            "type": "Text",
-            "id": "92858a88-88e3-4b32-b743-0bcd665c602a",
-            "label": "f-u ",
-            "x": 152,
-            "y": 17,
-            "text": "f-u"
-        },
-        {
             "prefabId": "a1b2c3d4-treat-marker-prefab",
             "id": "67d1c0c4-1b7a-452c-8b96-087574d6006c",
             "unlock": [

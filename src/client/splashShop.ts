@@ -7,6 +7,21 @@ import type { CosmeticSlot, PlayerProfile } from '../shared/playerProfile.js';
 import { buyCosmetic, equipCosmetic } from './api/playerApi.js';
 import { renderCatPicker, updateCoinsDisplayFromProfile } from './splashCatPicker.js';
 
+/** Pixel-art card art: integer upscale of the sprite's first frame. */
+function renderShopIcon(item: ShopItemState): string {
+  if (!item.sprite) {
+    return `<div class="shop-icon" aria-hidden="true">${item.icon}</div>`;
+  }
+
+  const { path, frameWidth, frameHeight, sheetWidth } = item.sprite;
+  const scale = Math.max(1, Math.floor(28 / frameHeight));
+  const w = frameWidth * scale;
+  const h = frameHeight * scale;
+  const bgW = (sheetWidth ?? frameWidth) * scale;
+
+  return `<div class="shop-icon shop-sprite" aria-hidden="true" style="width:${w}px;height:${h}px;background-image:url('/${path}');background-size:${bgW}px ${h}px;"></div>`;
+}
+
 function renderShopItem(item: ShopItemState): string {
   let actionLabel: string;
   let actionClass: string;
@@ -24,7 +39,7 @@ function renderShopItem(item: ShopItemState): string {
 
   return `
     <article class="shop-card${item.equipped ? ' is-equipped' : ''}${!item.owned ? ' is-locked' : ''}" data-cosmetic-id="${item.id}" data-slot="${item.slot}">
-      <div class="shop-icon" aria-hidden="true">${item.icon}</div>
+      ${renderShopIcon(item)}
       <h3 class="shop-name">${item.name}</h3>
       <p class="shop-slot">${formatCosmeticSlot(item.slot)}</p>
       <p class="shop-desc">${item.description}</p>

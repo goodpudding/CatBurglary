@@ -1,0 +1,93 @@
+{
+    "id": "b7f3a2c1-4e8d-4f6a-9c2b-1d5e8f7a3b90",
+    "sceneType": "PREFAB",
+    "settings": {
+        "compilerInsertSpaces": true,
+        "compilerTabSize": 2,
+        "exportClass": true,
+        "autoImport": true,
+        "importFileExtension": true,
+        "preloadMethodName": "",
+        "preloadPackFiles": [],
+        "createMethodName": "",
+        "compilerOutputLanguage": "TYPE_SCRIPT",
+        "borderWidth": 64,
+        "borderHeight": 64
+    },
+    "displayList": [
+        {
+            "type": "ArcadeSprite",
+            "id": "a1c9e5d7-2b4f-4a8c-8e6d-9f0b3c7d5e21",
+            "label": "catVisual",
+            "unlock": [
+                "x",
+                "y",
+                "texture",
+                "animationKey"
+            ],
+            "texture": {
+                "key": "orange-cat-sitting-sheet",
+                "frame": 0
+            },
+            "x": 0,
+            "y": 0,
+            "animationPlayMethod": 1,
+            "animationKey": "orange-idle",
+            "animationPreview": true,
+            "body.geometry": 0,
+            "body.radius": 8,
+            "body.width": 20,
+            "body.height": 20,
+            "body.offset.x": 1,
+            "body.offset.y": 4
+        }
+    ],
+    "plainObjects": [],
+    "meta": {
+        "app": "Phaser Editor - Scene Editor",
+        "url": "https://phaser.io/editor",
+        "contentType": "phasereditor2d.core.scene.SceneContentType",
+        "version": 5
+    },
+    "prefabProperties": [
+        {
+            "name": "idleAnim",
+            "label": "idleAnim",
+            "tooltip": "Animation played while this cat stands still.",
+            "defValue": "orange-idle",
+            "customDefinition": false,
+            "editorOnly": false,
+            "deprecated": false,
+            "type": {
+                "id": "animation-key",
+                "isArray": false
+            }
+        },
+        {
+            "name": "walkAnim",
+            "label": "walkAnim",
+            "tooltip": "Animation played while this cat moves.",
+            "defValue": "orange-walk",
+            "customDefinition": false,
+            "editorOnly": false,
+            "deprecated": false,
+            "type": {
+                "id": "animation-key",
+                "isArray": false
+            }
+        },
+        {
+            "name": "jumpAnim",
+            "label": "jumpAnim",
+            "tooltip": "Animation played while this cat is airborne.",
+            "defValue": "orange-jump",
+            "customDefinition": false,
+            "editorOnly": false,
+            "deprecated": false,
+            "type": {
+                "id": "animation-key",
+                "isArray": false
+            }
+        }
+    ]
+}

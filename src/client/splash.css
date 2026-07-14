@@ -330,6 +330,12 @@
   line-height: 1;
 }
 
+.shop-sprite {
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  image-rendering: pixelated;
+}
+
 .shop-name {
   font-size: 0.9em;
   font-weight: 700;
@@ -381,4 +387,77 @@
   text-align: center;
   font-size: 0.82em;
   color: #ff8a80;
+}
+
+.volume-control {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  z-index: 5;
+}
+
+.volume-icon {
+  font-size: 0.95em;
+}
+
+#volume-slider {
+  width: 110px;
+  accent-color: #ffd54f;
+  cursor: pointer;
+}
+
+.mode-picker {
+  width: 100%;
+  margin: 6px 0 2px;
+}
+
+.mode-title {
+  font-size: 0.95em;
+  margin: 0 0 6px;
+  text-align: center;
+}
+
+.mode-row {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
+
+.mode-card {
+  flex: 0 1 150px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  padding: 8px 6px;
+  border: 2px solid rgba(255, 255, 255, 0.18);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.06);
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+.mode-card.is-selected {
+  border-color: #ffd54f;
+  background: rgba(255, 213, 79, 0.12);
+}
+
+.mode-icon {
+  font-size: 1.3em;
+  line-height: 1;
+}
+
+.mode-name {
+  font-weight: 700;
+  font-size: 0.85em;
+}
+
+.mode-desc {
+  font-size: 0.62em;
+  opacity: 0.75;
+  text-align: center;
 }

@@ -62,9 +62,9 @@ export const CAT_SHEET_SETS: Record<CatVisualId, CatSheetSet> = {
     jump: sheet('gray-cat-stand-to-sit-sheet'),
   },
   marshmellow: {
-    walk: sheet('marshmellow-sitting-sheet'),
-    idle: sheet('marshmellow-sitting-sheet'),
-    jump: sheet('marshmellow-sitting-sheet'),
+    walk: sheet('marshmellow-walking-1'),
+    idle: sheet('marshmello-sitting2'),
+    jump: sheet('marshmellow-walking-1'),
   },
   chonky: {
     walk: sheet('chonky-calico-cat-walking-20x17'),
@@ -104,9 +104,9 @@ export const CAT_GAME_TEXTURE_KEYS: Record<
     transition: 'gray-cat-stand-to-sit-sheet',
   },
   marshmellow: {
-    idle: 'marshmellow-sitting-sheet',
-    walk: 'marshmellow-sitting-sheet',
-    jump: 'marshmellow-sitting-sheet',
+    idle: 'marshmello-sitting2',
+    walk: 'marshmellow-walking-1',
+    jump: 'marshmellow-walking-1',
     transition: null,
   },
   chonky: {

@@ -3,6 +3,7 @@
 
 /* START OF COMPILED CODE */
 
+import Player from "./Player.js";
 import Granny from "./Granny.js";
 import Chihuahua from "./Chihuahua.js";
 import treatMarker from "./treatMarker.js";
@@ -22,9 +23,6 @@ export default class LivingRoomRoom extends Phaser.Scene {
     /* END-USER-CTR-CODE */
   }
 
-  preload(): void {
-  }
-
   editorCreate(): void {
 
     // cat_chaser_livingroom_1
@@ -36,10 +34,8 @@ export default class LivingRoomRoom extends Phaser.Scene {
     floor.scaleY = 0.1875;
 
     // player
-    const player = this.physics.add.sprite(-37, 71, "orange-cat-sitting-sheet", 0);
-    player.body.setOffset(1, 4);
-    player.body.setCircle(8);
-    player.play("orange-idle");
+    const player = new Player(this, -37, 71);
+    this.add.existing(player);
 
     // granny
     const granny = new Granny(this, -46, 59);
@@ -379,3 +375,5 @@ export default class LivingRoomRoom extends Phaser.Scene {
 }
 
 /* END OF COMPILED CODE */
+
+// You can write more code here

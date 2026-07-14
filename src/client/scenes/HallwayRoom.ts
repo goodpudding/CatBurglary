@@ -3,6 +3,7 @@
 
 /* START OF COMPILED CODE */
 
+import Player from "./Player.js";
 import Granny from "./Granny.js";
 import Chihuahua from "./Chihuahua.js";
 import treatMarker from "./treatMarker.js";
@@ -36,10 +37,8 @@ export default class HallwayRoom extends Phaser.Scene {
     floor.scaleY = 0.1875;
 
     // player
-    const player = this.physics.add.sprite(-168, 16, "orange-cat-sitting-sheet", 0);
-    player.body.setOffset(1, 4);
-    player.body.setCircle(8);
-    player.play("orange-idle");
+    const player = new Player(this, -168, 16);
+    this.add.existing(player);
 
     // granny
     const granny = new Granny(this, -175, 4);

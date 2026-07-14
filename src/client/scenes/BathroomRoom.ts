@@ -3,6 +3,7 @@
 
 /* START OF COMPILED CODE */
 
+import Player from "./Player.js";
 import Granny from "./Granny.js";
 import treatMarker from "./treatMarker.js";
 /* START-USER-IMPORTS */
@@ -36,10 +37,8 @@ export default class BathroomRoom extends Phaser.Scene {
     floor.scaleY = 0.1875;
 
     // player
-    const player = this.physics.add.sprite(-177, 7, "orange-cat-sitting-sheet", 0);
-    player.body.setOffset(1, 4);
-    player.body.setCircle(8);
-    player.play("orange-idle");
+    const player = new Player(this, -177, 7);
+    this.add.existing(player);
 
     // granny
     const granny = new Granny(this, -201, -10);

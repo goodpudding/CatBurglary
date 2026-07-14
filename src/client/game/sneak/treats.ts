@@ -18,12 +18,18 @@ function ensureTreatAnim(scene: Phaser.Scene): void {
   });
 }
 
+/** Matches the treatMarker prefab's pointSound/pointSoundVolume defaults. */
+const DEFAULT_POINT_SOUND = 'get-coin';
+const DEFAULT_POINT_SOUND_VOLUME = 0.5;
+
 function spawnTreat(
   scene: Phaser.Scene,
   x: number,
   y: number,
   points: number,
   displayScale: number,
+  pointSound: string = DEFAULT_POINT_SOUND,
+  pointSoundVolume: number = DEFAULT_POINT_SOUND_VOLUME,
 ): TreatTarget {
   ensureTreatAnim(scene);
 
@@ -43,6 +49,8 @@ function spawnTreat(
   }
 
   treat.setData('points', points);
+  treat.setData('pointSound', pointSound);
+  treat.setData('pointSoundVolume', Phaser.Math.Clamp(pointSoundVolume, 0, 1));
   return treat;
 }
 
@@ -60,12 +68,25 @@ export function placeTreats(
       // editor Inspector); fall back to parsing a treat_N name.
       const own = (marker as { points?: number }).points;
       const points = typeof own === 'number' ? own : parseTreatPoints(marker.name);
+      // Sound props from the treatMarker prefab (per-instance editable in the
+      // editor Inspector, like points).
+      const soundProps = marker as { pointSound?: string; pointSoundVolume?: number };
+      const pointSound =
+        typeof soundProps.pointSound === 'string' && soundProps.pointSound.length > 0
+          ? soundProps.pointSound
+          : DEFAULT_POINT_SOUND;
+      const pointSoundVolume =
+        typeof soundProps.pointSoundVolume === 'number'
+          ? soundProps.pointSoundVolume
+          : DEFAULT_POINT_SOUND_VOLUME;
       const go = marker as Phaser.GameObjects.GameObject & { getBounds?: () => Phaser.Geom.Rectangle };
       const b = go.getBounds?.();
       if (!b) continue;
 
       const displayScale = Math.max(1.8, Math.max(b.width, b.height) / 16);
-      treats.push(spawnTreat(scene, b.centerX, b.centerY, points, displayScale));
+      treats.push(
+        spawnTreat(scene, b.centerX, b.centerY, points, displayScale, pointSound, pointSoundVolume),
+      );
       marker.destroy();
     }
     return treats;

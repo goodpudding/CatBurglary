@@ -1,0 +1,96 @@
+{
+    "id": "f4e9d8c7-6b5a-4321-9e8f-7a6b5c4d3e2f",
+    "sceneType": "PREFAB",
+    "settings": {
+        "compilerInsertSpaces": true,
+        "compilerTabSize": 2,
+        "exportClass": true,
+        "autoImport": true,
+        "importFileExtension": true,
+        "preloadMethodName": "",
+        "preloadPackFiles": [],
+        "createMethodName": "",
+        "compilerOutputLanguage": "TYPE_SCRIPT",
+        "borderWidth": 960,
+        "borderHeight": 540
+    },
+    "displayList": [
+        {
+            "type": "Container",
+            "id": "9c8b7a65-4d3e-2f1a-0b9c-8d7e6f5a4b3c",
+            "label": "volume_slider",
+            "x": 856,
+            "y": 92,
+            "list": [
+                {
+                    "type": "Text",
+                    "id": "1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d",
+                    "label": "vs_icon",
+                    "x": -78,
+                    "y": 0,
+                    "originX": 0.5,
+                    "originY": 0.5,
+                    "text": "🔊",
+                    "fontSize": "16px"
+                },
+                {
+                    "type": "Rectangle",
+                    "id": "2b3c4d5e-6f7a-8b9c-0d1e-2f3a4b5c6d7e",
+                    "label": "vs_track",
+                    "x": 0,
+                    "y": 0,
+                    "width": 120,
+                    "height": 6,
+                    "isFilled": true,
+                    "fillColor": 2960712
+                },
+                {
+                    "type": "Rectangle",
+                    "id": "3c4d5e6f-7a8b-9c0d-1e2f-3a4b5c6d7e8f",
+                    "label": "vs_fill",
+                    "x": -60,
+                    "y": 0,
+                    "originX": 0,
+                    "originY": 0.5,
+                    "width": 60,
+                    "height": 6,
+                    "isFilled": true,
+                    "fillColor": 16768324
+                },
+                {
+                    "type": "Ellipse",
+                    "id": "4d5e6f7a-8b9c-0d1e-2f3a-4b5c6d7e8f9a",
+                    "label": "vs_knob",
+                    "x": 0,
+                    "y": 0,
+                    "width": 16,
+                    "height": 16,
+                    "isFilled": true,
+                    "fillColor": 16777215
+                }
+            ]
+        }
+    ],
+    "plainObjects": [],
+    "meta": {
+        "app": "Phaser Editor - Scene Editor",
+        "url": "https://phaser.io/editor",
+        "contentType": "phasereditor2d.core.scene.SceneContentType",
+        "version": 5
+    },
+    "prefabProperties": [
+        {
+            "name": "startVolume",
+            "label": "startVolume",
+            "tooltip": "Master volume when no saved player preference exists (0-1).",
+            "defValue": 0.5,
+            "customDefinition": false,
+            "editorOnly": false,
+            "deprecated": false,
+            "type": {
+                "id": "number",
+                "isArray": false
+            }
+        }
+    ]
+}

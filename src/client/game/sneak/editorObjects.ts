@@ -1,5 +1,8 @@
 import Phaser from 'phaser';
 import { isGrannyTextureKey } from '../grannyAnimator.js';
+import { buildOutfitLayer, type OutfitLayer } from '../cosmeticAttachments.js';
+import { CAT_GAME_TEXTURE_KEYS, getCatVisualId } from '../../assets/catCatalog.js';
+import { getSelectedCatId } from '../runConfig.js';
 import Player from '../../scenes/Player.js';
 import Granny from '../../scenes/Granny.js';
 import Chihuahua from '../../scenes/Chihuahua.js';
@@ -65,8 +68,138 @@ export function parseTreatPoints(name: string): number {
   return 10;
 }
 
+function findArcadeSprite(
+  children: Phaser.GameObjects.GameObject[],
+): Phaser.Physics.Arcade.Sprite | undefined {
+  for (const child of children) {
+    if (child instanceof Phaser.GameObjects.Sprite && (child as Bodied).body) {
+      return child as Phaser.Physics.Arcade.Sprite;
+    }
+  }
+  return undefined;
+}
+
+/**
+ * The Player prefab is a Container holding one group per cat visual — each
+ * group is a nested Container with that cat's ArcadeSprite plus its outfit
+ * images, positioned per-cat in Phaser Editor (side by side so every cat is
+ * editable). At runtime only the group matching the player's selected cat
+ * survives: its sprite becomes THE gameplay cat (re-parented to the scene at
+ * the prefab's position — Arcade bodies don't track container-local
+ * coordinates), its outfit images become OutfitLayers whose offsets are
+ * exactly the editor-authored distance from that cat, and every other group
+ * is destroyed. Also supports the older flat layout (sprite + images directly
+ * in the root) as a fallback.
+ */
+function unpackPlayerContainer(container: Phaser.GameObjects.Container): {
+  sprite: Phaser.Physics.Arcade.Sprite | undefined;
+  outfits: OutfitLayer[];
+} {
+  const scene = container.scene;
+  const children = [...container.list] as Phaser.GameObjects.GameObject[];
+
+  // Which group do we want? Match each group's sprite texture against the
+  // selected cat's idle sheet.
+  const selectedIdleKey = CAT_GAME_TEXTURE_KEYS[getCatVisualId(getSelectedCatId())].idle;
+
+  let groupParent: Phaser.GameObjects.Container = container;
+  let groupChildren = children;
+  let sprite: Phaser.Physics.Arcade.Sprite | undefined = findArcadeSprite(children);
+
+  if (!sprite) {
+    // Per-cat layout: pick the matching group (fall back to the first one
+    // that has a sprite, so an unknown cat id still yields a player).
+    const groups = children.filter(
+      (c): c is Phaser.GameObjects.Container => c instanceof Phaser.GameObjects.Container,
+    );
+    let chosen: Phaser.GameObjects.Container | undefined;
+    let chosenSprite: Phaser.Physics.Arcade.Sprite | undefined;
+
+    for (const group of groups) {
+      const groupSprite = findArcadeSprite(group.list as Phaser.GameObjects.GameObject[]);
+      if (!groupSprite) continue;
+      if (!chosen) {
+        chosen = group;
+        chosenSprite = groupSprite;
+      }
+      if (groupSprite.texture?.key === selectedIdleKey) {
+        chosen = group;
+        chosenSprite = groupSprite;
+        break;
+      }
+    }
+
+    if (!chosen || !chosenSprite) return { sprite: undefined, outfits: [] };
+
+    // Destroy every non-selected group (their sprites, bodies and outfits).
+    for (const group of groups) {
+      if (group !== chosen) group.destroy();
+    }
+
+    groupParent = chosen;
+    groupChildren = [...chosen.list] as Phaser.GameObjects.GameObject[];
+    sprite = chosenSprite;
+  }
+
+  const images = groupChildren.filter(
+    (c): c is Phaser.GameObjects.Image =>
+      c instanceof Phaser.GameObjects.Image && c !== (sprite as unknown),
+  );
+
+  const spriteLocalX = sprite.x;
+  const spriteLocalY = sprite.y;
+
+  // Capture each outfit's editor-authored offset from its cat BEFORE moving
+  // anything (both are still in the same group-local space here).
+  const editorOffsets = new Map<Phaser.GameObjects.Image, { x: number; y: number }>();
+  for (const image of images) {
+    editorOffsets.set(image, { x: image.x - spriteLocalX, y: image.y - spriteLocalY });
+  }
+
+  // Re-parent the survivors to the scene. The cat lands exactly on the prefab
+  // instance's position (what the room author placed); outfit images are
+  // driven every frame by the attachment manager, so their spawn spot is moot.
+  for (const child of [sprite as Phaser.GameObjects.GameObject, ...images]) {
+    const positioned = child as Phaser.GameObjects.GameObject & { x: number; y: number };
+    groupParent.remove(child);
+    scene.add.existing(child);
+    positioned.x = container.x;
+    positioned.y = container.y;
+  }
+
+  sprite.setName('player');
+  (sprite.body as Phaser.Physics.Arcade.Body | null)?.updateFromGameObject();
+
+  const outfits: OutfitLayer[] = [];
+  for (const image of images) {
+    // Offsets = editor-authored distance from THIS cat's origin (its group in
+    // the prefab). Drag in the editor, done — no cross-cat conversion.
+    const off = editorOffsets.get(image) ?? { x: 0, y: 0 };
+    // Anchor against the frame the artist authored on (the group sprite's
+    // current frame — whatever preview animation was saved in the editor).
+    const layer = buildOutfitLayer(image, off.x, off.y, sprite.width, sprite.height);
+    if (layer) {
+      layer.image.setVisible(false);
+      outfits.push(layer);
+    } else {
+      // Not a known outfit (stray art in the prefab) — hide it.
+      image.setVisible(false);
+    }
+  }
+
+  container.destroy();
+  return { sprite, outfits };
+}
+
 export function collectEditorObjects(scene: Phaser.Scene): CollectedObjects {
   let player: Phaser.Physics.Arcade.Sprite | undefined;
+  const outfitLayers: OutfitLayer[] = [];
+  // Fallback if the Player prefab's hitSounds list comes through empty —
+  // Phaser Editor's array-default codegen is unreliable (it can emit [] even
+  // when the .scene file holds entries). A non-empty editor list overrides
+  // these; to silence hits entirely, set hitSoundVolume to 0 instead.
+  let hitSounds: string[] = ['cat-meow-1', 'cat-meow-2', 'cat-meow-3'];
+  let hitSoundVolume = 0.4;
   const furniture: Phaser.GameObjects.Image[] = [];
   const floors: Phaser.GameObjects.Rectangle[] = [];
   const surfaces: Phaser.GameObjects.Rectangle[] = [];
@@ -85,7 +218,18 @@ export function collectEditorObjects(scene: Phaser.Scene): CollectedObjects {
     } else if (obj instanceof Chihuahua) {
       chihuahuas.push(obj);
     } else if (obj instanceof Player) {
-      player = obj;
+      // Capture the prefab's sound properties before the container is
+      // flattened/destroyed by the unpack.
+      const soundProps = obj as Partial<{ hitSounds: string[]; hitSoundVolume: number }>;
+      if (Array.isArray(soundProps.hitSounds) && soundProps.hitSounds.length > 0) {
+        hitSounds = [...soundProps.hitSounds];
+      }
+      if (typeof soundProps.hitSoundVolume === 'number') {
+        hitSoundVolume = Phaser.Math.Clamp(soundProps.hitSoundVolume, 0, 1);
+      }
+      const unpacked = unpackPlayerContainer(obj);
+      if (unpacked.sprite) player = unpacked.sprite;
+      outfitLayers.push(...unpacked.outfits);
     } else if (obj instanceof Granny) {
       granny = obj;
     } else if (obj instanceof Phaser.GameObjects.Sprite && bodied.body) {
@@ -123,7 +267,20 @@ export function collectEditorObjects(scene: Phaser.Scene): CollectedObjects {
     if (found) granny = found as GrannyObject;
   }
 
-  return { player, furniture, floors, surfaces, window, exit, granny, treatMarkers, chihuahuas };
+  return {
+    player,
+    furniture,
+    floors,
+    surfaces,
+    window,
+    exit,
+    granny,
+    treatMarkers,
+    chihuahuas,
+    outfitLayers,
+    hitSounds,
+    hitSoundVolume,
+  };
 }
 
 /**

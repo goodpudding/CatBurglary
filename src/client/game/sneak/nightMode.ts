@@ -16,7 +16,7 @@ export class NightMode {
   private glow: Phaser.GameObjects.Image;
 
   constructor(
-    private scene: Phaser.Scene,
+    scene: Phaser.Scene,
     private darkness = NIGHT_ALPHA,
   ) {
     ensureGlowTexture(scene);
