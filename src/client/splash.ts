@@ -25,13 +25,11 @@ const docsLink = document.getElementById('docs-link') as HTMLSpanElement;
 const discordLink = document.getElementById('discord-link') as HTMLSpanElement;
 
 let cachedProfile: PlayerProfile | null = null;
-let setupRendered = false;
 
 function applyProfileToSetup(profile: PlayerProfile): void {
   updateCoinsDisplayFromProfile(profile);
   renderCatPicker(catPickerElement, profile);
   renderShop(shopElement, profile);
-  setupRendered = true;
 }
 
 function enterSetup(): void {
