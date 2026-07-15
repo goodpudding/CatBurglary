@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 import { preloadHouseAssets } from '../assets/preloadHouseAssets.js';
+import { hideGameLaunchScreen, setGameLaunchProgress } from '../game/launchTransition.js';
 import { FIRST_ROOM_KEY } from '../game/sneak/roomConfig.js';
 import { resetRun } from '../game/sneak/runState.js';
 
@@ -13,10 +14,13 @@ export default class BootScene extends Phaser.Scene {
   }
 
   preload(): void {
+    this.load.on('progress', (value: number) => setGameLaunchProgress(value));
     preloadHouseAssets(this);
   }
 
   create(): void {
+    setGameLaunchProgress(1);
+    hideGameLaunchScreen();
     resetRun();
     this.scene.launch('Audio');
     this.input.once('pointerdown', () => this.sound.unlock());

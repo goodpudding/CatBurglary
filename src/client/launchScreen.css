@@ -1,0 +1,112 @@
+/* Splash overlay + game boot screen — keeps Reddit inline → expanded handoff smooth. */
+
+.launch-overlay,
+.launch-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  background: #1a1a2e;
+  color: #ffffff;
+  pointer-events: none;
+}
+
+.launch-overlay {
+  opacity: 0;
+  transition: opacity 0.28s ease;
+}
+
+.launch-overlay.is-active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.launch-screen {
+  opacity: 1;
+  transition: opacity 0.45s ease;
+}
+
+.launch-screen.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.launch-orb {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: #ff6b35;
+  border: 3px solid #cc4400;
+  box-shadow: 0 4px 16px rgba(255, 107, 53, 0.35);
+}
+
+.launch-overlay.is-active .launch-orb {
+  animation: launch-orb-zoom 0.65s ease-in-out infinite alternate;
+}
+
+@keyframes launch-orb-zoom {
+  from {
+    transform: scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: scale(1.35);
+    opacity: 0.82;
+  }
+}
+
+.launch-message {
+  font-size: 1.05em;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.launch-hint {
+  font-size: 0.82em;
+  color: #888888;
+  text-align: center;
+  max-width: 280px;
+  line-height: 1.35;
+}
+
+.launch-progress {
+  width: min(220px, 70vw);
+  height: 6px;
+  border: none;
+  border-radius: 999px;
+  overflow: hidden;
+  appearance: none;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.launch-progress::-webkit-progress-bar {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+}
+
+.launch-progress::-webkit-progress-value {
+  background: linear-gradient(90deg, #ff6b35, #4caf50);
+  border-radius: 999px;
+  transition: width 0.15s ease;
+}
+
+.launch-progress::-moz-progress-bar {
+  background: linear-gradient(90deg, #ff6b35, #4caf50);
+  border-radius: 999px;
+}
+
+.play-hint {
+  margin-top: -6px;
+  font-size: 0.78em;
+  color: #666666;
+  text-align: center;
+}
+
+.start-button:disabled {
+  opacity: 0.72;
+  cursor: wait;
+}

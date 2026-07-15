@@ -93,9 +93,9 @@ export const CAT_GLOW_RADIUS = 160;
 
 // --- Cat movement feel -----------------------------------------------------
 /** Ms a jump press stays buffered so pressing just before landing still jumps. */
-export const JUMP_BUFFER_MS = 120;
+export const JUMP_BUFFER_MS = 220;
 /** Ms after walking off a ledge during which a jump still works (coyote time). */
-export const COYOTE_MS = 90;
+export const COYOTE_MS = 130;
 /** Global multiplier on the cat's top speed (lower = calmer). */
 export const CAT_SPEED_SCALE = 0.72;
 /** Horizontal acceleration (px/s^2) — soft taps ramp slowly, holds reach top speed. */

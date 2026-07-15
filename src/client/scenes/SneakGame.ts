@@ -345,7 +345,11 @@ export class SneakGame {
       this.physicsDebug = new PhysicsDebugOverlay(this.scene);
     }
 
-    this.scene.events.on(Phaser.Scenes.Events.UPDATE, this.onUpdate, this);
+    // Capture jump on UPDATE (before physics) so JustDown isn't missed and presses
+    // during the room intro cutscene are still buffered.
+    this.scene.events.on(Phaser.Scenes.Events.UPDATE, this.onCaptureJump, this);
+    // Run movement + jump resolution after physics so onGround matches this frame.
+    this.scene.events.on(Phaser.Scenes.Events.POST_UPDATE, this.onUpdate, this);
     this.scene.events.once(Phaser.Scenes.Events.SHUTDOWN, this.teardown, this);
     this.scene.events.once(Phaser.Scenes.Events.DESTROY, this.teardown, this);
   }
@@ -510,6 +514,12 @@ export class SneakGame {
     this.scene.scene.start(FIRST_ROOM_KEY);
   }
 
+  /** Edge-detect jump before physics; see onUpdate for buffered execution. */
+  private onCaptureJump(): void {
+    if (!this.input) return;
+    if (this.input.consumeJumpPressed()) this.jumpQueuedAt = this.scene.time.now;
+  }
+
   private onUpdate(time: number, delta: number): void {
     if (this.runOver || this.introLock || !this.cat) return;
 
@@ -517,10 +527,7 @@ export class SneakGame {
     const left = this.input.leftHeld;
     const right = this.input.rightHeld;
 
-    // Tight jump feel: presses are buffered for a moment (a press just before
-    // landing still jumps on touchdown), and coyote time lets the cat jump for
-    // a beat after walking off a ledge.
-    if (this.input.consumeJumpPressed()) this.jumpQueuedAt = time;
+    // Buffered jump: onCaptureJump records presses; coyote time covers ledge walks.
     const onGround = body.blocked.down || body.touching.down;
     if (onGround) this.lastGroundedAt = time;
     const jump =
@@ -680,6 +687,7 @@ export class SneakGame {
     this.stealth?.destroy();
     this.slipper?.destroy();
     this.night?.destroy();
-    this.scene.events.off(Phaser.Scenes.Events.UPDATE, this.onUpdate, this);
+    this.scene.events.off(Phaser.Scenes.Events.UPDATE, this.onCaptureJump, this);
+    this.scene.events.off(Phaser.Scenes.Events.POST_UPDATE, this.onUpdate, this);
   }
 }

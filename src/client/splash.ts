@@ -3,6 +3,7 @@ import { GAME_MODES, type GameModeId } from '../shared/gameModes.js';
 import { fetchProfile } from './api/playerApi.js';
 import { setMenuMusicMasterVolume, startMenuMusic } from './game/menuAudio.js';
 import { getGameMode, getSavedVolume, setGameMode, setSavedVolume } from './game/runConfig.js';
+import { prefetchGameEntry } from './game/launchTransition.js';
 import { startGame } from './game/startGame.js';
 import { renderCatPicker, updateCoinsDisplayFromProfile } from './splashCatPicker.js';
 import { initSplashNavigation } from './splashNavigation.js';
@@ -16,6 +17,7 @@ const docsLink = document.getElementById('docs-link') as HTMLSpanElement;
 const discordLink = document.getElementById('discord-link') as HTMLSpanElement;
 
 initSplashNavigation();
+prefetchGameEntry();
 
 startButton.addEventListener('click', (e) => {
   startGame(e);

@@ -1,4 +1,5 @@
 import { requestExpandedMode } from '@devvit/web/client';
+import { beginSplashLaunch } from './launchTransition.js';
 import { stopMenuMusic } from './menuAudio.js';
 
 type DevvitRuntime = {
@@ -13,6 +14,7 @@ function hasDevvitRuntime(): boolean {
 /** Launch the Phaser game — expanded mode on Reddit, plain navigation when developing locally. */
 export function startGame(event: MouseEvent): void {
   stopMenuMusic();
+  beginSplashLaunch();
 
   if (hasDevvitRuntime()) {
     try {

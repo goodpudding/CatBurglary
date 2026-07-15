@@ -5,8 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Treat Dash</title>
     <link rel="stylesheet" href="./splash.css" />
+    <link rel="stylesheet" href="./launchScreen.css" />
   </head>
   <body>
+    <div id="launch-overlay" class="launch-overlay" aria-hidden="true">
+      <div class="launch-orb" aria-hidden="true"></div>
+      <p class="launch-message">Opening game…</p>
+      <p class="launch-hint">Expanding into play mode</p>
+    </div>
     <div class="app">
       <div class="volume-control" title="Volume">
         <span class="volume-icon" aria-hidden="true">🔊</span>
@@ -28,6 +34,7 @@
       <section class="splash-panel" data-panel="shop" id="shop" aria-label="Cosmetic shop" hidden></section>
       <section class="mode-picker" id="mode-picker" aria-label="Choose a game mode"></section>
       <button class="start-button" id="start-button">Play</button>
+      <p class="play-hint">Play opens the full game in expanded view</p>
       <div class="footer">
         <span class="docs-link" id="docs-link">Docs</span>
         <span class="divider">|</span>
