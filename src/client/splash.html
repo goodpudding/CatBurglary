@@ -18,28 +18,41 @@
         <span class="volume-icon" aria-hidden="true">🔊</span>
         <input type="range" id="volume-slider" min="0" max="100" step="1" value="50" aria-label="Volume" />
       </div>
-      <div class="logo-circle"></div>
-      <div class="content">
-        <h1 class="title" id="title">Treat Dash</h1>
-        <p class="coins" id="coins" hidden></p>
-        <p class="description">
-          Sneak in through the kitchen window. Grab treats, dodge the slipper, bank your score at the window.
-        </p>
-      </div>
-      <nav class="splash-tabs" aria-label="Menu sections">
-        <button type="button" class="splash-tab active" data-panel="cats" aria-selected="true">Cats</button>
-        <button type="button" class="splash-tab" data-panel="shop" aria-selected="false">Shop</button>
-      </nav>
-      <section class="splash-panel" data-panel="cats" id="cat-picker" aria-label="Choose your cat"></section>
-      <section class="splash-panel" data-panel="shop" id="shop" aria-label="Cosmetic shop" hidden></section>
-      <section class="mode-picker" id="mode-picker" aria-label="Choose a game mode"></section>
-      <button class="start-button" id="start-button">Play</button>
-      <p class="play-hint">Play opens the full game in expanded view</p>
-      <div class="footer">
-        <span class="docs-link" id="docs-link">Docs</span>
-        <span class="divider">|</span>
-        <span class="docs-link" id="discord-link">Discord</span>
-      </div>
+
+      <section id="splash-home" class="splash-step is-active" data-step="home">
+        <div class="logo-circle"></div>
+        <div class="content">
+          <h1 class="title" id="title">Treat Dash</h1>
+          <p class="description">
+            Sneak in through the kitchen window. Grab treats, dodge the slipper, bank your score at the window.
+          </p>
+        </div>
+        <button type="button" class="start-button" id="enter-setup-button">Play</button>
+        <div class="footer">
+          <span class="docs-link" id="docs-link">Docs</span>
+          <span class="divider">|</span>
+          <span class="docs-link" id="discord-link">Discord</span>
+        </div>
+      </section>
+
+      <section id="splash-setup" class="splash-step" data-step="setup" hidden>
+        <header class="setup-header">
+          <button type="button" class="back-button" id="back-home-button">← Back</button>
+          <h2 class="setup-title">Suit up</h2>
+          <p class="setup-subtitle">Pick your cat, gear, and mode — then sneak in</p>
+          <p class="coins" id="coins" hidden></p>
+        </header>
+        <nav class="splash-tabs" aria-label="Customize sections">
+          <button type="button" class="splash-tab active" data-panel="cats" aria-selected="true">Cats</button>
+          <button type="button" class="splash-tab" data-panel="shop" aria-selected="false">Gear</button>
+          <button type="button" class="splash-tab" data-panel="mode" aria-selected="false">Mode</button>
+        </nav>
+        <section class="splash-panel" data-panel="cats" id="cat-picker" aria-label="Choose your cat"></section>
+        <section class="splash-panel" data-panel="shop" id="shop" aria-label="Cosmetic shop" hidden></section>
+        <section class="splash-panel mode-panel" data-panel="mode" id="mode-picker" aria-label="Choose a game mode" hidden></section>
+        <button type="button" class="start-button sneak-in-button" id="sneak-in-button">Sneak in</button>
+        <p class="play-hint">Opens the full game in expanded view</p>
+      </section>
     </div>
     <script type="module" src="./splash.ts"></script>
   </body>

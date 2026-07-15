@@ -1,6 +1,6 @@
 import { exitExpandedMode, getWebViewMode } from '@devvit/web/client';
 import { stopLevelMusic } from './gameAudio.js';
-import { setReturnPanel } from '../splashNavigation.js';
+import { setReturnSplashState } from '../splashNavigation.js';
 
 type DevvitRuntime = {
   entrypoints?: Record<string, string>;
@@ -14,7 +14,7 @@ function hasDevvitRuntime(): boolean {
 /** Return to splash (shop + cat picker). Collapses expanded Reddit view when applicable. */
 export function goToMenu(event: Event, panel: 'cats' | 'shop' = 'shop'): void {
   stopLevelMusic();
-  setReturnPanel(panel);
+  setReturnSplashState('setup', panel);
 
   if (hasDevvitRuntime()) {
     try {
@@ -27,5 +27,5 @@ export function goToMenu(event: Event, panel: 'cats' | 'shop' = 'shop'): void {
     }
   }
 
-  window.location.assign(new URL(`./splash.html#${panel}`, window.location.href).href);
+  window.location.assign(new URL(`./splash.html#setup-${panel}`, window.location.href).href);
 }

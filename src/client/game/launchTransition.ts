@@ -17,12 +17,12 @@ export function prefetchGameEntry(): void {
 /** Immediate feedback on splash before Reddit opens the expanded modal. */
 export function beginSplashLaunch(): void {
   const overlay = document.getElementById('launch-overlay');
-  const button = document.getElementById('start-button') as HTMLButtonElement | null;
+  const button = document.getElementById('sneak-in-button') as HTMLButtonElement | null;
   overlay?.classList.add('is-active');
   overlay?.setAttribute('aria-hidden', 'false');
   if (button) {
     button.disabled = true;
-    button.textContent = 'Opening…';
+    button.textContent = 'Sneaking in…';
   }
 }
 

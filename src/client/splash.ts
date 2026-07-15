@@ -1,25 +1,60 @@
 import { context, navigateTo } from '@devvit/web/client';
 import { GAME_MODES, type GameModeId } from '../shared/gameModes.js';
+import type { PlayerProfile } from '../shared/playerProfile.js';
 import { fetchProfile } from './api/playerApi.js';
+import { stopCatPickerPreviews } from './catPickerPreview.js';
 import { setMenuMusicMasterVolume, startMenuMusic } from './game/menuAudio.js';
-import { getGameMode, getSavedVolume, setGameMode, setSavedVolume } from './game/runConfig.js';
 import { prefetchGameEntry } from './game/launchTransition.js';
+import { getGameMode, getSavedVolume, setGameMode, setSavedVolume } from './game/runConfig.js';
 import { startGame } from './game/startGame.js';
 import { renderCatPicker, updateCoinsDisplayFromProfile } from './splashCatPicker.js';
-import { initSplashNavigation } from './splashNavigation.js';
+import {
+  initSplashNavigation,
+  navigateToHome,
+  navigateToSetup,
+} from './splashNavigation.js';
 import { renderShop } from './splashShop.js';
 
-const startButton = document.getElementById('start-button') as HTMLButtonElement;
+const enterSetupButton = document.getElementById('enter-setup-button') as HTMLButtonElement;
+const sneakInButton = document.getElementById('sneak-in-button') as HTMLButtonElement;
+const backHomeButton = document.getElementById('back-home-button') as HTMLButtonElement;
 const titleElement = document.getElementById('title') as HTMLHeadingElement;
 const catPickerElement = document.getElementById('cat-picker') as HTMLElement;
 const shopElement = document.getElementById('shop') as HTMLElement;
 const docsLink = document.getElementById('docs-link') as HTMLSpanElement;
 const discordLink = document.getElementById('discord-link') as HTMLSpanElement;
 
-initSplashNavigation();
-prefetchGameEntry();
+let cachedProfile: PlayerProfile | null = null;
+let setupRendered = false;
 
-startButton.addEventListener('click', (e) => {
+function applyProfileToSetup(profile: PlayerProfile): void {
+  updateCoinsDisplayFromProfile(profile);
+  renderCatPicker(catPickerElement, profile);
+  renderShop(shopElement, profile);
+  setupRendered = true;
+}
+
+function enterSetup(): void {
+  navigateToSetup('cats');
+  prefetchGameEntry();
+  renderModePicker();
+  if (cachedProfile) {
+    applyProfileToSetup(cachedProfile);
+  } else {
+    void loadProfile();
+  }
+}
+
+initSplashNavigation(enterSetup);
+
+enterSetupButton.addEventListener('click', enterSetup);
+
+backHomeButton.addEventListener('click', () => {
+  stopCatPickerPreviews();
+  navigateToHome();
+});
+
+sneakInButton.addEventListener('click', (e) => {
   startGame(e);
 });
 
@@ -36,11 +71,9 @@ titleElement.textContent = context.username
   : 'Treat Dash';
 
 initVolumeSlider();
-renderModePicker();
 startMenuMusic();
 void loadProfile();
 
-/** Splash-side master volume — same saved value the in-game slider uses. */
 function initVolumeSlider(): void {
   const slider = document.getElementById('volume-slider') as HTMLInputElement | null;
   if (!slider) return;
@@ -59,8 +92,9 @@ function renderModePicker(): void {
 
   const selected = getGameMode();
   container.innerHTML = `
-    <h2 class="mode-title">Game Mode</h2>
-    <div class="mode-row">
+    <h2 class="mode-title">Pick a mode</h2>
+    <p class="mode-subtitle">How tough should this heist be?</p>
+    <div class="mode-row mode-row-stack">
       ${GAME_MODES.map(
         (mode) => `
         <button type="button" class="mode-card${mode.id === selected ? ' is-selected' : ''}" data-mode="${mode.id}">
@@ -83,8 +117,9 @@ function renderModePicker(): void {
 }
 
 async function loadProfile(): Promise<void> {
-  const profile = await fetchProfile();
-  updateCoinsDisplayFromProfile(profile);
-  renderCatPicker(catPickerElement, profile);
-  renderShop(shopElement, profile);
+  cachedProfile = await fetchProfile();
+  const setup = document.getElementById('splash-setup');
+  if (setup && !setup.hidden) {
+    applyProfileToSetup(cachedProfile);
+  }
 }

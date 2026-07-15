@@ -106,7 +106,8 @@
   text-align: center;
 }
 
-.start-button:disabled {
+.start-button:disabled,
+.sneak-in-button:disabled {
   opacity: 0.72;
   cursor: wait;
 }
