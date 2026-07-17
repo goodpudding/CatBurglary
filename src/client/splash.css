@@ -6,6 +6,13 @@
     sans-serif;
 }
 
+html.webview-inline,
+html.webview-inline body {
+  overflow: hidden;
+  overscroll-behavior: none;
+  height: 100%;
+}
+
 .app {
   display: flex;
   position: relative;
@@ -18,7 +25,13 @@
   gap: 16px;
   background: #1a1a2e;
   color: #ffffff;
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
+.app.is-expanded {
   overflow-y: auto;
+  overscroll-behavior: auto;
 }
 
 .splash-step {
@@ -217,8 +230,15 @@
 .cat-picker-row {
   display: flex;
   gap: 12px;
-  overflow-x: auto;
+  overflow-x: hidden;
+  flex-wrap: wrap;
+  justify-content: center;
   padding-bottom: 8px;
+}
+
+.app.is-expanded .cat-picker-row {
+  overflow-x: auto;
+  flex-wrap: nowrap;
   scroll-snap-type: x mandatory;
 }
 
@@ -370,8 +390,15 @@
 .shop-row {
   display: flex;
   gap: 10px;
-  overflow-x: auto;
+  overflow-x: hidden;
+  flex-wrap: wrap;
+  justify-content: center;
   padding-bottom: 8px;
+}
+
+.app.is-expanded .shop-row {
+  overflow-x: auto;
+  flex-wrap: nowrap;
   scroll-snap-type: x mandatory;
 }
 

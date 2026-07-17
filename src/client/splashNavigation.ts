@@ -1,3 +1,5 @@
+import { isInlineWebView } from './game/webViewScrollLock.js';
+
 export type SplashStep = 'home' | 'setup';
 export type SplashPanel = 'cats' | 'shop' | 'mode';
 
@@ -79,11 +81,12 @@ export function initSplashNavigation(onEnterSetup?: () => void): void {
   const hashPanel = panelFromHash();
   const hashStep = stepFromHash();
 
-  const step: SplashStep = returned?.step ?? hashStep ?? 'home';
+  const step: SplashStep =
+    returned?.step ?? hashStep ?? 'home';
   const panel: SplashPanel = returned?.panel ?? hashPanel ?? 'cats';
 
   showStep(step);
-  if (step === 'setup') {
+  if (step === 'setup' && !isInlineWebView()) {
     showPanel(panel);
     onEnterSetup?.();
   }
@@ -100,7 +103,7 @@ export function initSplashNavigation(onEnterSetup?: () => void): void {
     const pending = consumeReturnSplashState();
     if (!pending) return;
     showStep(pending.step);
-    if (pending.step === 'setup') {
+    if (pending.step === 'setup' && !isInlineWebView()) {
       showPanel(pending.panel);
       onEnterSetup?.();
     }

@@ -6,12 +6,20 @@ import { stopCatPickerPreviews } from './catPickerPreview.js';
 import { setMenuMusicMasterVolume, startMenuMusic } from './game/menuAudio.js';
 import { prefetchGameEntry } from './game/launchTransition.js';
 import { getGameMode, getSavedVolume, setGameMode, setSavedVolume } from './game/runConfig.js';
-import { startGame } from './game/startGame.js';
+import { expandSplash, startGame } from './game/startGame.js';
+import {
+  consumePendingSetupPanel,
+  hasPendingSetupPanel,
+  initWebViewScrollLock,
+  isExpandedWebView,
+  setPendingSetupPanel,
+} from './game/webViewScrollLock.js';
 import { renderCatPicker, updateCoinsDisplayFromProfile } from './splashCatPicker.js';
 import {
   initSplashNavigation,
   navigateToHome,
   navigateToSetup,
+  type SplashPanel,
 } from './splashNavigation.js';
 import { renderShop } from './splashShop.js';
 
@@ -32,8 +40,8 @@ function applyProfileToSetup(profile: PlayerProfile): void {
   renderShop(shopElement, profile);
 }
 
-function enterSetup(): void {
-  navigateToSetup('cats');
+function finishEnterSetup(panel: SplashPanel = 'cats'): void {
+  navigateToSetup(panel);
   prefetchGameEntry();
   renderModePicker();
   if (cachedProfile) {
@@ -43,9 +51,24 @@ function enterSetup(): void {
   }
 }
 
-initSplashNavigation(enterSetup);
+initWebViewScrollLock();
 
-enterSetupButton.addEventListener('click', enterSetup);
+const pendingPanel = consumePendingSetupPanel();
+if (pendingPanel && isExpandedWebView()) {
+  finishEnterSetup(pendingPanel);
+} else {
+  initSplashNavigation(() => finishEnterSetup('cats'));
+}
+
+enterSetupButton.addEventListener('click', (e) => {
+  if (expandSplash(e)) {
+    if (!hasPendingSetupPanel()) {
+      setPendingSetupPanel('cats');
+    }
+    return;
+  }
+  finishEnterSetup('cats');
+});
 
 backHomeButton.addEventListener('click', () => {
   stopCatPickerPreviews();
