@@ -62,6 +62,34 @@ function drawFrame(
   );
 }
 
+function startPreviewLoop(entries: PreviewEntry[]): void {
+  if (entries.length === 0) return;
+
+  active = entries;
+  let last = performance.now();
+
+  const tick = (now: number): void => {
+    const dt = now - last;
+    last = now;
+    const frameMs = 1000 / IDLE_FPS;
+
+    for (const entry of active) {
+      entry.acc += dt;
+      while (entry.acc >= frameMs) {
+        entry.acc -= frameMs;
+        entry.frame = (entry.frame + 1) % entry.sheet.frameCount;
+      }
+
+      const ctx = entry.canvas.getContext('2d');
+      if (ctx) drawFrame(ctx, entry.img, entry.frame, entry.sheet, entry.canvas);
+    }
+
+    rafId = requestAnimationFrame(tick);
+  };
+
+  rafId = requestAnimationFrame(tick);
+}
+
 /** Stop all picker preview animation loops (call before re-rendering the picker). */
 export function stopCatPickerPreviews(): void {
   if (rafId) cancelAnimationFrame(rafId);
@@ -69,7 +97,25 @@ export function stopCatPickerPreviews(): void {
   active = [];
 }
 
-/** Start idle animations on every `.cat-preview` canvas inside the picker container. */
+/** Start idle animation on a single splash picker canvas. */
+export async function mountSingleCatPreview(canvas: HTMLCanvasElement, catId: string): Promise<void> {
+  stopCatPickerPreviews();
+
+  const sheet = getCatSheetSet(catId).idle;
+  const scale = 4;
+  canvas.width = sheet.frameWidth * scale;
+  canvas.height = sheet.frameHeight * scale;
+
+  try {
+    const img = await loadImage(sheet.url);
+    drawFrame(canvas.getContext('2d')!, img, 0, sheet, canvas);
+    startPreviewLoop([{ canvas, sheet, img, frame: 0, acc: 0 }]);
+  } catch {
+    // Leave canvas blank if art fails to load.
+  }
+}
+
+/** @deprecated Use mountSingleCatPreview for the splash picker. */
 export async function mountCatPickerPreviews(container: HTMLElement): Promise<void> {
   stopCatPickerPreviews();
 
@@ -96,29 +142,5 @@ export async function mountCatPickerPreviews(container: HTMLElement): Promise<vo
     }
   }
 
-  if (entries.length === 0) return;
-
-  active = entries;
-  let last = performance.now();
-
-  const tick = (now: number): void => {
-    const dt = now - last;
-    last = now;
-    const frameMs = 1000 / IDLE_FPS;
-
-    for (const entry of active) {
-      entry.acc += dt;
-      while (entry.acc >= frameMs) {
-        entry.acc -= frameMs;
-        entry.frame = (entry.frame + 1) % entry.sheet.frameCount;
-      }
-
-      const ctx = entry.canvas.getContext('2d');
-      if (ctx) drawFrame(ctx, entry.img, entry.frame, entry.sheet, entry.canvas);
-    }
-
-    rafId = requestAnimationFrame(tick);
-  };
-
-  rafId = requestAnimationFrame(tick);
+  startPreviewLoop(entries);
 }

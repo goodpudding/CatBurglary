@@ -7,7 +7,6 @@ import type { CosmeticSlot, PlayerProfile } from '../shared/playerProfile.js';
 import { buyCosmetic, equipCosmetic } from './api/playerApi.js';
 import { renderCatPicker, updateCoinsDisplayFromProfile } from './splashCatPicker.js';
 
-/** Pixel-art card art: integer upscale of the sprite's first frame. */
 function renderShopIcon(item: ShopItemState): string {
   if (!item.sprite) {
     return `<div class="shop-icon" aria-hidden="true">${item.icon}</div>`;
@@ -38,11 +37,13 @@ function renderShopItem(item: ShopItemState): string {
   }
 
   return `
-    <article class="shop-card${item.equipped ? ' is-equipped' : ''}${!item.owned ? ' is-locked' : ''}" data-cosmetic-id="${item.id}" data-slot="${item.slot}">
+    <article class="shop-list-item${item.equipped ? ' is-equipped' : ''}${!item.owned ? ' is-locked' : ''}" data-cosmetic-id="${item.id}" data-slot="${item.slot}">
       ${renderShopIcon(item)}
-      <h3 class="shop-name">${item.name}</h3>
-      <p class="shop-slot">${formatCosmeticSlot(item.slot)}</p>
-      <p class="shop-desc">${item.description}</p>
+      <div class="shop-list-copy">
+        <h3 class="shop-name">${item.name}</h3>
+        <p class="shop-slot">${formatCosmeticSlot(item.slot)}</p>
+        <p class="shop-desc">${item.description}</p>
+      </div>
       <button type="button" class="${actionClass}" data-cosmetic-id="${item.id}" data-slot="${item.slot}" data-owned="${item.owned}" data-equipped="${item.equipped}">
         ${actionLabel}
       </button>
@@ -55,7 +56,7 @@ export function renderShop(container: HTMLElement, profile: PlayerProfile): void
   container.innerHTML = `
     <h2 class="shop-title">Burglar Boutique</h2>
     <p class="shop-subtitle">Spend banked coins on classy cat accessories.</p>
-    <div class="shop-row">
+    <div class="shop-list">
       ${items.map((item) => renderShopItem(item)).join('')}
     </div>
     <p class="shop-hint" id="shop-hint"></p>
