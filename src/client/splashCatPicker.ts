@@ -1,28 +1,8 @@
-import {
-  CAT_ROSTER,
-  formatStatLabel,
-  getCatDefinition,
-  statRating,
-  type CatDefinition,
-  type CatStats,
-} from '../shared/CatDefinition.js';
+import { CAT_ROSTER, getCatDefinition, type CatDefinition } from '../shared/CatDefinition.js';
 import { getCatUnlockPrice } from '../shared/catUnlocks.js';
 import type { PlayerProfile } from '../shared/playerProfile.js';
 import { selectCat, unlockCat } from './api/playerApi.js';
 import { mountSingleCatPreview, stopCatPickerPreviews } from './catPickerPreview.js';
-
-const STAT_KEYS: (keyof CatStats)[] = ['moveSpeed', 'jumpVelocity', 'knockbackMultiplier', 'scoreMultiplier'];
-
-function renderStatRows(cat: CatDefinition): string {
-  return STAT_KEYS.map((stat) => {
-    const rating = statRating(stat, cat.stats[stat]);
-    return `
-      <div class="stat-row">
-        <span class="stat-label">${formatStatLabel(stat)}</span>
-        <span class="stat-bar"><span class="stat-fill" style="width:${Math.round(rating * 100)}%"></span></span>
-      </div>`;
-  }).join('');
-}
 
 function renderNameButton(cat: CatDefinition, profile: PlayerProfile, previewId: string): string {
   const owned = profile.ownedCats.includes(cat.id);
@@ -59,13 +39,11 @@ function updatePreviewPanel(container: HTMLElement, catId: string, profile: Play
   const action = actionLabel(catId, profile);
 
   const tagline = container.querySelector('.cat-preview-tagline');
-  const stats = container.querySelector('.cat-preview-stats');
   const button = container.querySelector<HTMLButtonElement>('.cat-action');
   const name = container.querySelector('.cat-preview-name');
 
   if (name) name.textContent = cat.name;
   if (tagline) tagline.textContent = cat.tagline;
-  if (stats) stats.innerHTML = renderStatRows(cat);
   if (button) {
     button.textContent = action.label;
     button.className = action.className;
@@ -97,7 +75,6 @@ export function renderCatPicker(container: HTMLElement, profile: PlayerProfile):
         <canvas class="cat-preview-main" aria-hidden="true"></canvas>
         <h3 class="cat-preview-name">${previewCat.name}</h3>
         <p class="cat-preview-tagline">${previewCat.tagline}</p>
-        <div class="cat-preview-stats">${renderStatRows(previewCat)}</div>
         <button type="button" class="${action.className}" data-cat-id="${previewId}" ${action.disabled ? 'disabled' : ''}>
           ${action.label}
         </button>

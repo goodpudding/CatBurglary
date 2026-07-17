@@ -267,14 +267,6 @@ html.webview-inline body {
   color: #aaaaaa;
   text-align: center;
   line-height: 1.35;
-  min-height: 2.4em;
-}
-
-.cat-preview-stats {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
 }
 
 .cat-name-list {
@@ -307,32 +299,6 @@ html.webview-inline body {
 
 .cat-name-btn.is-locked {
   opacity: 0.88;
-}
-
-.stat-row {
-  display: grid;
-  grid-template-columns: 58px 1fr;
-  align-items: center;
-  gap: 6px;
-}
-
-.stat-label {
-  font-size: 0.62em;
-  color: #888888;
-}
-
-.stat-bar {
-  height: 6px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.08);
-  overflow: hidden;
-}
-
-.stat-fill {
-  display: block;
-  height: 100%;
-  border-radius: 999px;
-  background: linear-gradient(90deg, #42a5f5, #66bb6a);
 }
 
 .cat-action {
